@@ -1,4 +1,4 @@
-#ITU Student Record Management System
+                                                            #ITU Student Record Management System
 #To save data of students importing csv
 import csv
 #To visualization importing pandas,seaborn and matplotlib
@@ -6,20 +6,20 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-#For Alphabetic Order
+#For Alphabetic Order 
 import locale
 #Creating a list for information fields
 fields = ["Roll no.","Name Surname","Age","Gender","Students id","Grade","Email","Phone","Major"]
 
 #Listing Majors to prevent add non-existing majors (they are all lowercase because it will make it easier to check)
 itu_majors = ["computer engineering","composing","mineral processing engineering","instrument training","environmental engineering","maritime transportation management engineering",
-              "economy","electrical engineering","chemical engineering","electronics and communications engineering","industrial engineering","industrial products engineering",
-              "physics engineering","naval construction and ship machinery engineering","ship machinery management engineering","ship and marine technology engineering",
-              "geomatic engineering","food engineering","interior architecture","manufacturing engineering","civil engineering","management engineering","geophysical engineering",
-              "geological engineering","chemical","control and automation engineering","mining engineering","mechanical engineering","mathematics engineering","metallurgy and materials engineering",
-              "meteorological engineering","architecture","molecular biology and genetics","fashion design","music technology","music theory","musicology","petroleum and natural gas engineering",
-              "landscape architecture","voice training","city and region planning","textile engineering","textile development and marketing","turkish folk dances","aircraft engineering",
-              "astronautical engineering","artificial intelligence and data engineering"]
+          "economy","electrical engineering","chemical engineering","electronics and communications engineering","industrial engineering","industrial products engineering",
+          "physics engineering","naval construction and ship machinery engineering","ship machinery management engineering","ship and marine technology engineering",
+          "geomatic engineering","food engineering","interior architecture","manufacturing engineering","civil engineering","management engineering","geophysical engineering",
+          "geological engineering","chemical","control and automation engineering","mining engineering","mechanical engineering","mathematics engineering","metallurgy and materials engineering",
+          "meteorological engineering","architecture","molecular biology and genetics","fashion design","music technology","music theory","musicology","petroleum and natural gas engineering",
+          "landscape architecture","voice training","city and region planning","textile engineering","textile development and marketing","turkish folk dances","aircraft engineering",
+          "astronautical engineering","artificial intelligence and data engineering"]
 #Defining my data storage
 database = "dataset.csv"
 
@@ -104,56 +104,60 @@ def add_student():
     student_data = []
     while True:
         for field in fields:
-            if field == "Students id":
-                value = input("Enter " + field + " (If foreigner student start with 9) :")
-            else:
-                value = input("Enter " + field + ": ")
+            value = input("Enter " + field + ": ")
             #In ITU grades are between 0 and 4 so checking if grade is between 0 and 4
-            if field == "Grade":
+            if field == "Grade":  
                 while True:
                     try:
                         value = float(value)
                         if 0 <= value <= 4:
-                            break
+                            break 
                         else:
                             raise ValueError
                     except ValueError:
                         print("Error: Please enter a number between 0 and 4 for grade")
-
+                        
                         value = input("Enter " + field + ": ")
             #Age should be >= 17
             elif field == "Age":
                 while True:
                     try:
                         value = int(value)
-                        if 17 <= value:
+                        if 17 <= value <= 100:
                             break
                         else:
                             raise ValueError
                     except ValueError:
-                        print("Error: Please enter an integer higher than 17 or enter 17")
+                        print("Error: Age should be between 17 and 100")
                         value = input("Enter " + field + ": ")
             #Checking if roll no. and students id is integer
             elif field == "Roll no." or field == "Students id":
                 while True:
                     try:
                         value = int(value)
+                        #Roll no must be bigger or equal to 1
+                        if field == "Roll no.":
+                            if value < 1:
+                                raise ValueError("Error : Roll no. is less than 1")
                         #Students id length must be 9
                         if field == "students id" and len(str(value)) != 9:
                             raise ValueError("Error: Student ID length should be 9.")
-                        if field == "students id" and not str(value).startswith(('1', '9')):
-                            raise ValueError("Error: Student ID should start with 1 or 9 (9 for foreigner students).")
                         break
-                    except ValueError:
-                        print("Error: Please enter valid", field)
+                    except ValueError as e:
+                        print(e)
                         value = input("Enter " + field + ": ")
             #Length of Phone number must be equal to 11
             elif field == "Phone":
                 while True:
-                    if len(value) == 11:
-                        break
-                    else:
-                        print("Error: Phone number should be at least 11 characters long.")
+                    try:
+                        value = int(value)
+                        if len(str(value)) == 10:
+                            break
+                        else:
+                            print("Error: Phone number should be at least 11 characters long.")
+                            value = input("Enter " + field + ": ")
+                    except ValueError:
+                        print("Error: Please enter valid", field)
                         value = input("Enter " + field + ": ")
             elif field == "Email":
                 while True:
@@ -166,7 +170,7 @@ def add_student():
             elif field == "Gender":
                 while True:
                     if value.lower() == "male" or value.lower() == "female":
-                        break
+                            break
                     else:
                         print("Error: Gender should be Female or Male")
                         value = input("Enter " + field + ": ").lower()
@@ -265,7 +269,7 @@ def view_students():
             #Sorting values by their roll numbers
             data_lines = [line.split(',') for line in lines[1:]]
             sorted_data = sorted(data_lines, key=lambda x: int(x[0]))
-
+            
             #Appending each data with " | "
             for line in sorted_data:
                 formatted_line = ' | '.join(map(str.strip, line))
@@ -282,7 +286,7 @@ def view_students():
             print("2. Female")
             print("\n")
             gen = input("Enter your choice: ")
-
+            
             if gen == "1":
                 for item in fields:
                     print(item, end=" | ")
@@ -326,11 +330,11 @@ def view_students():
 
             #Asking which major they want to see
             major_choice = input("Enter the number of the major you want to see: ")
-
+            
             #User selects a number
             if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
                 selected_major = list(majors)[int(major_choice) - 1]
-
+            
                 #Opening csv file in reading mode
                 with open(database, 'r', encoding="utf-8") as file:
                     lines = file.readlines()
@@ -412,7 +416,7 @@ def view_students():
                 print("Invalid Input! Enter 1 or 2.")
                 continue
         #Sorting by Alphabetic Order
-
+        
         elif choice == "6":
             print("Which Alphabet Ordering Do You Want?")
             print("1.Turkish")
@@ -423,7 +427,7 @@ def view_students():
                 print("\n")
                 #Setting the locale to Turkish for sorting
                 locale.setlocale(locale.LC_ALL, "tr_TR.UTF-8")
-                # Opening CSV file in reading mode
+                    # Opening CSV file in reading mode
                 with open(database, 'r', encoding="utf-8") as file:
                     lines = file.readlines()
 
@@ -479,10 +483,10 @@ def view_students():
             print("Invalid Input! Choose 1, 2, 3, 4, 5 or 6")
             continue
         break
-
+        
     input("Press any key to continue")
-
-#Defining a function for Search Student Operation
+ 
+ #Defining a function for Search Student Operation
 def search_student():
     #Fields and database ara global we can access them
     global fields
@@ -525,8 +529,8 @@ def search_student():
                         a += 1
                         data = row
                 if a == 1:
-                    print("\n")
-                    #Writing students info
+                    print("\n")     
+                #Writing students info
                     for field in fields:
                         if field == fields[-1]:
                             print(str(field) + "|")
@@ -559,9 +563,9 @@ def search_student():
                     if str(name) in row:
                         a += 1
                         data = row
-                if a == 1:
+                if a == 1:     
                     print("\n")
-                    #Writing students info
+                #Writing students info
                     for field in fields:
                         if field == fields[-1]:
                             print(str(field) + "|")
@@ -585,11 +589,11 @@ def search_student():
                 for row in reader:
                     if str(roll) in row:
                         a += 1
-                        data = row
-                        #If student is in our database
+                        data = row 
+                #If student is in our database       
                 if a == 1:
-                    print("\n")
-                    #Writing students info
+                    print("\n")     
+                #Writing students info
                     for field in fields:
                         if field == fields[-1]:
                             print(str(field) + "|")
@@ -630,110 +634,110 @@ def update_student():
             reader = csv.reader(file)
             #Checking student and doing the same operations add_student does
             for row in reader:
-                if row[4] == str(student_id):
-                    found_student = True
-                    print("Student Found at index", reader.line_num-1)
-                    x = reader.line_num-1
-                    for field in fields:
-                        value = input("Enter " + field + ": ")
-                        if field == "Grade":
-                            while True:
-                                try:
-                                    value = float(value)
-                                    if 0 <= value <= 4:
+                    if row[4] == str(student_id):
+                        found_student = True
+                        print("Student Found at index", reader.line_num-1)
+                        x = reader.line_num-1
+                        for field in fields:
+                            value = input("Enter " + field + ": ")
+                            if field == "Grade":
+                                while True:
+                                    try:
+                                        value = float(value)
+                                        if 0 <= value <= 4:
+                                            break
+                                        else:
+                                            raise ValueError
+                                    except ValueError:
+                                        print("Error: Please enter a number between 0 and 4 for grade")
+                                        value = input("Enter " + field + ": ")
+                            elif field == "Age":
+                                while True:
+                                    try:
+                                        value = int(value)
+                                        if value >= 17:
+                                            break
+                                        else:
+                                            raise ValueError
+                                    except ValueError:
+                                        print("Error: Please enter an integer greater than or equal to 17")
+                                        value = input("Enter " + field + ": ")
+                            elif field == "Roll no." or field == "Students id":
+                                while True:
+                                    try:
+                                        value = int(value)
+                                        if field == "students id" and len(str(value)) != 9:
+                                            raise ValueError("Error: Student ID length should be 9.")
                                         break
-                                    else:
-                                        raise ValueError
-                                except ValueError:
-                                    print("Error: Please enter a number between 0 and 4 for grade")
+                                    except ValueError:
+                                        print("Error: Please enter a valid", field)
+                                        value = input("Enter " + field + ": ")
+                            elif field == "Phone":
+                                while len(value) != 11:
+                                    print("Error: Phone number should be 11 characters long.")
                                     value = input("Enter " + field + ": ")
-                        elif field == "Age":
-                            while True:
-                                try:
-                                    value = int(value)
-                                    if value >= 17:
+                            elif field == "Email":
+                                while True:
+                                    try:
+                                        value = validate_email(value)
                                         break
-                                    else:
-                                        raise ValueError
-                                except ValueError:
-                                    print("Error: Please enter an integer greater than or equal to 17")
-                                    value = input("Enter " + field + ": ")
-                        elif field == "Roll no." or field == "Students id":
-                            while True:
-                                try:
-                                    value = int(value)
-                                    if field == "students id" and len(str(value)) != 9:
-                                        raise ValueError("Error: Student ID length should be 9.")
-                                    break
-                                except ValueError:
-                                    print("Error: Please enter a valid", field)
-                                    value = input("Enter " + field + ": ")
-                        elif field == "Phone":
-                            while len(value) != 11:
-                                print("Error: Phone number should be 11 characters long.")
-                                value = input("Enter " + field + ": ")
-                        elif field == "Email":
-                            while True:
-                                try:
-                                    value = validate_email(value)
-                                    break
-                                except ValueError as e:
-                                    print(e)
-                                    value = input("Enter " + field + ": ")
-                        elif field == "Gender":
-                            while value.lower() not in ["male", "female"]:
-                                print("Error: Gender should be Male or Female")
-                                value = input("Enter " + field + ": ").lower()
-                            value = value.title()
-                        elif field == "Name":
-                            while True:
-                                try:
-                                    value = validate_name(value)
-                                    break
-                                except ValueError as e:
-                                    print(e)
-                                    value = input("Enter " + field + ": ")
-                        elif field == "Major":
-                            while True:
-                                try:
-                                    value = validate_major(value)
-                                    break
-                                except ValueError as e:
-                                    print(e)
-                                    value = input("Enter " + field + ": ")
-                        updated_data.append(value)
+                                    except ValueError as e:
+                                        print(e)
+                                        value = input("Enter " + field + ": ")
+                            elif field == "Gender":
+                                while value.lower() not in ["male", "female"]:
+                                    print("Error: Gender should be Male or Female")
+                                    value = input("Enter " + field + ": ").lower()
+                                value = value.title()
+                            elif field == "Name":
+                                while True:
+                                    try:
+                                        value = validate_name(value)
+                                        break
+                                    except ValueError as e:
+                                        print(e)
+                                        value = input("Enter " + field + ": ")
+                            elif field == "Major":
+                                while True:
+                                    try:
+                                        value = validate_major(value)
+                                        break
+                                    except ValueError as e:
+                                        print(e)
+                                        value = input("Enter " + field + ": ")
+                            updated_data.append(value)
 
-                #Checking if updated data in our database
-                if len(updated_data) == 9:
-                    new_id = updated_data[4]
-                    new_email = updated_data[6]
-                    new_phone = updated_data[7]
-                    new_roll = updated_data[0]
-                    #Opening csv file in reading mode
-                    with open(database, "r", encoding="utf-8") as f:
-                        reader = csv.reader(f)
-                        for row in reader:
-                            #We should skip the row that we update
-                            if str(student_id) not in row:
-                                if str(new_id) in row:
-                                    print("\n")
-                                    print("A student with the same student id already exists.")
-                                    return
-                                elif str(new_email) in row:
-                                    print("\n")
-                                    print("A student with the same email already exists.")
-                                    return
-                                elif str(new_roll) in row:
-                                    print("\n")
-                                    print("A student with the same roll no. already exists.")
-                                    return
-                                elif str(new_phone) in row:
-                                    print("\n")
-                                    print("A student with the same phone number already exists")
-                                    return
+                    #Checking if updated data in our database
+                    if len(updated_data) == 9:
+                        new_id = updated_data[4]
+                        new_email = updated_data[6]
+                        new_phone = updated_data[7]
+                        new_roll = updated_data[0]
+                        #Opening csv file in reading mode
+                        with open(database, "r", encoding="utf-8") as f:
+                            reader = csv.reader(f)
+                            for row in reader:
+                                #We should skip the row that we update
+                                if str(student_id) not in row:
+                                    if str(new_id) in row:
+                                        print("\n")
+                                        print("A student with the same student id already exists.")
+                                        return
+                                    elif str(new_email) in row:
+                                        print("\n")
+                                        print("A student with the same email already exists.")
+                                        return
+                                    elif str(new_roll) in row:
+                                        print("\n")
+                                        print("A student with the same roll no. already exists.")
+                                        return
+                                    elif str(new_phone) in row:
+                                        print("\n")
+                                        print("A student with the same phone number already exists")
+                                        return
 
 
-        #If student is not in our database
+        #If student is in our database
         if found_student:
             print("\n")
             with open(database, 'r', newline='',encoding="utf-8") as file:
@@ -752,7 +756,7 @@ def update_student():
                 print(i,end=" | ")
             print("\n")
             print(" | ".join(updated_data))
-        #If student is in our database
+        #If student is not in our database
         else:
             print("\n")
             print("Student not found in the database")
@@ -785,11 +789,11 @@ def delete_student():
 
             #Checking if student in our database
             for row in reader:#Appending row if students roll no is not equal to users input
-                if str(id) not in row:
-                    updated_data.append(row)
-                    counter += 1
-                else:
-                    student_found = True
+                    if str(id) not in row:
+                        updated_data.append(row)
+                        counter += 1
+                    else:
+                        student_found = True
 
         #Updating our csv file without deleted student
 
@@ -818,7 +822,9 @@ def visualization():
     print("2. Grade - Major (Recommended)")
     print("3. Gender - Grade (Recommended)")
     print("4. Age - Major (Recommended)")
-    print("5. I want to choose fields and chart type (Warning! Visualizations may be meaningless)")
+    print("5. Average Grades and Success Graph by Majors")
+    print("6. Average Grades and Success Graph by Gender")
+    print("7. I want to choose fields and chart type (Warning! Visualizations may be meaningless)")
 
     while True:
         choice = input("Enter your choice: ")
@@ -827,8 +833,8 @@ def visualization():
         df = pd.read_csv(database)
         #Adjust figsize
         plt.figure(figsize=(24,18))
-        #To prevent labels from being inside each other
-        plt.xticks(rotation=45)
+        #Adjusts the gap between the graphs and prevents them from intertwining.
+        plt.tight_layout()
         if choice == "1":
             sns.countplot(x='Major', hue='Gender', data=df)
             plt.title("Gender Distribution Across Majors")
@@ -838,7 +844,7 @@ def visualization():
             plt.savefig("Gender_Major_Plot.png", dpi=300)
             plt.show()
         elif choice == "2":
-            sns.barplot(x='Major', y='Grade', data=df)
+            sns.violinplot(x='Major', y='Grade', data=df)
             plt.title("Grade Distribution Across Majors")
             plt.xlabel("Major")
             plt.ylabel("Grade")
@@ -846,7 +852,7 @@ def visualization():
             plt.savefig('Grade_Major_Plot.png',dpi=300)
             plt.show()
         elif choice == "3":
-            sns.barplot(x='Gender', y='Grade', data=df)
+            sns.violinplot(x='Gender', y='Grade', data=df, palette="coolwarm")
             plt.title("Grade Distribution by Gender")
             plt.xlabel("Gender")
             plt.ylabel("Grade")
@@ -861,7 +867,40 @@ def visualization():
             # Saves plot to your desktop or the file your .py file is in , dpi effects quality
             plt.savefig('Age_Major_Plot.png')
             plt.show()
+
         elif choice == "5":
+            #Grouping by Major and we need Grades
+            major_averages = df.groupby(['Major'])['Grade'].mean().reset_index()
+
+            #Creating success graph
+            sns.violinplot(x="Major", y="Grade", data=df, palette="coolwarm")
+            plt.title("Average Grades and Success Graph by Majors")
+            plt.xlabel("Major")
+            plt.ylabel("Grade")
+
+            #Shows average grades on the graph
+            for index, row in major_averages.iterrows():
+                plt.text(index, row['Grade'], f"{row['Grade']:.2f}", ha='center', va='bottom')
+            plt.savefig('average_grade_by_major.png')
+            plt.show()
+
+        elif choice == "6":
+            #Grouping by gender and we need Grades
+            gender_averages = df.groupby(["Gender"])['Grade'].mean().reset_index()
+
+            #Creating success graph
+            sns.violinplot(x="Gender", y="Grade", data=df, palette="coolwarm")
+            plt.title("Average Grades and Success Graph by Gender")
+            plt.xlabel("Gender")
+            plt.ylabel("Grade")
+
+            #Shows average grades on the graph
+            for index, row in gender_averages.iterrows():
+                plt.text(index, row["Grade"], f"{row['Grade']:.2f}", ha='center', va='bottom')
+
+            plt.savefig('average_grade_by_gender.png')
+            plt.show()
+        elif choice == "7":
             #Asking user to choose fields
             print("Choose fields for visualization:")
             #Taking index and value and starting it with 1
