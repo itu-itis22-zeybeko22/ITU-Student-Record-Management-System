@@ -77,15 +77,15 @@ def validate_name(name):
         return formatted_name
 #Defining a function to validate major
 def validate_major(major):
-    # Null name is invalid
+    #Major field is required
     if not major:
-        raise ValueError("Error: Invalid name! Major shouldn't be empty")
+        raise ValueError("Error: Invalid major! Major field is required.")
     #No special characters are allowed or no numbers are allowed in the major
     elif not all(char.isalpha() or char.isspace() for char in major):
-        raise ValueError("Error: Invalid name! Major should only include letters or space")
+        raise ValueError("Error: Invalid major! Major should only include letters or spaces.")
     #Major should be in itu_majors
     elif major.lower() not in itu_majors:
-        raise ValueError("Error: Invalid major! The Major you entered not in ITU or it's written wrong")
+        raise ValueError("Error: Invalid major! The major you entered is not in ITU majors list or it is spelled incorrectly.")
     else:
         formatted_major = ' '.join(word.capitalize() for word in major.split())
         return formatted_major
@@ -130,17 +130,24 @@ def add_student():
                     except ValueError:
                         print("Error: Age should be between 17 and 100")
                         value = input("Enter " + field + ": ")
-            #Checking if roll no. and students id is integer
-            elif field == "Roll no." or field == "Students id":
+            #Checking if roll no. is bigger than 0
+            elif field == "Roll no.":
                 while True:
                     try:
                         value = int(value)
-                        #Roll no must be bigger or equal to 1
-                        if field == "Roll no.":
-                            if value < 1:
-                                raise ValueError("Error : Roll no. is less than 1")
-                        #Students id length must be 9
-                        if field == "students id" and len(str(value)) != 9:
+                        #Roll no must be bigger or equal to
+                        if value < 1:
+                            raise ValueError("Error : Roll no. is less than 1")
+                        break
+                    except ValueError as e:
+                        print(e)
+                        value = input("Enter " + field + ": ")
+            elif field == "Students id":
+                while True:
+                    try:
+                        value = int(value)
+                        #Student's id length must be 9
+                        if len(str(value)) != 9:
                             raise ValueError("Error: Student ID length should be 9.")
                         break
                     except ValueError as e:
@@ -515,10 +522,6 @@ def search_student():
             if len(id) != 9:
                 print("Error: Students ids length must be 9")
                 continue
-            #It must start with 1 or 9
-            elif not str(id).startswith(('1', '9')):
-                print("Error: Students id must start with 1 or 9 (9 for foreigner students)")
-                continue
             #Opening csv file in reading mode
             with open("dataset.csv", "r", encoding="utf-8") as f:
                 reader = csv.reader(f)
@@ -529,7 +532,7 @@ def search_student():
                         a += 1
                         data = row
                 if a == 1:
-                    print("\n")     
+                    print("\n")
                 #Writing students info
                     for field in fields:
                         if field == fields[-1]:
@@ -546,39 +549,40 @@ def search_student():
                     continue
 
     elif choice == "2":
+        # Using same function in add_student to validate name
+        name = input("Enter students name surname: ")
         while True:
-            #Using same function in add_student to validate name
-            name = input("Enter students name surname: ")
             try:
                 name = validate_name(name)
-                break
+                #Opening csv file in reading mode
+                with open("dataset.csv", "r", encoding="utf-8") as f:
+                    reader = csv.reader(f)
+                    a = 0
+                    data = []
+                    #Checking if name surname in rows
+                    for row in reader:
+                        if name in row:
+                            a += 1
+                            data.append(row)
+                    if a > 0:
+                        print("\n")
+                    #Writing students info
+                        for field in fields:
+                            if field == fields[-1]:
+                                print(str(field) + "|")
+                            else:
+                                print(str(field), end="|")
+                        for row in data:
+                            for i in row:
+                                print(i, end="|")
+                            print("\n")
+                        break
+                    else:
+                        #If student not found in our database
+                        print(f"Student with name surname {name} not found in our database!")
+                        continue
             except ValueError as e:
                 print(e)
-            #Opening csv file in reading mode
-            with open("dataset.csv", "r", encoding="utf-8") as f:
-                reader = csv.reader(f)
-                a = 0
-                #Checking if name surname in rows
-                for row in reader:
-                    if str(name) in row:
-                        a += 1
-                        data = row
-                if a == 1:     
-                    print("\n")
-                #Writing students info
-                    for field in fields:
-                        if field == fields[-1]:
-                            print(str(field) + "|")
-                        else:
-                            print(str(field), end="|")
-                    for i in data:
-                        print(i, end="|")
-                    print("\n")
-                    break
-                else:
-                    #If student not found in our database
-                    print(f"Student with name surname {name} not found in our database!")
-                    continue
     else:
         roll = input("Enter students roll no: ")
         while True:
@@ -589,10 +593,10 @@ def search_student():
                 for row in reader:
                     if str(roll) in row:
                         a += 1
-                        data = row 
-                #If student is in our database       
+                        data = row
+                #If student is in our database
                 if a == 1:
-                    print("\n")     
+                    print("\n")
                 #Writing students info
                     for field in fields:
                         if field == fields[-1]:
@@ -754,7 +758,6 @@ def update_student():
             print("New data of student with id ", str(student_id), " is")
             for i in fields:
                 print(i,end=" | ")
-            print("\n")
             print(" | ".join(updated_data))
         #If student is not in our database
         else:
