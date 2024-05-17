@@ -7,11 +7,14 @@ Roll no.,Name Surname,Age,Gender,Students id,Grade,Email,Phone,Major
 30,Ali Zeybek,29,Male,150220131,1.0,ali@itu.edu.tr,05442808815,Industrial Engineering
 11,Mehmet Zeybek,29,Male,150999110,4.0,mehmet@itu.edu.tr,05055927712,Computer Engineering
 91,Zeynep Zeybek,24,Female,150220777,4.0,zeynep@itu.edu.tr,05055927713,Artificial Intelligence And Data Engineering
-12,Ayla Yıldız,34,Female,150210881,2.0,ayla@itu.edu.tr,05442118819,Mechanical Engineering
-98,Kübra Bilgin,29,Female,150666717,4.0,kubra@itu.edu.tr,05511519090,Industrial Engineering
-45,Xabi Alonso,27,Male,910220888,4.0,alonso@itu.edu.tr,99999999911,Artificial Intelligence And Data Engineering
-100,Margot Robbie,27,Female,911911911,2.1,robbie@itu.edu.tr,91190901791,Control And Automation Engineering
-191,Johnny Depp,17,Male,911991991,3.5,depp@itu.edu.tr,98899900011,Industrial Engineering
+12,Ayla Yıldız,34,Female,030210881,2.0,ayla@itu.edu.tr,05442118819,Mechanical Engineering
+98,Kübra Bilgin,29,Female,020666717,4.0,kubra@itu.edu.tr,05511519090,Industrial Engineering
+45,Xabi Alonso,27,Male,510220888,4.0,alonso@itu.edu.tr,29999999911,Artificial Intelligence And Data Engineering
+100,Margot Robbie,27,Female,411911911,2.1,robbie@itu.edu.tr,61190901791,Control And Automation Engineering
+22,Johnny Depp,23,Male,331313131,2.2,depp@itu.edu.tr,44211124441,Industrial Engineering
 66,Deniz Bilgin,19,Female,150220113,4.0,deniz22@itu.edu.tr,05449911819,Computer Engineering
-43,Barlas Bilgin,19,Male,150991991,3.0,bilgin22@itu.edu.tr,05449919911,Artificial Intelligence And Data Engineering
-33,Mürüvvet Zeybek,39,Female,1502109911,4.0,muruvvet@itu.edu.tr,05511312093,Mechanical Engineering
+43,Barlas Bilgin,19,Male,050991991,3.0,bilgin22@itu.edu.tr,05449919911,Artificial Intelligence And Data Engineering
+192,Muhammed Özkul,21,Male,0702231121,2.7,ozkul@itu.edu.tr,05442841123,Composing
+291,Berat Yıkılmaz,88,Male,061314670,3.2,yıkılmaz@itu.edu.tr,5323221349,Mineral Processing Engineering
+512,Ömer Faruk Zeybek,23,Male,311231200,4.0,zeybek12@itu.edu.tr,5442841234,Composing
+51,Kerem Yılmaz,24,Male,40302011,3.7,yilmaz24@itu.edu.tr,91145199121,Mineral Processing Engineering
