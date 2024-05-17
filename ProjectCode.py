@@ -837,9 +837,14 @@ def visualization():
             print("2. Grade - Major (Recommended)")
             print("3. Gender - Grade (Recommended)")
             print("4. Age - Major (Recommended)")
-            print("5. Average Grades and Success Graph by Majors")
-            print("6. Average Grades and Success Graph by Gender")
-            print("7. I want to choose fields and chart type (Warning! Visualizations may be meaningless)")
+            print("5. Average Grades and Success Graph by Majors (Recommended)")
+            print("6. Average Grades and Success Graph by Gender (Recommended)")
+            print("7. Male and Female Percentage (Recommended)")
+            print("8. Major Percentage (Recommended)")
+            print("9. Gender - Age Distribution (Recommended)")
+            print("10. Gender and Major - Grade Distribution (Recommended)")
+            print("11. Gender and Major - Age Distribution (Recommended)")
+            print("12. I want to choose fields and chart type (Warning! Visualizations may be meaningless)")
 
             choice = input("Enter your choice: ")
 
@@ -914,7 +919,47 @@ def visualization():
 
                 plt.savefig('average_grade_by_gender.png')
                 plt.show()
+
             elif choice == "7":
+                #Counting genders
+                gender_counts = df["Gender"].value_counts()
+
+                #Creating pie plot
+                plt.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
+
+                plt.title("Gender Distribution")
+                plt.savefig('gender_distribution.png')
+                plt.show()
+
+            elif choice == "8":
+                #Counting Majors
+                major_counts = df["Major"].value_counts()
+
+                #Creating pie plot
+                plt.pie(major_counts, labels = major_counts.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
+
+                plt.title("Major Distribution")
+                plt.savefig("major_distribution.png")
+                plt.show()
+            elif choice == "9":
+                #Creating plot
+                sns.violinplot(x="Gender",y = "Age", data=df)
+                plt.title("Gender - Age Distribution")
+                plt.savefig("gender_age_distribution.png")
+                plt.show()
+            elif choice == "10":
+                #Creating plot
+                sns.violinplot(x = "Major", y = "Age", data=df, hue="Gender", palette="pastel")
+                plt.title('Major - Age and Gender Distribution')
+                plt.savefig("major_age_gender_distribution.png")
+                plt.show()
+            elif choice == "11":
+                #Creating plot
+                sns.violinplot(x="Major", y = "Grade", hue="Gender", data=df, palette="pastel")
+                plt.title('Gender and Major - Grade Distribution')
+                plt.savefig("major_grade_gender_distribution.png")
+                plt.show()
+            elif choice == "12":
                 #Asking user to choose fields
                 print("Choose fields for visualization:")
                 #Taking index and value and starting it with 1
