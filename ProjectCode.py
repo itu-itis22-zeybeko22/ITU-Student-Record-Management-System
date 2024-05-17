@@ -32,7 +32,8 @@ def console_menu():
     print("4. Update Student")
     print("5. Delete Student")
     print("6. Visualization")
-    print("7. Quit")
+    print("7. Student Statistics")
+    print("8. Exit")
 
 #Defining a function to print the data of student after save
 def print_student_data(student_data):
@@ -97,7 +98,7 @@ def add_student():
     print("Add Student Information")
     print("-------------------------")
     while True:
-        value = input("Enter 1 to continue, 2 to exit: ")
+        value = input("Enter 1 to continue operation or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
@@ -241,262 +242,270 @@ def view_students():
 
     print("--- Student Records ---")
     while True:
-        value = input("Enter 1 to continue, 2 to quit: ")
+        value = input("Enter 1 to continue operation or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
-            #Asking user to how they want to see datas
-            print("Which way do you want to see students?")
-            print("1. As It is in Database")
-            print("2. By their Roll Numbers")
-            print("3. By their Gender")
-            print("4. By their Major")
-            print("5. By their Grades")
-            print("6. By Alphabetic Order")
+            while True:
+                #Asking user to how they want to see datas
+                print("Which way do you want to see students?")
+                print("1. As It is in Database")
+                print("2. By their Roll Numbers")
+                print("3. By their Gender")
+                print("4. By their Major")
+                print("5. By their Grades")
+                print("6. By Alphabetic Order")
 
-            choice = input("Enter your choice: ")
+                choice = input("Enter your choice (0 to exit): ")
+                if not choice == "0":
+                    #For choice 1
+                    if choice == "1":
+                        #Opening csv file in reading mode
+                        with open("dataset.csv", "r", encoding="utf-8") as f:
+                            reader = csv.reader(f)
 
-            #For choice 1
-            if choice == "1":
-                #Opening csv file in reading mode
-                with open("dataset.csv", "r", encoding="utf-8") as f:
-                    reader = csv.reader(f)
+                            for row in reader:
+                                for item in row:
+                                    print(item, end=" | ")
+                                print("\n")
+                    #For choice 2
+                    elif choice == "2":
+                        #Opens file and read each line
+                        with open(database, 'r',encoding="utf-8") as file:
+                            lines = file.readlines()
 
-                    for row in reader:
-                        for item in row:
-                            print(item, end=" | ")
+                        #Adjusts header line and append to output_lines
+                        header = ' | '.join(map(str.strip, lines[0].split(',')))
+                        output_lines = [header]
+
+                        #Sorting values by their roll numbers
+                        data_lines = [line.split(',') for line in lines[1:]]
+                        sorted_data = sorted(data_lines, key=lambda x: int(x[0]))
+
+                        #Appending each data with " | "
+                        for line in sorted_data:
+                            formatted_line = ' | '.join(map(str.strip, line))
+                            output_lines.append(formatted_line)
+
+                        #Writing the outputs
+                        for line in output_lines:
+                            print(line)
                         print("\n")
-            #For choice 2
-            elif choice == "2":
-                #Opens file and read each line
-                with open(database, 'r',encoding="utf-8") as file:
-                    lines = file.readlines()
+                    #For choice 3
+                    elif choice == "3":
+                        print("Which gender students do you want to see?")
+                        print("1. Male")
+                        print("2. Female")
+                        print("\n")
+                        while True:
+                            gen = input("Enter your choice (0 to exit): ")
+                            if not gen == "0":
+                                if gen == "1":
+                                    for item in fields:
+                                        print(item, end=" | ")
+                                    print("\n")
+                                    with open("dataset.csv", "r", encoding="utf-8") as f:
+                                        reader = csv.reader(f)
+                                        #Writing Male Students
+                                        for row in reader:
+                                            if "Male" in row:
+                                                for item in row:
+                                                    print(item, end=" | ")
+                                                print("\n")
+                                elif gen == "2":
+                                    for item in fields:
+                                        print(item, end=" | ")
+                                    print("\n")
+                                    with open("dataset.csv", "r", encoding="utf-8") as f:
+                                        reader = csv.reader(f)
+                                        #Writing female students
+                                        for row in reader:
+                                            if "Female" in row:
+                                                for item in row:
+                                                    print(item, end=" | ")
+                                                print("\n")
+                                else:
+                                    print("Invalid Input! Enter 1 or 2.")
+                            else:
+                                break
+                    #By their Major
+                    elif choice == "4":
 
-                #Adjusts header line and append to output_lines
-                header = ' | '.join(map(str.strip, lines[0].split(',')))
-                output_lines = [header]
+                        print("Which major students do you want to see?")
 
-                #Sorting values by their roll numbers
-                data_lines = [line.split(',') for line in lines[1:]]
-                sorted_data = sorted(data_lines, key=lambda x: int(x[0]))
+                        # Gets unique major values from the dataset
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        majors = set([line.split(',')[-1].strip() for line in lines[1:]])
 
-                #Appending each data with " | "
-                for line in sorted_data:
-                    formatted_line = ' | '.join(map(str.strip, line))
-                    output_lines.append(formatted_line)
+                        # Printing major options
+                        for idx, major in enumerate(majors, start=1):
+                            print(f"{idx}. {major}")
 
-                #Writing the outputs
-                for line in output_lines:
-                    print(line)
-                print("\n")
-            #For choice 3
-            elif choice == "3":
-                print("Which gender students do you want to see?")
-                print("1. Male")
-                print("2. Female")
-                print("\n")
-                gen = input("Enter your choice: ")
+                        # Asking which major they want to see
+                        major_choice = input("Enter the number of the major you want to see (0 to exit): ")
+                        while True:
+                            if not major_choice == "0":
+                                #User selects a number
+                                if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                                    selected_major = list(majors)[int(major_choice) - 1]
 
-                if gen == "1":
-                    for item in fields:
-                        print(item, end=" | ")
-                    print("\n")
-                    with open("dataset.csv", "r", encoding="utf-8") as f:
-                        reader = csv.reader(f)
-                        #Writing Male Students
-                        for row in reader:
-                            if "Male" in row:
-                                for item in row:
-                                    print(item, end=" | ")
-                                print("\n")
-                elif gen == "2":
-                    for item in fields:
-                        print(item, end=" | ")
-                    print("\n")
-                    with open("dataset.csv", "r", encoding="utf-8") as f:
-                        reader = csv.reader(f)
-                        #Writing female students
-                        for row in reader:
-                            if "Female" in row:
-                                for item in row:
-                                    print(item, end=" | ")
-                                print("\n")
+                                    #Opening csv file in reading mode
+                                    with open(database, 'r', encoding="utf-8") as file:
+                                        lines = file.readlines()
+
+                                    #Adjusting header line and appends to output_lines
+                                    header = ' | '.join(map(str.strip, lines[0].split(',')))
+                                    output_lines = [header]
+
+                                    #Filtering data by major
+                                    data_lines = [line.split(',') for line in lines[1:]]
+                                    filtered_data = [line for line in data_lines if line[-1].strip() == selected_major]
+
+                                    #Appending each data with " | "
+                                    for line in filtered_data:
+                                        formatted_line = ' | '.join(map(str.strip, line))
+                                        output_lines.append(formatted_line)
+
+                                    #Writing the outputs
+                                    for line in output_lines:
+                                        print(line)
+                                    print("\n")
+                                else:
+                                    print("Invalid Input! Please enter a valid number.")
+                            else:
+                                break
+                    #Sorting By Grade
+                    elif choice == "5":
+                        while True:
+                            print("How do you want to sort students by grades?")
+                            print("1. Ascending Order")
+                            print("2. Descending Order")
+                            sort_choice = input("Enter your choice (0 to exit): ")
+                            if not sort_choice == "0":
+
+                                if sort_choice == "1":
+                                    #Opening CSV file in reading mode
+                                    with open(database, 'r', encoding="utf-8") as file:
+                                        lines = file.readlines()
+
+                                    #Adjusting header line and appends to output_lines
+                                    header = ' | '.join(map(str.strip, lines[0].split(',')))
+                                    output_lines = [header]
+
+                                    #Sorting data by grades (Ascending Order)
+                                    data_lines = [line.split(',') for line in lines[1:]]
+                                    sorted_data = sorted(data_lines, key=lambda x: float(x[5]))
+
+                                    #Appending each data with " | "
+                                    for line in sorted_data:
+                                        formatted_line = ' | '.join(map(str.strip, line))
+                                        output_lines.append(formatted_line)
+
+                                    #Writing the outputs
+                                    for line in output_lines:
+                                        print(line)
+                                    print("\n")
+                                elif sort_choice == "2":
+                                    #Opening CSV file in reading mode
+                                    with open(database, 'r', encoding="utf-8") as file:
+                                        lines = file.readlines()
+
+                                    #Adjusting header line and appends to output_lines
+                                    header = ' | '.join(map(str.strip, lines[0].split(',')))
+                                    output_lines = [header]
+
+                                    #Sorting data by grades (Descending Order)
+                                    data_lines = [line.split(',') for line in lines[1:]]
+                                    sorted_data = sorted(data_lines, key=lambda x: float(x[5]), reverse=True)
+
+                                    #Appending each data with " | "
+                                    for line in sorted_data:
+                                        formatted_line = ' | '.join(map(str.strip, line))
+                                        output_lines.append(formatted_line)
+
+                                    #Writing the outputs
+                                    for line in output_lines:
+                                        print(line)
+                                    print("\n")
+                                #If choice is not equal to 1 or 2
+                                else:
+                                    print("Invalid Input! Enter 1 or 2.")
+                            else:
+                                break
+                    #Sorting by Alphabetic Order
+                    elif choice == "6":
+                        while True:
+                            print("Which Alphabet Ordering Do You Want?")
+                            print("1.Turkish")
+                            print("2.English")
+                            w = input("Enter your choice (0 to exit): ")
+                            if not w == "0":
+                                if w == "1":
+                                    print("\n")
+                                    #Setting the locale to Turkish for sorting
+                                    locale.setlocale(locale.LC_ALL, "tr_TR.UTF-8")
+                                        # Opening CSV file in reading mode
+                                    with open(database, 'r', encoding="utf-8") as file:
+                                        lines = file.readlines()
+
+                                    # Adjusting header line and appends to output_lines
+                                    header = ' | '.join(map(str.strip, lines[0].split(',')))
+                                    output_lines = [header]
+
+                                    # Sorting data by student names (Alphabetic Order with Turkish locale)
+                                    data_lines = [line.split(',') for line in lines[1:]]
+
+                                    # Define a custom sorting function based on Turkish locale
+                                    def turkish_sort(item):
+                                        return locale.strxfrm(item[1])  # Assuming student names are in the second column
+
+                                    sorted_data = sorted(data_lines, key=turkish_sort)
+
+                                    # Appending each data with " | "
+                                    for line in sorted_data:
+                                        formatted_line = ' | '.join(map(str.strip, line))
+                                        output_lines.append(formatted_line)
+
+                                    # Writing the outputs
+                                    for line in output_lines:
+                                        print(line)
+                                    print("\n")
+                                elif w == "2":
+                                    print("\n")
+                                    #Opening CSV file in reading mode
+                                    with open(database, 'r', encoding="utf-8") as file:
+                                        lines = file.readlines()
+
+                                    #Adjusting header line and appends to output_lines
+                                    header = ' | '.join(map(str.strip, lines[0].split(',')))
+                                    output_lines = [header]
+
+                                    #Sorting data by student names (Alphabetic Order)
+                                    data_lines = [line.split(',') for line in lines[1:]]
+                                    sorted_data = sorted(data_lines, key=lambda x: x[1])  # Assuming student names are in the second column
+
+                                    #Appending each data with " | "
+                                    for line in sorted_data:
+                                        formatted_line = ' | '.join(map(str.strip, line))
+                                        output_lines.append(formatted_line)
+
+                                    #Writing the outputs
+                                    for line in output_lines:
+                                        print(line)
+                                    print("\n")
+                                else:
+                                    print("Invalid Input! Enter 1 or 2")
+                            else:
+                                break
+                    else:
+                        print("Invalid Input! Choose 1, 2, 3, 4, 5 or 6")
                 else:
-                    print("Invalid Input! Enter 1 or 2.")
-                    continue
-            #By their Major
-            elif choice == "4":
-
-                print("Which major students do you want to see?")
-
-                # Gets unique major values from the dataset
-                with open(database, 'r', encoding="utf-8") as file:
-                    lines = file.readlines()
-                majors = set([line.split(',')[-1].strip() for line in lines[1:]])
-
-                # Printing major options
-                for idx, major in enumerate(majors, start=1):
-                    print(f"{idx}. {major}")
-
-                #Asking which major they want to see
-                major_choice = input("Enter the number of the major you want to see: ")
-
-                #User selects a number
-                if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
-                    selected_major = list(majors)[int(major_choice) - 1]
-
-                    #Opening csv file in reading mode
-                    with open(database, 'r', encoding="utf-8") as file:
-                        lines = file.readlines()
-
-                    #Adjusting header line and appends to output_lines
-                    header = ' | '.join(map(str.strip, lines[0].split(',')))
-                    output_lines = [header]
-
-                    #Filtering data by major
-                    data_lines = [line.split(',') for line in lines[1:]]
-                    filtered_data = [line for line in data_lines if line[-1].strip() == selected_major]
-
-                    #Appending each data with " | "
-                    for line in filtered_data:
-                        formatted_line = ' | '.join(map(str.strip, line))
-                        output_lines.append(formatted_line)
-
-                    #Writing the outputs
-                    for line in output_lines:
-                        print(line)
-                    print("\n")
-                else:
-                    print("Invalid Input! Please enter a valid number.")
-                    continue
-            #Sorting By Grade
-            elif choice == "5":
-
-                print("How do you want to sort students by grades?")
-                print("1. Ascending Order")
-                print("2. Descending Order")
-                sort_choice = input("Enter your choice: ")
-
-                if sort_choice == "1":
-                    #Opening CSV file in reading mode
-                    with open(database, 'r', encoding="utf-8") as file:
-                        lines = file.readlines()
-
-                    #Adjusting header line and appends to output_lines
-                    header = ' | '.join(map(str.strip, lines[0].split(',')))
-                    output_lines = [header]
-
-                    #Sorting data by grades (Ascending Order)
-                    data_lines = [line.split(',') for line in lines[1:]]
-                    sorted_data = sorted(data_lines, key=lambda x: float(x[5]))
-
-                    #Appending each data with " | "
-                    for line in sorted_data:
-                        formatted_line = ' | '.join(map(str.strip, line))
-                        output_lines.append(formatted_line)
-
-                    #Writing the outputs
-                    for line in output_lines:
-                        print(line)
-                    print("\n")
-                elif sort_choice == "2":
-                    #Opening CSV file in reading mode
-                    with open(database, 'r', encoding="utf-8") as file:
-                        lines = file.readlines()
-
-                    #Adjusting header line and appends to output_lines
-                    header = ' | '.join(map(str.strip, lines[0].split(',')))
-                    output_lines = [header]
-
-                    #Sorting data by grades (Descending Order)
-                    data_lines = [line.split(',') for line in lines[1:]]
-                    sorted_data = sorted(data_lines, key=lambda x: float(x[5]), reverse=True)
-
-                    #Appending each data with " | "
-                    for line in sorted_data:
-                        formatted_line = ' | '.join(map(str.strip, line))
-                        output_lines.append(formatted_line)
-
-                    #Writing the outputs
-                    for line in output_lines:
-                        print(line)
-                    print("\n")
-                #If choice is not equal to 1 or 2
-                else:
-                    print("Invalid Input! Enter 1 or 2.")
-                    continue
-            #Sorting by Alphabetic Order
-
-            elif choice == "6":
-                print("Which Alphabet Ordering Do You Want?")
-                print("1.Turkish")
-                print("2.English")
-                w = input("Enter your choice: ")
-
-                if w == "1":
-                    print("\n")
-                    #Setting the locale to Turkish for sorting
-                    locale.setlocale(locale.LC_ALL, "tr_TR.UTF-8")
-                        # Opening CSV file in reading mode
-                    with open(database, 'r', encoding="utf-8") as file:
-                        lines = file.readlines()
-
-                    # Adjusting header line and appends to output_lines
-                    header = ' | '.join(map(str.strip, lines[0].split(',')))
-                    output_lines = [header]
-
-                    # Sorting data by student names (Alphabetic Order with Turkish locale)
-                    data_lines = [line.split(',') for line in lines[1:]]
-
-                    # Define a custom sorting function based on Turkish locale
-                    def turkish_sort(item):
-                        return locale.strxfrm(item[1])  # Assuming student names are in the second column
-
-                    sorted_data = sorted(data_lines, key=turkish_sort)
-
-                    # Appending each data with " | "
-                    for line in sorted_data:
-                        formatted_line = ' | '.join(map(str.strip, line))
-                        output_lines.append(formatted_line)
-
-                    # Writing the outputs
-                    for line in output_lines:
-                        print(line)
-                    print("\n")
-                elif w == "2":
-                    print("\n")
-                    #Opening CSV file in reading mode
-                    with open(database, 'r', encoding="utf-8") as file:
-                        lines = file.readlines()
-
-                    #Adjusting header line and appends to output_lines
-                    header = ' | '.join(map(str.strip, lines[0].split(',')))
-                    output_lines = [header]
-
-                    #Sorting data by student names (Alphabetic Order)
-                    data_lines = [line.split(',') for line in lines[1:]]
-                    sorted_data = sorted(data_lines, key=lambda x: x[1])  # Assuming student names are in the second column
-
-                    #Appending each data with " | "
-                    for line in sorted_data:
-                        formatted_line = ' | '.join(map(str.strip, line))
-                        output_lines.append(formatted_line)
-
-                    #Writing the outputs
-                    for line in output_lines:
-                        print(line)
-                    print("\n")
-                else:
-                    print("Invalid Input! Enter 1 or 2")
-                    continue
-            else:
-                print("Invalid Input! Choose 1, 2, 3, 4, 5 or 6")
-
-                continue
+                    break
         input("Press any key to continue")
     else:
         print("Invalid Input! Choose 1 or 2")
- 
+
  #Defining a function for Search Student Operation
 def search_student():
     #Fields and database ara global we can access them
@@ -507,7 +516,7 @@ def search_student():
     print("\n")
     print("--- Search Student ---")
     while True:
-        value = input("Enter 1 to contiune, 2 to quit: ")
+        value = input("Enter 1 to continue operation or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
@@ -520,60 +529,29 @@ def search_student():
 
             while choice not in ["1", "2", "3"]:
                 print("Invalid input. Please enter 1, 2 or 3.")
+                print("1. Search by Students Id")
+                print("2. Search by Name Surname (There may be more than one student with same name surname)")
+                print("3. Search by Roll No.")
                 choice = input("Enter your choice: ")
 
             if choice == "1":
-
                 while True:
-                    id = input("Enter students id: ")
-
-                    #Checking length of id
-                    if len(id) != 9:
-                        print("Error: Students ids length must be 9")
-                        continue
-                    #Opening csv file in reading mode
-                    with open("dataset.csv", "r", encoding="utf-8") as f:
-                        reader = csv.reader(f)
-                        a = 0
-                        #Checking if id in rows
-                        for row in reader:
-                            if str(id) in row:
-                                a += 1
-                                data = row
-                        if a == 1:
-                            print("\n")
-                        #Writing students info
-                            for field in fields:
-                                if field == fields[-1]:
-                                    print(str(field) + "|")
-                                else:
-                                    print(str(field), end="|")
-                            for i in data:
-                                print(i, end="|")
-                            print("\n")
-                            break
-                        else:
-                            #If student not found in our database
-                            print(f"Student with students id {id} not found in our database!")
+                    id = input("Enter students id you want to search (0 to exit): ")
+                    if not id == "0":
+                        #Checking length of id
+                        if len(id) != 9:
+                            print("Error: Students ids length must be 9")
                             continue
-
-            elif choice == "2":
-                # Using same function in add_student to validate name
-                name = input("Enter students name surname: ")
-                while True:
-                    try:
-                        name = validate_name(name)
                         #Opening csv file in reading mode
                         with open("dataset.csv", "r", encoding="utf-8") as f:
                             reader = csv.reader(f)
                             a = 0
-                            data = []
-                            #Checking if name surname in rows
+                            #Checking if id in rows
                             for row in reader:
-                                if name in row:
+                                if str(id) in row:
                                     a += 1
-                                    data.append(row)
-                            if a > 0:
+                                    data = row
+                            if a == 1:
                                 print("\n")
                             #Writing students info
                                 for field in fields:
@@ -581,48 +559,88 @@ def search_student():
                                         print(str(field) + "|")
                                     else:
                                         print(str(field), end="|")
-                                for row in data:
-                                    for i in row:
-                                        print(i, end="|")
-                                    print("\n")
+                                for i in data:
+                                    print(i, end="|")
+                                print("\n")
                                 break
                             else:
                                 #If student not found in our database
-                                print(f"Student with name surname {name} not found in our database!")
-                                continue
-                    except ValueError as e:
-                        print(e)
-            else:
-                roll = input("Enter students roll no: ")
+                                print(f"Student with students id {id} not found in our database!")
+                    else:
+                        break
+
+            elif choice == "2":
+                # Using same function in add_student to validate name
                 while True:
-                    with open("dataset.csv", "r", encoding="utf-8") as f:
-                        reader = csv.reader(f)
-                        a = 0
-                        #Checking if roll no in rows
-                        for row in reader:
-                            if str(roll) in row:
-                                a += 1
-                                data = row
-                        #If student is in our database
-                        if a == 1:
-                            print("\n")
-                        #Writing students info
-                            for field in fields:
-                                if field == fields[-1]:
-                                    print(str(field) + "|")
+                    name = input("Enter students name surname (0 to exit): ")
+                    if not name == "0":
+                        try:
+                            name = validate_name(name)
+                            #Opening csv file in reading mode
+                            with open("dataset.csv", "r", encoding="utf-8") as f:
+                                reader = csv.reader(f)
+                                a = 0
+                                data = []
+                                #Checking if name surname in rows
+                                for row in reader:
+                                    if name in row:
+                                        a += 1
+                                        data.append(row)
+                                if a > 0:
+                                    print("\n")
+                                #Writing students info
+                                    for field in fields:
+                                        if field == fields[-1]:
+                                            print(str(field) + "|")
+                                        else:
+                                            print(str(field), end="|")
+                                    for row in data:
+                                        for i in row:
+                                            print(i, end="|")
+                                        print("\n")
+                                    break
                                 else:
-                                    print(str(field), end="|")
-                            for i in data:
-                                print(i, end="|")
-                            print("\n")
+                                    #If student not found in our database
+                                    print(f"Student with name surname {name} not found in our database!")
+
+                        except ValueError as e:
+                            print(e)
                             break
-                        else:
-                            #If student not found in our database
-                            print(f"Student with roll no. {roll} not found in our database!")
-                            continue
+                    else:
+                        break
+            else:
+                while True:
+                    roll = input("Enter students roll no (0 to exit): ")
+                    if not roll == "0":
+                        with open("dataset.csv", "r", encoding="utf-8") as f:
+                            reader = csv.reader(f)
+                            a = 0
+                            #Checking if roll no in rows
+                            for row in reader:
+                                if str(roll) in row:
+                                    a += 1
+                                    data = row
+                            #If student is in our database
+                            if a == 1:
+                                print("\n")
+                            #Writing students info
+                                for field in fields:
+                                    if field == fields[-1]:
+                                        print(str(field) + "|")
+                                    else:
+                                        print(str(field), end="|")
+                                for i in data:
+                                    print(i, end="|")
+                                print("\n")
+                                break
+                            else:
+                                #If student not found in our database
+                                print(f"Student with roll no. {roll} not found in our database!")
+                    else:
+                        break
+            input("Press any key to continue")
         else:
             print("Invalid Input! Enter 1 or 2")
-        input("Press any key to continue")
 
 #Defining a function for Update Operation
 def update_student():
@@ -631,144 +649,148 @@ def update_student():
     global database
 
     while True:
-        value = input("Enter 1 to continue, 2 to quit: ")
+        value = input("Enter 1 to continue operation or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
             print("\n")
             print("--- Update Student ---")
-            student_id = input("Enter student's student id to update: ")
-            updated_data = []
-            found_student = False
+            while True:
+                student_id = input("Enter student's student id to update (0 to exit): ")
+                if student_id != "0":
+                    updated_data = []
+                    found_student = False
 
-            with open(database, "r", encoding="utf-8") as file:
-                reader = csv.reader(file)
-                rows = list(reader)
-                for i, row in enumerate(rows):
-                    if row[4] == str(student_id):
-                        found_student = True
-                        print("Student Found at index", i)
-                        for field in fields:
-                            value = input("Enter " + field + ": ")
-                            if field == "Grade":
-                                while True:
-                                    try:
-                                        value = float(value)
-                                        if 0 <= value <= 4:
-                                            break
-                                        else:
-                                            raise ValueError
-                                    except ValueError:
-                                        print("Error: Please enter a number between 0 and 4 for grade")
-                                        value = input("Enter " + field + ": ")
-                            elif field == "Age":
-                                while True:
-                                    try:
-                                        value = int(value)
-                                        if value >= 17:
-                                            break
-                                        else:
-                                            raise ValueError
-                                    except ValueError:
-                                        print("Error: Please enter an integer greater than or equal to 17")
-                                        value = input("Enter " + field + ": ")
-                            elif field == "Students id":
-                                while True:
-                                    try:
-                                        value = int(value)
-                                        if not 8 <= len(str(value)) <= 9:
-                                            raise ValueError("Error: Student ID length should be 9.")
-                                        break
-                                    except ValueError:
-                                        print("Error: Please enter a valid", field)
-                                        value = input("Enter " + field + ": ")
-                            elif field == "Roll no":
-                                while True:
-                                    try:
-                                        value = int(value)
-                                        # Roll no must be bigger or equal to
-                                        if value < 1:
-                                            raise ValueError("Error : Roll no. is less than 1")
-                                        break
-                                    except ValueError as e:
-                                        print(e)
-                                        value = input("Enter " + field + ": ")
-                            elif field == "Phone":
-                                while len(value) != 11:
-                                    print("Error: Phone number should be 11 characters long.")
+                    with open(database, "r", encoding="utf-8") as file:
+                        reader = csv.reader(file)
+                        rows = list(reader)
+                        for i, row in enumerate(rows):
+                            if row[4] == str(student_id):
+                                found_student = True
+                                print("Student Found at index", i)
+                                for field in fields:
                                     value = input("Enter " + field + ": ")
-                            elif field == "Email":
-                                while True:
-                                    try:
-                                        value = validate_email(value)
-                                        break
-                                    except ValueError as e:
-                                        print(e)
-                                        value = input("Enter " + field + ": ")
-                            elif field == "Gender":
-                                while value.lower() not in ["male", "female"]:
-                                    print("Error: Gender should be Male or Female")
-                                    value = input("Enter " + field + ": ").lower()
-                                value = value.title()
-                            elif field == "Name Surname":
-                                while True:
-                                    try:
-                                        value = validate_name(value)
-                                        break
-                                    except ValueError as e:
-                                        print(e)
-                                        value = input("Enter " + field + ": ")
-                            elif field == "Major":
-                                while True:
-                                    try:
-                                        value = validate_major(value)
-                                        break
-                                    except ValueError as e:
-                                        print(e)
-                                        value = input("Enter " + field + ": ")
-                            updated_data.append(value)
+                                    if field == "Grade":
+                                        while True:
+                                            try:
+                                                value = float(value)
+                                                if 0 <= value <= 4:
+                                                    break
+                                                else:
+                                                    raise ValueError
+                                            except ValueError:
+                                                print("Error: Please enter a number between 0 and 4 for grade")
+                                                value = input("Enter " + field + ": ")
+                                    elif field == "Age":
+                                        while True:
+                                            try:
+                                                value = int(value)
+                                                if value >= 17:
+                                                    break
+                                                else:
+                                                    raise ValueError
+                                            except ValueError:
+                                                print("Error: Please enter an integer greater than or equal to 17")
+                                                value = input("Enter " + field + ": ")
+                                    elif field == "Students id":
+                                        while True:
+                                            try:
+                                                value = int(value)
+                                                if not 8 <= len(str(value)) <= 9:
+                                                    raise ValueError("Error: Student ID length should be 9.")
+                                                break
+                                            except ValueError:
+                                                print("Error: Please enter a valid", field)
+                                                value = input("Enter " + field + ": ")
+                                    elif field == "Roll no":
+                                        while True:
+                                            try:
+                                                value = int(value)
+                                                # Roll no must be bigger or equal to
+                                                if value < 1:
+                                                    raise ValueError("Error : Roll no. is less than 1")
+                                                break
+                                            except ValueError as e:
+                                                print(e)
+                                                value = input("Enter " + field + ": ")
+                                    elif field == "Phone":
+                                        while len(value) != 11:
+                                            print("Error: Phone number should be 11 characters long.")
+                                            value = input("Enter " + field + ": ")
+                                    elif field == "Email":
+                                        while True:
+                                            try:
+                                                value = validate_email(value)
+                                                break
+                                            except ValueError as e:
+                                                print(e)
+                                                value = input("Enter " + field + ": ")
+                                    elif field == "Gender":
+                                        while value.lower() not in ["male", "female"]:
+                                            print("Error: Gender should be Male or Female")
+                                            value = input("Enter " + field + ": ").lower()
+                                        value = value.title()
+                                    elif field == "Name Surname":
+                                        while True:
+                                            try:
+                                                value = validate_name(value)
+                                                break
+                                            except ValueError as e:
+                                                print(e)
+                                                value = input("Enter " + field + ": ")
+                                    elif field == "Major":
+                                        while True:
+                                            try:
+                                                value = validate_major(value)
+                                                break
+                                            except ValueError as e:
+                                                print(e)
+                                                value = input("Enter " + field + ": ")
+                                    updated_data.append(value)
 
-                        # Checking if updated data is already in our database
-                        new_id = updated_data[4]
-                        new_email = updated_data[6]
-                        new_phone = updated_data[7]
-                        new_roll = updated_data[0]
-                        for row in rows:
-                            if row != rows[i]:  # Skip the row we are updating
-                                if str(new_id) == row[4]:
-                                    print("\nA student with the same student id already exists.")
-                                    return
-                                elif str(new_email) == row[6]:
-                                    print("\nA student with the same email already exists.")
-                                    return
-                                elif str(new_roll) == row[0]:
-                                    print("\nA student with the same roll no. already exists.")
-                                    return
-                                elif str(new_phone) == row[7]:
-                                    print("\nA student with the same phone number already exists.")
-                                    return
+                                # Checking if updated data is already in our database
+                                new_id = updated_data[4]
+                                new_email = updated_data[6]
+                                new_phone = updated_data[7]
+                                new_roll = updated_data[0]
+                                for row in rows:
+                                    if row != rows[i]:  # Skip the row we are updating
+                                        if str(new_id) == row[4]:
+                                            print("\nA student with the same student id already exists.")
+                                            return
+                                        elif str(new_email) == row[6]:
+                                            print("\nA student with the same email already exists.")
+                                            return
+                                        elif str(new_roll) == row[0]:
+                                            print("\nA student with the same roll no. already exists.")
+                                            return
+                                        elif str(new_phone) == row[7]:
+                                            print("\nA student with the same phone number already exists.")
+                                            return
 
-                        # Update the data
-                        rows[i] = updated_data
+                                # Update the data
+                                rows[i] = updated_data
 
-                        with open(database, 'w', newline='', encoding="utf-8") as file:
-                            writer = csv.writer(file)
-                            writer.writerows(rows)
-                        print("Student Record Updated Successfully")
+                                with open(database, 'w', newline='', encoding="utf-8") as file:
+                                    writer = csv.writer(file)
+                                    writer.writerows(rows)
+                                print("Student Record Updated Successfully")
 
-                        print("New data of student with id ", str(student_id), " is")
-                        for field in fields:
-                            print(field, end=" | ")
-                        print("\n")
-                        updated_data = [str(i) for i in updated_data]
-                        print(" | ".join(updated_data))
-                        break
+                                print("New data of student with id ", str(student_id), " is")
+                                for field in fields:
+                                    print(field, end=" | ")
+                                updated_data = [str(i) for i in updated_data]
+                                print(" | ".join(updated_data))
+                                break
 
-            if not found_student:
-                print("\nStudent not found in the database")
+                    if not found_student:
+                        print("\nStudent not found in the database")
+                else:
+                    break
+            input("Press any key to continue")
         else:
             print("Invalid Input! Enter 1 or 2")
-        input("Press any key to continue")
+
 
 
 #Creating a function for Delete Student Operation
@@ -778,47 +800,51 @@ def delete_student():
     global database
     print("--- Delete Student ---")
     while True:
-        value = input("Enter 1 to continue or 2 to exit: ")
+        value = input("Enter 1 to continue operation or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
-            id = input("Enter students id to delete: ")
+            while True:
+                id = input("Enter students id to delete (0 to exit): ")
+                if id != "0":
+                    #Will check if student found or not
+                    student_found = False
 
-            #Will check if student found or not
-            student_found = False
+                    #To append updated data
+                    updated_data = []
 
-            #To append updated data
-            updated_data = []
+                    #Opening csv file in reading mode
+                    with open("dataset.csv", "r", encoding="utf-8") as f:
+                        reader = csv.reader(f)
+                        counter = 0
 
-            #Opening csv file in reading mode
-            with open("dataset.csv", "r", encoding="utf-8") as f:
-                reader = csv.reader(f)
-                counter = 0
+                        #Checking if student in our database
+                        for row in reader:#Appending row if students roll no is not equal to users input
+                                if str(id) not in row:
+                                    updated_data.append(row)
+                                    counter += 1
+                                else:
+                                    student_found = True
 
-                #Checking if student in our database
-                for row in reader:#Appending row if students roll no is not equal to users input
-                        if str(id) not in row:
-                            updated_data.append(row)
-                            counter += 1
-                        else:
-                            student_found = True
+                    #Updating our csv file without deleted student
 
-            #Updating our csv file without deleted student
+                    if student_found is True:
+                        #Opening csv file in writing mode
+                        with open(database, "w", newline="",encoding="utf-8") as f:
+                            writer = csv.writer(f)
+                            writer.writerows(updated_data)
+                        print("Students id", id, "deleted successfully")
 
-            if student_found is True:
-                #Opening csv file in writing mode
-                with open(database, "w", newline="",encoding="utf-8") as f:
-                    writer = csv.writer(f)
-                    writer.writerows(updated_data)
-                print("Students id", id, "deleted successfully")
+                    #If student not in our database
+                    else:
+                        print("Students id not found in our database")
+                else:
+                    break
 
-            #If student not in our database
-            else:
-                print("Students id not found in our database")
-                continue
+            input("Press any key to continue")
         else:
             print("Invalid Input! Enter 1 or 2")
-        input("Press any key to continue")
+
 
 #Defining a function for Visualization Operation
 def visualization():
@@ -827,356 +853,598 @@ def visualization():
     global database
     print("--- Visualization ---")
     while True:
-        value = input("Enter 1 to continue or 2 to exit: ")
+        value = input("Enter 1 to continue operation or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
-            #Asking user to which visualization they want
-            print("Which visualization do you want to make?")
-            print("1. Gender - Major (Recommended) ")
-            print("2. Grade - Major (Recommended)")
-            print("3. Gender - Grade (Recommended)")
-            print("4. Age - Major (Recommended)")
-            print("5. Average Grades and Success Graph by Majors (Recommended)")
-            print("6. Average Grades and Success Graph by Gender (Recommended)")
-            print("7. Male and Female Percentage (Recommended)")
-            print("8. Major Percentage (Recommended)")
-            print("9. Gender - Age Distribution (Recommended)")
-            print("10. Gender and Major - Grade Distribution (Recommended)")
-            print("11. Gender and Major - Age Distribution (Recommended)")
-            print("12. I want to choose fields and chart type (Warning! Visualizations may be meaningless)")
-
-            choice = input("Enter your choice: ")
-
-            #Reading csv file with pandas
-            df = pd.read_csv(database)
-            #Adjust figsize
-            plt.figure(figsize=(24,18))
-            #Adjusts the gap between the graphs and prevents them from intertwining.
-            plt.tight_layout()
-            if choice == "1":
-                sns.countplot(x='Major', hue='Gender', data=df)
-                plt.title("Gender Distribution Across Majors")
-                plt.xlabel("Major")
-                plt.ylabel("Count")
-                #Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                plt.savefig("Gender_Major_Plot.png", dpi=300)
-                plt.show()
-            elif choice == "2":
-                sns.violinplot(x='Major', y='Grade', data=df)
-                plt.title("Grade Distribution Across Majors")
-                plt.xlabel("Major")
-                plt.ylabel("Grade")
-                # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                plt.savefig('Grade_Major_Plot.png',dpi=300)
-                plt.show()
-            elif choice == "3":
-                sns.violinplot(x='Gender', y='Grade', data=df, palette="coolwarm")
-                plt.title("Grade Distribution by Gender")
-                plt.xlabel("Gender")
-                plt.ylabel("Grade")
-                #Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                plt.savefig('Gender_Grade_Plot.png',dpi=300)
-                plt.show()
-            elif choice == "4":
-                sns.boxplot(x='Major', y='Age', data=df)
-                plt.title("Age Distribution Across Majors")
-                plt.xlabel("Major")
-                plt.ylabel("Age")
-                # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                plt.savefig('Age_Major_Plot.png')
-                plt.show()
-
-            elif choice == "5":
-                #Grouping by Major and we need Grades
-                major_averages = df.groupby(['Major'])['Grade'].mean().reset_index()
-
-                #Creating success graph
-                sns.violinplot(x="Major", y="Grade", data=df, palette="coolwarm")
-                plt.title("Average Grades and Success Graph by Majors")
-                plt.xlabel("Major")
-                plt.ylabel("Grade")
-
-                #Shows average grades on the graph
-                for index, row in major_averages.iterrows():
-                    plt.text(index, row['Grade'], f"{row['Grade']:.2f}", ha='center', va='bottom')
-                plt.savefig('average_grade_by_major.png')
-                plt.show()
-
-            elif choice == "6":
-                #Grouping by gender and we need Grades
-                gender_averages = df.groupby(["Gender"])['Grade'].mean().reset_index()
-
-                #Creating success graph
-                sns.violinplot(x="Gender", y="Grade", data=df, palette="coolwarm")
-                plt.title("Average Grades and Success Graph by Gender")
-                plt.xlabel("Gender")
-                plt.ylabel("Grade")
-
-                #Shows average grades on the graph
-                for index, row in gender_averages.iterrows():
-                    plt.text(index, row["Grade"], f"{row['Grade']:.2f}", ha='center', va='bottom')
-
-                plt.savefig('average_grade_by_gender.png')
-                plt.show()
-
-            elif choice == "7":
-                #Counting genders
-                gender_counts = df["Gender"].value_counts()
-
-                #Creating pie plot
-                plt.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
-
-                plt.title("Gender Distribution")
-                plt.savefig('gender_distribution.png')
-                plt.show()
-
-            elif choice == "8":
-                #Counting Majors
-                major_counts = df["Major"].value_counts()
-
-                #Creating pie plot
-                plt.pie(major_counts, labels = major_counts.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
-
-                plt.title("Major Distribution")
-                plt.savefig("major_distribution.png")
-                plt.show()
-            elif choice == "9":
-                #Creating plot
-                sns.violinplot(x="Gender",y = "Age", data=df)
-                plt.title("Gender - Age Distribution")
-                plt.savefig("gender_age_distribution.png")
-                plt.show()
-            elif choice == "10":
-                #Creating plot
-                sns.violinplot(x = "Major", y = "Age", data=df, hue="Gender", palette="pastel")
-                plt.title('Major - Age and Gender Distribution')
-                plt.savefig("major_age_gender_distribution.png")
-                plt.show()
-            elif choice == "11":
-                #Creating plot
-                sns.violinplot(x="Major", y = "Grade", hue="Gender", data=df, palette="pastel")
-                plt.title('Gender and Major - Grade Distribution')
-                plt.savefig("major_grade_gender_distribution.png")
-                plt.show()
-            elif choice == "12":
-                #Asking user to choose fields
-                print("Choose fields for visualization:")
-                #Taking index and value and starting it with 1
-                for index, field in enumerate(fields,start=1):
-                    print(f"{index}. {field}")
-
-                selected_fields = []
-                while True:
-                    try:
-                        choice = int(input("Enter 2 field number to visualize: "))
-                        if choice == 0:
-                            #There should be 2 fields
-                            if len(selected_fields) != 2:
-                                raise ValueError("You must select exactly two fields.")
-                            else:
-                                break
-                        #You can not select 0 or 1 field and more than in fields list
-                        elif choice < 1 or choice > len(fields):
-                            raise ValueError("Invalid field number")
+            while True:
+                #Asking user to which visualization they want
+                print("Which visualization do you want to make?")
+                print("1. Gender - Major (Recommended) ")
+                print("2. Grade - Major (Recommended)")
+                print("3. Gender - Grade (Recommended)")
+                print("4. Age - Major (Recommended)")
+                print("5. Average Grades and Success Graph by Majors (Recommended)")
+                print("6. Average Grades and Success Graph by Gender (Recommended)")
+                print("7. Male and Female Percentage (Recommended)")
+                print("8. Major Percentage (Recommended)")
+                print("9. Gender - Age Distribution (Recommended)")
+                print("10. Gender and Major - Grade Distribution (Recommended)")
+                print("11. Gender and Major - Age Distribution (Recommended)")
+                print("12. I want to choose fields and chart type (Warning! Visualizations may be meaningless)")
 
 
-                        selected_field = fields[choice-1]
-                        selected_fields.append(selected_field)
-
-                        if len(selected_fields) == 2:
-                            #Fields must be different
-                            if selected_fields[0] == selected_fields[1]:
-                                raise ValueError("You must select two different fields")
-                            else:
-                                break
-
-
-                    except ValueError as e:
-                        print(f"Error: {e}")
-
-                #Asking user select a chart type
-                print("Choose chart type:")
-                print("1. Count Plot")
-                print("2. Bar Plot")
-                print("3. Box Plot")
-                print("4. Violin Plot")
-                print("5. Scatter Plot")
-                print("6. Histogram")
-                print("7. Distribution Plot")
-                print("8. Line Plot")
-                chart_type = input("Enter chart type number: ")
-                #Adjusting the figure size
-                plt.figure(figsize=(12, 8))
-
-
-                if chart_type == "1":
-                    if len(selected_fields) == 2:
-                        #Creating a countplot selected fields
-                        plt.subplot(2,1,1)
-                        sns.countplot(x=selected_fields[0], hue=selected_fields[1], data=df)
-                        plt.title(f"Count Plot of {selected_fields[0]} by {selected_fields[1]}")
-                        plt.xlabel(selected_fields[0])
+                choice = input("Enter your choice (0 to exit): ")
+                if not choice == "0":
+                    #Reading csv file with pandas
+                    df = pd.read_csv(database)
+                    #Adjust figsize
+                    plt.figure(figsize=(24,18))
+                    #Adjusts the gap between the graphs and prevents them from intertwining.
+                    plt.tight_layout()
+                    if choice == "1":
+                        sns.countplot(x='Major', hue='Gender', data=df)
+                        plt.title("Gender Distribution Across Majors")
+                        plt.xlabel("Major")
                         plt.ylabel("Count")
-
-                        #Creating a countplot selected fields
-                        plt.subplot(2,1,2)
-                        sns.countplot(x=selected_fields[1], hue=selected_fields[0], data=df)
-                        plt.title(f"Count Plot of {selected_fields[1]} by {selected_fields[0]}")
-                        plt.xlabel(selected_fields[1])
-                        plt.ylabel("Count")
-
+                        #Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                        plt.savefig("Gender_Major_Plot.png", dpi=300)
+                        plt.show()
+                    elif choice == "2":
+                        sns.violinplot(x='Major', y='Grade', data=df)
+                        plt.title("Grade Distribution Across Majors")
+                        plt.xlabel("Major")
+                        plt.ylabel("Grade")
                         # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                        plt.savefig(f'{field[0]}_{field[1]}_cplot.png')
-                        plt.tight_layout()
-                elif chart_type == "2":
-                    if len(selected_fields) == 2:
-                        #Creating a barplot selected fields 0 to 1
-                        plt.subplot(2,1,1)
-                        sns.barplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                        plt.title(f"Bar Plot of {selected_fields[1]} by {selected_fields[0]}")
-                        plt.xlabel(selected_fields[0])
-                        plt.ylabel(selected_fields[1])
-
-                        #Creating a barplot selected fields 1 to 0
-                        plt.subplot(2,1,2)
-                        sns.barplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                        plt.title(f"Bar Plot of {selected_fields[0]} by {selected_fields[1]}")
-                        plt.xlabel(selected_fields[1])
-                        plt.ylabel(selected_fields[0])
-
+                        plt.savefig('Grade_Major_Plot.png',dpi=300)
+                        plt.show()
+                    elif choice == "3":
+                        sns.violinplot(x='Gender', y='Grade', data=df, palette="coolwarm")
+                        plt.title("Grade Distribution by Gender")
+                        plt.xlabel("Gender")
+                        plt.ylabel("Grade")
+                        #Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                        plt.savefig('Gender_Grade_Plot.png',dpi=300)
+                        plt.show()
+                    elif choice == "4":
+                        sns.boxplot(x='Major', y='Age', data=df)
+                        plt.title("Age Distribution Across Majors")
+                        plt.xlabel("Major")
+                        plt.ylabel("Age")
                         # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                        plt.savefig(f'{field[0]}_{field[1]}_barplot.png')
-                        plt.tight_layout()
-                elif chart_type == "3":
-                    if len(selected_fields) == 2:
-                        #Creating a boxplot selected fields 0 to 1
-                        plt.subplot(2,1,1)
-                        sns.boxplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                        plt.title(f"Box Plot of {selected_fields[1]} by {selected_fields[0]}")
-                        plt.xlabel(selected_fields[0])
-                        plt.ylabel(selected_fields[1])
+                        plt.savefig('Age_Major_Plot.png')
+                        plt.show()
 
-                        #Creating a boxplot selected fields 1 to 0
-                        plt.subplot(2,1,2)
-                        sns.boxplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                        plt.title(f"Box Plot of {selected_fields[0]} by {selected_fields[1]}")
-                        plt.xlabel(selected_fields[1])
-                        plt.ylabel(selected_fields[0])
+                    elif choice == "5":
+                        #Grouping by Major and we need Grades
+                        major_averages = df.groupby(['Major'])['Grade'].mean().reset_index()
 
-                        # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                        plt.savefig(f'{field[0]}_{field[1]}_boxplot.png')
-                        plt.tight_layout()
+                        #Creating success graph
+                        sns.violinplot(x="Major", y="Grade", data=df, palette="coolwarm")
+                        plt.title("Average Grades and Success Graph by Majors")
+                        plt.xlabel("Major")
+                        plt.ylabel("Grade")
 
-                elif chart_type == "4":
-                    if len(selected_fields) == 2:
-                        #Creating a violinplot with selected fields 0 to 1
-                        plt.subplot(2,1,1)
-                        sns.violinplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                        plt.title(f"Violin Plot of {selected_fields[1]} by {selected_fields[0]}")
-                        plt.xlabel(selected_fields[0])
-                        plt.ylabel(selected_fields[1])
+                        #Shows average grades on the graph
+                        for index, row in major_averages.iterrows():
+                            plt.text(index, row['Grade'], f"{row['Grade']:.2f}", ha='center', va='bottom')
+                        plt.savefig('average_grade_by_major.png')
+                        plt.show()
 
-                        #Creating a violinplot with selected fields 1 to 0
-                        plt.subplot(2,1,2)
-                        sns.violinplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                        plt.title(f"Violin Plot of {selected_fields[0]} by {selected_fields[1]}")
-                        plt.xlabel(selected_fields[1])
-                        plt.ylabel(selected_fields[0])
+                    elif choice == "6":
+                        #Grouping by gender and we need Grades
+                        gender_averages = df.groupby(["Gender"])['Grade'].mean().reset_index()
 
-                        # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                        plt.savefig(f'{field[0]}_{field[1]}_violinplot.png')
-                        plt.tight_layout()
-                elif chart_type == "5":
-                    if len(selected_fields) == 2:
-                        #Creating a scatterplot with selected fields 0 to 1
-                        plt.subplot(2, 1, 1)
-                        sns.scatterplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                        plt.title(f"Scatter Plot of {selected_fields[1]} by {selected_fields[0]}")
-                        plt.xlabel(selected_fields[0])
-                        plt.ylabel(selected_fields[1])
+                        #Creating success graph
+                        sns.violinplot(x="Gender", y="Grade", data=df, palette="coolwarm")
+                        plt.title("Average Grades and Success Graph by Gender")
+                        plt.xlabel("Gender")
+                        plt.ylabel("Grade")
 
-                        #Creating a scatterplot with selected fields 1 to 0
-                        plt.subplot(2, 1, 2)
-                        sns.scatterplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                        plt.title(f"Scatter Plot of {selected_fields[0]} by {selected_fields[1]}")
-                        plt.xlabel(selected_fields[1])
-                        plt.ylabel(selected_fields[0])
+                        #Shows average grades on the graph
+                        for index, row in gender_averages.iterrows():
+                            plt.text(index, row["Grade"], f"{row['Grade']:.2f}", ha='center', va='bottom')
 
-                        # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                        plt.savefig(f'{field[0]}_{field[1]}_scatterplot.png')
-                        plt.tight_layout()
+                        plt.savefig('average_grade_by_gender.png')
+                        plt.show()
 
-                elif chart_type == "6":
-                    if len(selected_fields) == 2:
-                        #For first field
-                        #Creating a histplot
-                        plt.subplot(2, 1, 1)
-                        plt.hist(df[selected_fields[0]], bins=20)
-                        plt.title(f"Histogram of {selected_fields[0]}")
-                        plt.xlabel(selected_fields[0])
-                        plt.ylabel("Frequency")
+                    elif choice == "7":
+                        #Counting genders
+                        gender_counts = df["Gender"].value_counts()
 
-                        #For second field
-                        #Creating a histplot
-                        plt.subplot(2, 1, 2)
-                        plt.hist(df[selected_fields[1]], bins=20)
-                        plt.title(f"Histogram of {selected_fields[1]}")
-                        plt.xlabel(selected_fields[1])
-                        plt.ylabel("Frequency")
+                        #Creating pie plot
+                        plt.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
 
-                        plt.tight_layout()
-                        # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                        plt.savefig(f'{field[0]}_{field[1]}_histplot.png')
-                elif chart_type == "7":
-                    if len(selected_fields) == 2:
-                        #For first field
-                        #Creating a dist plot
-                        plt.subplot(2, 1, 1)
-                        sns.histplot(df[selected_fields[0]], kde=True)
-                        plt.title(f"Distribution Plot of {selected_fields[0]}")
-                        plt.xlabel(selected_fields[0])
-                        plt.ylabel("Density")
+                        plt.title("Gender Distribution")
+                        plt.savefig('gender_distribution.png')
+                        plt.show()
 
-                        plt.subplot(2, 1, 2)
-                        sns.histplot(df[selected_fields[1]], kde=True)
-                        plt.title(f"Distribution Plot of {selected_fields[1]}")
-                        plt.xlabel(selected_fields[1])
-                        plt.ylabel("Density")
+                    elif choice == "8":
+                        #Counting Majors
+                        major_counts = df["Major"].value_counts()
 
-                        # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                        plt.savefig(f'{field[0]}_{field[1]}_distplot.png')
-                        plt.tight_layout()
-                elif chart_type == "8":
-                    if len(selected_fields) == 2:
-                        #Creating a line plot with selected fields 0 to 1
-                        plt.subplot(2, 1, 1)
-                        sns.lineplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                        plt.title(f"Line Plot of {selected_fields[1]} by {selected_fields[0]}")
-                        plt.xlabel(selected_fields[0])
-                        plt.ylabel(selected_fields[1])
+                        #Creating pie plot
+                        plt.pie(major_counts, labels = major_counts.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
 
-                        #Creating a line plot with selected fields 1 to 0
-                        plt.subplot(2, 1, 2)
-                        sns.lineplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                        plt.title(f"Line Plot of {selected_fields[0]} by {selected_fields[1]}")
-                        plt.xlabel(selected_fields[1])
-                        plt.ylabel(selected_fields[0])
+                        plt.title("Major Distribution")
+                        plt.savefig("major_distribution.png")
+                        plt.show()
+                    elif choice == "9":
+                        #Creating plot
+                        sns.violinplot(x="Gender",y = "Age", data=df)
+                        plt.title("Gender - Age Distribution")
+                        plt.savefig("gender_age_distribution.png")
+                        plt.show()
+                    elif choice == "10":
+                        #Creating plot
+                        sns.violinplot(x = "Major", y = "Age", data=df, hue="Gender", palette="pastel")
+                        plt.title('Major - Age and Gender Distribution')
+                        plt.savefig("major_age_gender_distribution.png")
+                        plt.show()
+                    elif choice == "11":
+                        #Creating plot
+                        sns.violinplot(x="Major", y = "Grade", hue="Gender", data=df, palette="pastel")
+                        plt.title('Gender and Major - Grade Distribution')
+                        plt.savefig("major_grade_gender_distribution.png")
+                        plt.show()
+                    elif choice == "12":
+                        #Asking user to choose fields
+                        print("Choose fields for visualization:")
+                        #Taking index and value and starting it with 1
+                        for index, field in enumerate(fields,start=1):
+                            print(f"{index}. {field}")
 
-                        # Saves plot to your desktop or the file your .py file is in , dpi effects quality
-                        plt.savefig(f'{field[0]}_{field[1]}_lineplot.png')
-                        plt.tight_layout()
+                        selected_fields = []
+                        while True:
+                            try:
+                                choice = int(input("Enter 2 field number to visualize: "))
+                                if choice == 0:
+                                    #There should be 2 fields
+                                    if len(selected_fields) != 2:
+                                        raise ValueError("You must select exactly two fields.")
+                                    else:
+                                        break
+                                #You can not select 0 or 1 field and more than in fields list
+                                elif choice < 1 or choice > len(fields):
+                                    raise ValueError("Invalid field number")
+
+                                selected_field = fields[choice-1]
+                                selected_fields.append(selected_field)
+                                if len(selected_fields) == 2:
+                                    break
+                            except ValueError as e:
+                                print(f"Error: {e}")
+
+                        while True:
+                            #Asking user select a chart type
+                            print("Choose chart type:")
+                            print("1. Count Plot")
+                            print("2. Bar Plot")
+                            print("3. Box Plot")
+                            print("4. Violin Plot")
+                            print("5. Scatter Plot")
+                            print("6. Histogram")
+                            print("7. Distribution Plot")
+                            print("8. Line Plot")
+                            chart_type = input("Enter chart type number: ")
+                            #Adjusting the figure size
+                            plt.figure(figsize=(12, 8))
+
+
+                            if chart_type == "1":
+                                if len(selected_fields) == 2:
+                                    #Creating a countplot selected fields
+                                    plt.subplot(2,1,1)
+                                    sns.countplot(x=selected_fields[0], hue=selected_fields[1], data=df)
+                                    plt.title(f"Count Plot of {selected_fields[0]} by {selected_fields[1]}")
+                                    plt.xlabel(selected_fields[0])
+                                    plt.ylabel("Count")
+
+                                    #Creating a countplot selected fields
+                                    plt.subplot(2,1,2)
+                                    sns.countplot(x=selected_fields[1], hue=selected_fields[0], data=df)
+                                    plt.title(f"Count Plot of {selected_fields[1]} by {selected_fields[0]}")
+                                    plt.xlabel(selected_fields[1])
+                                    plt.ylabel("Count")
+
+                                    # Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                                    plt.savefig(f'{field[0]}_{field[1]}_cplot.png')
+                                    plt.tight_layout()
+                                    # Show the plot
+                                    plt.show()
+                                    break
+                            elif chart_type == "2":
+                                if len(selected_fields) == 2:
+                                    #Creating a barplot selected fields 0 to 1
+                                    plt.subplot(2,1,1)
+                                    sns.barplot(x=selected_fields[0], y=selected_fields[1], data=df)
+                                    plt.title(f"Bar Plot of {selected_fields[1]} by {selected_fields[0]}")
+                                    plt.xlabel(selected_fields[0])
+                                    plt.ylabel(selected_fields[1])
+
+                                    #Creating a barplot selected fields 1 to 0
+                                    plt.subplot(2,1,2)
+                                    sns.barplot(x=selected_fields[1], y=selected_fields[0], data=df)
+                                    plt.title(f"Bar Plot of {selected_fields[0]} by {selected_fields[1]}")
+                                    plt.xlabel(selected_fields[1])
+                                    plt.ylabel(selected_fields[0])
+
+                                    # Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                                    plt.savefig(f'{field[0]}_{field[1]}_barplot.png')
+                                    plt.tight_layout()
+                                    # Show the plot
+                                    plt.show()
+                                    break
+                            elif chart_type == "3":
+                                if len(selected_fields) == 2:
+                                    #Creating a boxplot selected fields 0 to 1
+                                    plt.subplot(2,1,1)
+                                    sns.boxplot(x=selected_fields[0], y=selected_fields[1], data=df)
+                                    plt.title(f"Box Plot of {selected_fields[1]} by {selected_fields[0]}")
+                                    plt.xlabel(selected_fields[0])
+                                    plt.ylabel(selected_fields[1])
+
+                                    #Creating a boxplot selected fields 1 to 0
+                                    plt.subplot(2,1,2)
+                                    sns.boxplot(x=selected_fields[1], y=selected_fields[0], data=df)
+                                    plt.title(f"Box Plot of {selected_fields[0]} by {selected_fields[1]}")
+                                    plt.xlabel(selected_fields[1])
+                                    plt.ylabel(selected_fields[0])
+
+                                    # Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                                    plt.savefig(f'{field[0]}_{field[1]}_boxplot.png')
+                                    plt.tight_layout()
+                                    # Show the plot
+                                    plt.show()
+                                    break
+                            elif chart_type == "4":
+                                if len(selected_fields) == 2:
+                                    #Creating a violinplot with selected fields 0 to 1
+                                    plt.subplot(2,1,1)
+                                    sns.violinplot(x=selected_fields[0], y=selected_fields[1], data=df)
+                                    plt.title(f"Violin Plot of {selected_fields[1]} by {selected_fields[0]}")
+                                    plt.xlabel(selected_fields[0])
+                                    plt.ylabel(selected_fields[1])
+
+                                    #Creating a violinplot with selected fields 1 to 0
+                                    plt.subplot(2,1,2)
+                                    sns.violinplot(x=selected_fields[1], y=selected_fields[0], data=df)
+                                    plt.title(f"Violin Plot of {selected_fields[0]} by {selected_fields[1]}")
+                                    plt.xlabel(selected_fields[1])
+                                    plt.ylabel(selected_fields[0])
+
+                                    # Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                                    plt.savefig(f'{field[0]}_{field[1]}_violinplot.png')
+                                    plt.tight_layout()
+                                    # Show the plot
+                                    plt.show()
+                                    break
+                            elif chart_type == "5":
+                                if len(selected_fields) == 2:
+                                    #Creating a scatterplot with selected fields 0 to 1
+                                    plt.subplot(2, 1, 1)
+                                    sns.scatterplot(x=selected_fields[0], y=selected_fields[1], data=df)
+                                    plt.title(f"Scatter Plot of {selected_fields[1]} by {selected_fields[0]}")
+                                    plt.xlabel(selected_fields[0])
+                                    plt.ylabel(selected_fields[1])
+
+                                    #Creating a scatterplot with selected fields 1 to 0
+                                    plt.subplot(2, 1, 2)
+                                    sns.scatterplot(x=selected_fields[1], y=selected_fields[0], data=df)
+                                    plt.title(f"Scatter Plot of {selected_fields[0]} by {selected_fields[1]}")
+                                    plt.xlabel(selected_fields[1])
+                                    plt.ylabel(selected_fields[0])
+
+                                    # Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                                    plt.savefig(f'{field[0]}_{field[1]}_scatterplot.png')
+                                    plt.tight_layout()
+                                    # Show the plot
+                                    plt.show()
+                                    break
+                            elif chart_type == "6":
+                                if len(selected_fields) == 2:
+                                    #For first field
+                                    #Creating a histplot
+                                    plt.subplot(2, 1, 1)
+                                    plt.hist(df[selected_fields[0]], bins=20)
+                                    plt.title(f"Histogram of {selected_fields[0]}")
+                                    plt.xlabel(selected_fields[0])
+                                    plt.ylabel("Frequency")
+
+                                    #For second field
+                                    #Creating a histplot
+                                    plt.subplot(2, 1, 2)
+                                    plt.hist(df[selected_fields[1]], bins=20)
+                                    plt.title(f"Histogram of {selected_fields[1]}")
+                                    plt.xlabel(selected_fields[1])
+                                    plt.ylabel("Frequency")
+
+                                    plt.tight_layout()
+                                    # Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                                    plt.savefig(f'{field[0]}_{field[1]}_histplot.png')
+                                    # Show the plot
+                                    plt.show()
+                                    break
+                            elif chart_type == "7":
+                                if len(selected_fields) == 2:
+                                    #For first field
+                                    #Creating a dist plot
+                                    plt.subplot(2, 1, 1)
+                                    sns.histplot(df[selected_fields[0]], kde=True)
+                                    plt.title(f"Distribution Plot of {selected_fields[0]}")
+                                    plt.xlabel(selected_fields[0])
+                                    plt.ylabel("Density")
+
+                                    plt.subplot(2, 1, 2)
+                                    sns.histplot(df[selected_fields[1]], kde=True)
+                                    plt.title(f"Distribution Plot of {selected_fields[1]}")
+                                    plt.xlabel(selected_fields[1])
+                                    plt.ylabel("Density")
+
+                                    # Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                                    plt.savefig(f'{field[0]}_{field[1]}_distplot.png')
+                                    plt.tight_layout()
+                                    # Show the plot
+                                    plt.show()
+                                    break
+                            elif chart_type == "8":
+                                if len(selected_fields) == 2:
+                                    #Creating a line plot with selected fields 0 to 1
+                                    plt.subplot(2, 1, 1)
+                                    sns.lineplot(x=selected_fields[0], y=selected_fields[1], data=df)
+                                    plt.title(f"Line Plot of {selected_fields[1]} by {selected_fields[0]}")
+                                    plt.xlabel(selected_fields[0])
+                                    plt.ylabel(selected_fields[1])
+
+                                    #Creating a line plot with selected fields 1 to 0
+                                    plt.subplot(2, 1, 2)
+                                    sns.lineplot(x=selected_fields[1], y=selected_fields[0], data=df)
+                                    plt.title(f"Line Plot of {selected_fields[0]} by {selected_fields[1]}")
+                                    plt.xlabel(selected_fields[1])
+                                    plt.ylabel(selected_fields[0])
+
+                                    # Saves plot to your desktop or the file your .py file is in , dpi effects quality
+                                    plt.savefig(f'{field[0]}_{field[1]}_lineplot.png')
+                                    plt.tight_layout()
+                                    # Show the plot
+                                    plt.show()
+                                    break
+                            else:
+                                print("Error: Invalid chart type.")
+                    else:
+                        print("Error: Invalid Input! Please enter a number between 1-12")
                 else:
-                    print("Error: Invalid chart type.")
-                #Show the plot
-                plt.show()
-            else:
-                print("Error: Invalid Input! Please enter a number between 1-4")
-                continue
+                    break
+            input("Press any key to continue")
         else:
             print("Invalid Input! Enter 1 or 2")
-        input("Press anys key to continue")
 
+
+
+#Defining a function to see student statistics.
+def student_statistics():
+    #Fields and database ara global we can access them
+    global fields
+    global database
+    #Reading database with pandas
+    data = pd.read_csv(database)
+    print("--- Student Statistics ---")
+    while True:
+        value = input("Enter 1 to continue operation or 2 to exit: ")
+        if value == "2":
+            break
+        elif value == "1":
+            while True:
+                #Asking user to select a statistic
+                print("Which statistics do you want to see?")
+                print("1. Number of Students")
+                print("2. Number of Male-Female Students")
+                print("3. Number of Students in a Specific Major")
+                print("4. Number of Male-Female Students in a Specific Major")
+                print("5. Average Grade of Students")
+                print("6. Average Grade of Students by their Gender")
+                print("7. Average Grade of Students in a Specific Major")
+                print("8. Average Grade of Male-Female Students in a Specific Major")
+                print("9. Average Age of Students")
+                print("10. Average Age of Male-Female Students")
+                print("11. Average Age of Students in Specific Major")
+                print("12. Average Age of Male-Female Students in Specific Major")
+
+                choice = input("Enter your choice (0 to exit): ")
+                if not choice == "0":
+
+                    #Num of studetns
+                    if choice == "1":
+                        num_students = len(data)
+                        print("Number of Students: ",num_students)
+                        break
+                    #Num of male-female students
+                    elif choice == "2":
+                        male_students = len(data[data["Gender"] == "Male"])
+                        female_students = len(data[data["Gender"] == "Female"])
+                        print("Number of Male Students: ",male_students)
+                        print("Number of Female Students: ",female_students)
+                        break
+                    #Num of students in specific major
+                    elif choice == "3":
+                        print("Which major students do you want to see?")
+
+                        # Gets unique major values from the dataset
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        majors = set([line.split(',')[-1].strip() for line in lines[1:]])
+
+                        # Printing major options
+                        for idx, major in enumerate(majors, start=1):
+                            print(f"{idx}. {major}")
+                        # Asking which major they want to see
+                        major_choice = input("Enter the number of the major you want to see: ")
+
+                        # User selects a number
+                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                            selected_major = list(majors)[int(major_choice) - 1]
+                        #Number of students in selected major
+                        major_students = len(data[data["Major"] == selected_major])
+
+                        print(f"Number of students in {selected_major}: ",major_students)
+                        break
+                    #Num of female-male students in specific major
+                    elif choice == "4":
+                        print("Which major students do you want to see? (Male Female Students)")
+                        # Gets unique major values from the dataset
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        majors = set([line.split(',')[-1].strip() for line in lines[1:]])
+
+                        # Printing major options
+                        for idx, major in enumerate(majors, start=1):
+                            print(f"{idx}. {major}")
+                        # Asking which major they want to see
+                        major_choice = input("Enter the number of the major you want to see: ")
+
+                        # User selects a number
+                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                            selected_major = list(majors)[int(major_choice) - 1]
+
+
+                        number_male = len(data[(data["Gender"] == "Male") & (data["Major"] == selected_major)])
+                        number_female = len(data[(data["Gender"] == "Female") & (data["Major"] == selected_major)])
+
+                        print(f"Number of Male Students in {selected_major}: ", number_male)
+                        print(f"Number of Female Students in {selected_major}: ", number_female)
+                        break
+                    #Average Grade
+                    elif choice == "5":
+                        av_grade = data["Grade"].mean()
+                        print("Average Grade of Students: ", f"{av_grade:.2f}")
+                        break
+                    #Average grade of male-female students
+                    elif choice == "6":
+                        av_grade_male = data[data["Gender"] == "Male"]["Grade"].mean()
+                        av_grade_female = data[data["Gender"] == "Female"]["Grade"].mean()
+                        print("Average Grade of Male Students: ", f"{av_grade_male:.2f}")
+                        print("Average Grade of Female Students: ",f"{av_grade_female:.2f}")
+                        break
+                    #Average Grade in specific major
+                    elif choice == "7":
+                        print("Which major students do you want to see?")
+
+                        # Gets unique major values from the dataset
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        majors = set([line.split(',')[-1].strip() for line in lines[1:]])
+
+                        # Printing major options
+                        for idx, major in enumerate(majors, start=1):
+                            print(f"{idx}. {major}")
+                        # Asking which major they want to see
+                        major_choice = input("Enter the number of the major you want to see: ")
+
+                        # User selects a number
+                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                            selected_major = list(majors)[int(major_choice) - 1]
+
+                        major_average = data[data["Major"] == selected_major]["Grade"].mean()
+                        print(f"Average Grade of Students: {major_average:.2f}")
+                        break
+                    #Average Grade of Male-Female Students in Specific Major
+                    elif choice == "8":
+                        print("Which major students do you want to see?")
+
+                        # Gets unique major values from the dataset
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        majors = set([line.split(',')[-1].strip() for line in lines[1:]])
+
+                        # Printing major options
+                        for idx, major in enumerate(majors, start=1):
+                            print(f"{idx}. {major}")
+                        # Asking which major they want to see
+                        major_choice = input("Enter the number of the major you want to see: ")
+
+                        # User selects a number
+                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                            selected_major = list(majors)[int(major_choice) - 1]
+
+                        avg_male = data[(data["Major"] == selected_major) & (data["Gender"] == "Male")]["Grade"].mean()
+                        avg_female = data[(data["Major"] == selected_major) & (data["Gender"] == "Female")]["Grade"].mean()
+                        #If avg_female == nan
+                        if not avg_female >= 0:
+                            avg_female = "No Female Student"
+                            print(f"Average Grade of Male Students in {selected_major}: {avg_male:.2f} ")
+                            print(f"Average Grade of Female Students in {selected_major}: {avg_female}")
+                        elif not avg_male >= 0:
+                            avg_male = "No Male Student"
+                            print(f"Average Grade of Male Students in {selected_major}: {avg_male} ")
+                            print(f"Average Grade of Female Students in {selected_major}: {avg_female:.2f}")
+                        else:
+                            print(f"Average Grade of Male Students in {selected_major}: {avg_male:.2f} ")
+                            print(f"Average Grade of Female Students in {selected_major}: {avg_female:.2f}")
+                        break
+                    #Average age
+                    elif choice == "9":
+                        avg_age = data["Age"].mean()
+                        print("Average Age of Students: ", f"{avg_age:.2f}")
+                        break
+                    #Average age of female-male students
+                    elif choice == "10":
+                        avg_age_male = data[data["Gender"] == "Male"]["Age"].mean()
+                        avg_age_female = data[data["Gender"] == "Female"]["Age"].mean()
+                        print("Average Age of Male Students: ", f"{avg_age_male:.2f}")
+                        print("Average Age of Female Students: ", f"{avg_age_female:.2f}")
+                        break
+                    #Average age in specific major
+                    elif choice == "11":
+                        print("Which major students do you want to see?")
+
+                        # Gets unique major values from the dataset
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        majors = set([line.split(',')[-1].strip() for line in lines[1:]])
+
+                        # Printing major options
+                        for idx, major in enumerate(majors, start=1):
+                            print(f"{idx}. {major}")
+                        # Asking which major they want to see
+                        major_choice = input("Enter the number of the major you want to see: ")
+
+                        # User selects a number
+                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                            selected_major = list(majors)[int(major_choice) - 1]
+
+                        avg_age_major = data[data["Major"] == selected_major]["Age"].mean()
+                        print("Average Age of Students in Specific Major:", f"{avg_age_major:.2f}")
+                        break
+                    #Average age of male-female students in specific major
+                    elif choice == "12":
+                        print("Which major students do you want to see?")
+
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        majors = set([line.split(',')[-1].strip() for line in lines[1:]])
+
+                        # Printing major options
+                        for idx, major in enumerate(majors, start=1):
+                            print(f"{idx}. {major}")
+                        # Asking which major they want to see
+                        major_choice = input("Enter the number of the major you want to see: ")
+                        # User selects a number
+                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                            selected_major = list(majors)[int(major_choice) - 1]
+
+                        avg_m_major = data[(data["Major"] == selected_major) & (data["Gender"] == "Male")]["Age"].mean()
+                        avg_f_major = data[(data["Major"] == selected_major) & (data["Gender"] == "Female")]["Age"].mean()
+
+                        print(f"Average Age of Male students in {selected_major}: {avg_m_major:.2f} ")
+                        print(f"Average Age of Female students in {selected_major}: {avg_f_major:.2f}")
+                        break
+                    else:
+                        print("Invlaid Input! Choose a number between 1 and 12")
+                else:
+                    break
+            input("Press any key to continue")
+        else:
+            print("Invalid Input! Choose 1 or 2")
 #Offers choices to user while
 while True:
     console_menu()
@@ -1195,6 +1463,8 @@ while True:
     elif choice == "6":
         visualization()
     elif choice == "7":
+        student_statistics()
+    elif choice == "8":
         break
     else:
         print("--- Invalid input ---")
