@@ -97,8 +97,9 @@ def add_student():
     print("-------------------------")
     print("Add Student Information")
     print("-------------------------")
+    operation = "Add Student operation"
     while True:
-        value = input("Enter 1 to continue operation or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
@@ -240,8 +241,9 @@ def view_students():
     global database
 
     print("--- Student Records ---")
+    operation = "View Students operation"
     while True:
-        value = input("Enter 1 to continue operation or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
@@ -624,11 +626,12 @@ def search_student():
     global fields
     global database
 
+    operation = "Search Student operation"
     #Offering options to user
     print("\n")
     print("--- Search Student ---")
     while True:
-        value = input("Enter 1 to continue operation or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
@@ -759,8 +762,9 @@ def update_student():
     global fields
     global database
 
+    operation = "Update Student operation"
     while True:
-        value = input("Enter 1 to continue operation or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
@@ -908,9 +912,11 @@ def delete_student():
     #Fields and database ara global we can access them
     global fields
     global database
+
+    operation = "Delete Student operation"
     print("--- Delete Student ---")
     while True:
-        value = input("Enter 1 to continue operation or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
@@ -960,9 +966,10 @@ def visualization():
     #Fields and database ara global we can access them
     global fields
     global database
+    operation = "Visualization operation"
     print("--- Visualization ---")
     while True:
-        value = input("Enter 1 to continue operation or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
@@ -1334,11 +1341,13 @@ def student_statistics():
     #Fields and database ara global we can access them
     global fields
     global database
+
+    operation = "Student Statistics"
     #Reading database with pandas
     data = pd.read_csv(database)
     print("--- Student Statistics ---")
     while True:
-        value = input("Enter 1 to continue operation or 2 to exit: ")
+        value = input(f"Enter 1 to see {operation} or 2 to exit: ")
         if value == "2":
             break
         elif value == "1":
