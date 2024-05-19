@@ -231,7 +231,6 @@ def add_student():
             print_student_data(student_data)
 
             print("Data saved successfully")
-            input("Press any key to continue")
         else:
             print("Invalid input. Please enter 1 to continue or 2 to exit.")
 #Defining a function for View Students Operation
@@ -255,6 +254,8 @@ def view_students():
                 print("4. By their Major")
                 print("5. By their Grades")
                 print("6. By Alphabetic Order")
+                print("7. By their Gender in a specific Major")
+                print("8. By their Grades in a specific Major")
 
                 choice = input("Enter your choice (0 to exit): ")
                 if not choice == "0":
@@ -268,6 +269,7 @@ def view_students():
                                 for item in row:
                                     print(item, end=" | ")
                                 print("\n")
+                            break
                     #For choice 2
                     elif choice == "2":
                         #Opens file and read each line
@@ -291,6 +293,7 @@ def view_students():
                         for line in output_lines:
                             print(line)
                         print("\n")
+                        break
                     #For choice 3
                     elif choice == "3":
                         print("Which gender students do you want to see?")
@@ -324,6 +327,7 @@ def view_students():
                                                 for item in row:
                                                     print(item, end=" | ")
                                                 print("\n")
+                                        break
                                 else:
                                     print("Invalid Input! Enter 1 or 2.")
                             else:
@@ -371,6 +375,7 @@ def view_students():
                                     for line in output_lines:
                                         print(line)
                                     print("\n")
+                                    break
                                 else:
                                     print("Invalid Input! Please enter a valid number.")
                             else:
@@ -406,6 +411,7 @@ def view_students():
                                     for line in output_lines:
                                         print(line)
                                     print("\n")
+                                    break
                                 elif sort_choice == "2":
                                     #Opening CSV file in reading mode
                                     with open(database, 'r', encoding="utf-8") as file:
@@ -428,6 +434,7 @@ def view_students():
                                     for line in output_lines:
                                         print(line)
                                     print("\n")
+                                    break
                                 #If choice is not equal to 1 or 2
                                 else:
                                     print("Invalid Input! Enter 1 or 2.")
@@ -494,15 +501,120 @@ def view_students():
                                     for line in output_lines:
                                         print(line)
                                     print("\n")
+                                    break
                                 else:
                                     print("Invalid Input! Enter 1 or 2")
                             else:
                                 break
+                    #By their Gender in a Specific Major
+                    elif choice == "7":
+                        print("Which major students do you want to see?")
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        #Selecting Majors and printing them
+                        majors = set([line.split(",")[-1].strip() for line in lines[1:]])
+
+                        for idx, major in enumerate(majors, start=1):
+                            print(f"{idx}. {major}")
+
+                        major_choice = input("Enter the number of the major you want to see (0 to exit): ")
+                        if major_choice == "0":
+                            continue
+                        elif major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                            selected_major = list(majors)[int(major_choice) - 1]
+                        else:
+                            print("Invalid Input! Enter a valid number.")
+                            continue
+                        #Asking user for input
+                        print("Which Gender Students Do You Want to See?")
+                        print("1. Male")
+                        print("2. Female")
+                        gen_choice = input("Enter your choice (0 to exit): ")
+                        #Choosing the gender
+                        if gen_choice == "0":
+                            continue
+                        elif gen_choice == "1":
+                            selected_gender = "Male"
+                        elif gen_choice == "2":
+                            selected_gender = "Female"
+                        else:
+                            print("Invalid Input! Enter 1 or 2.")
+                            continue
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+
+                        #Appending Header
+                        header = ' | '.join(map(str.strip, lines[0].split(',')))
+                        output_lines = [header]
+                        #Filtering Data with selected major
+                        data_lines = [line.split(',') for line in lines[1:]]
+                        data_major = [line for line in data_lines if line[-1].strip() == selected_major]
+                        #Filtering data with selected gender
+                        sorted_data = sorted(data_major, key=lambda x: x == selected_gender)
+                        #Writing Output
+                        for line in sorted_data:
+                            formatted_line = ' | '.join(map(str.strip, line))
+                            output_lines.append(formatted_line)
+                        for line in output_lines:
+                            print(line)
+                        print("\n")
+
+                    #By Grades in Specific Major
+                    elif choice == "8":
+                        print("Which major students do you want to see?")
+                        #Opening file as reading mode
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        #Selecting Majors
+                        majors = set([line.split(",")[-1].strip() for line in lines[1:]])
+                        #Printing majors starting with 1
+                        for idx, major in enumerate(majors, start=1):
+                            print(f"{idx}. {major}")
+                        #Asking user for input
+                        major_choice = input("Enter the number of the major you want to see (0 to exit): ")
+                        if major_choice == "0":
+                            continue
+                        elif major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                            selected_major = list(majors)[int(major_choice) - 1]
+                        else:
+                            print("Invalid Input! Enter a valid number.")
+                            continue
+                        #Asking user for input
+                        print("How do you want to sort students by grades?")
+                        print("1. Ascending Order")
+                        print("2. Descending Order")
+                        sort_choice = input("Enter your choice (0 to exit): ")
+                        #Choosing the sort_choice
+                        if sort_choice == "0":
+                            continue
+                        elif sort_choice == "1":
+                            order = False
+                        elif sort_choice == "2":
+                            order = True
+                        else:
+                            print("Invalid Input! Enter 1 or 2.")
+                            continue
+                        #Reading the CSV file
+                        with open(database, 'r', encoding="utf-8") as file:
+                            lines = file.readlines()
+                        #Appending Header line
+                        header = ' | '.join(map(str.strip, lines[0].split(',')))
+                        output_lines = [header]
+                        #Filtering data with selected_major after sorting with grade
+                        data_lines = [line.split(',') for line in lines[1:]]
+                        filtered_data = [line for line in data_lines if line[-1].strip() == selected_major]
+                        sorted_data = sorted(filtered_data, key=lambda x: float(x[5]), reverse=order)
+                        #Writing Output
+                        for line in sorted_data:
+                            formatted_line = ' | '.join(map(str.strip, line))
+                            output_lines.append(formatted_line)
+                        for line in output_lines:
+                            print(line)
+                        print("\n")
                     else:
-                        print("Invalid Input! Choose 1, 2, 3, 4, 5 or 6")
+                        print("Invalid Input! Choose a number between 1-8")
                 else:
                     break
-        input("Press any key to continue")
     else:
         print("Invalid Input! Choose 1 or 2")
 
@@ -638,7 +750,6 @@ def search_student():
                                 print(f"Student with roll no. {roll} not found in our database!")
                     else:
                         break
-            input("Press any key to continue")
         else:
             print("Invalid Input! Enter 1 or 2")
 
@@ -787,7 +898,6 @@ def update_student():
                         print("\nStudent not found in the database")
                 else:
                     break
-            input("Press any key to continue")
         else:
             print("Invalid Input! Enter 1 or 2")
 
@@ -841,12 +951,11 @@ def delete_student():
                 else:
                     break
 
-            input("Press any key to continue")
         else:
             print("Invalid Input! Enter 1 or 2")
 
 
-#Defining a function for Visualization Operation
+#Defining a function for Visualization Operation (Using Pandas Library)
 def visualization():
     #Fields and database ara global we can access them
     global fields
@@ -1215,13 +1324,12 @@ def visualization():
                         print("Error: Invalid Input! Please enter a number between 1-12")
                 else:
                     break
-            input("Press any key to continue")
         else:
             print("Invalid Input! Enter 1 or 2")
 
 
 
-#Defining a function to see student statistics.
+#Defining a function for Student Statistics (Using Pandas library)
 def student_statistics():
     #Fields and database ara global we can access them
     global fields
@@ -1442,7 +1550,6 @@ def student_statistics():
                         print("Invlaid Input! Choose a number between 1 and 12")
                 else:
                     break
-            input("Press any key to continue")
         else:
             print("Invalid Input! Choose 1 or 2")
 #Offers choices to user while
@@ -1468,7 +1575,6 @@ while True:
         break
     else:
         print("--- Invalid input ---")
-        input("Press any key to continue")
 print("-------------------------------")
 print(" Thank you for using our system")
 print("-------------------------------")
