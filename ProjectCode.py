@@ -987,7 +987,8 @@ def visualization():
                 print("9. Gender - Age Distribution (Recommended)")
                 print("10. Gender and Major - Grade Distribution (Recommended)")
                 print("11. Gender and Major - Age Distribution (Recommended)")
-                print("12. I want to choose fields and chart type (Warning! Visualizations may be meaningless)")
+                print("12. Age Percentage (Recommended)")
+                print("13. I want to choose fields and chart type (Warning! Visualizations may be meaningless)")
 
 
                 choice = input("Enter your choice (0 to exit): ")
@@ -1103,7 +1104,15 @@ def visualization():
                         plt.title('Gender and Major - Grade Distribution')
                         plt.savefig("major_grade_gender_distribution.png")
                         plt.show()
+                    #Age Percentage
                     elif choice == "12":
+                        age = df["Age"].value_counts()
+                        plt.title("Age Percentage")
+                        plt.pie(age,labels = age.index,autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
+                        plt.savefig("age_percentage.png")
+                        plt.show()
+                    #User chooses fields and chart type
+                    elif choice == "13":
                         #Asking user to choose fields
                         print("Choose fields for visualization:")
                         #Taking index and value and starting it with 1
