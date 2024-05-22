@@ -87,6 +87,115 @@ def validate_major(major):
     else:
         formatted_major = ' '.join(word.capitalize() for word in major.split())
         return formatted_major
+#Defining a function to validate fields
+def validation(fields):
+    student_data = []
+    for field in fields:
+        value = input("Enter " + field + ": ")
+        # In ITU grades are between 0 and 4 so checking if grade is between 0 and 4
+        if field == "Grade":
+            while True:
+                try:
+                    value = float(value)
+                    if 0 <= value <= 4:
+                        break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    print("Error: Please enter a number between 0 and 4 for grade")
+                    value = input("Enter " + field + ": ")
+        # Age should be >= 17
+        elif field == "Age":
+            while True:
+                try:
+                    value = int(value)
+                    if 17 <= value <= 100:
+                        break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    print("Error: Age should be between 17 and 100")
+                    value = input("Enter " + field + ": ")
+        # Checking if roll no. is bigger than 0
+        elif field == "Roll no.":
+            while True:
+                try:
+                    if not all(char.isdigit() for char in value):
+                        raise ValueError("Error: Roll no. should be an integer")
+                    value = int(value)
+                    # Roll no must be bigger or equal to
+                    if value < 1:
+                        raise ValueError("Error : Roll no. is less than 1")
+                    break
+                except ValueError as e:
+                    print(e)
+                    value = input("Enter " + field + ": ")
+        elif field == "Students id":
+            while True:
+                try:
+
+                    #If we convert a number that starts with 0 to integer, its length will be reduced
+                    if value.startswith("0"):
+                        value = "1" + value[1:]
+                    value = int(value)
+                    # Student's id length must be 9
+                    if not  len(str(value)) == 9:
+                        raise ValueError("Error: Student ID length should be 9.")
+                    break
+                except ValueError as e:
+                    print(e)
+                    value = input("Enter " + field + ": ")
+        # Length of Phone number must be equal to 11
+        elif field == "Phone":
+            while True:
+                try:
+                    #If we convert a number that starts with 0 to integer, its length will be reduced
+                    if value.startswith("0"):
+                        value = "1" + value[1:]
+                    value = int(value)
+                    #Length of phone number must be 11
+                    if len(str(value)) == 11:
+                        break
+                    else:
+                        print("Error: Phone number should be at least 11 characters long.")
+                        value = input("Enter " + field + ": ")
+                except ValueError:
+                    print("Error: Please enter valid", field)
+                    value = input("Enter " + field + ": ")
+        elif field == "Email":
+            while True:
+                try:
+                    value = validate_email(value)
+                    break
+                except ValueError as e:
+                    print(e)
+                    value = input("Enter " + field + ": ")
+        elif field == "Gender":
+            while True:
+                if value.lower() == "male" or value.lower() == "female":
+                    break
+                else:
+                    print("Error: Gender should be Female or Male")
+                    value = input("Enter " + field + ": ").lower()
+            value = value.title()
+        elif field == "Name Surname":
+            while True:
+                try:
+                    value = validate_name(value)
+                    break
+                except ValueError as e:
+                    print(e)
+                    value = input("Enter " + field + ": ")
+        elif field == "Major":
+            while True:
+                try:
+                    value = validate_major(value)
+                    break
+                except ValueError as e:
+                    print(e)
+                    value = input("Enter " + field + ": ")
+        student_data.append(value)
+    return student_data
 #Defining a function for Add New Student operation
 def add_student():
     #Fields and database are global we can access them
@@ -104,125 +213,29 @@ def add_student():
             break
         elif value == "1":
             #Creating a list to store inputs
-            student_data = []
-            for field in fields:
-                value = input("Enter " + field + ": ")
-                #In ITU grades are between 0 and 4 so checking if grade is between 0 and 4
-                if field == "Grade":
-                    while True:
-                        try:
-                            value = float(value)
-                            if 0 <= value <= 4:
-                                break
-                            else:
-                                raise ValueError
-                        except ValueError:
-                            print("Error: Please enter a number between 0 and 4 for grade")
-                            value = input("Enter " + field + ": ")
-                #Age should be >= 17
-                elif field == "Age":
-                    while True:
-                        try:
-                            value = int(value)
-                            if 17 <= value <= 100:
-                                break
-                            else:
-                                raise ValueError
-                        except ValueError:
-                            print("Error: Age should be between 17 and 100")
-                            value = input("Enter " + field + ": ")
-                #Checking if roll no. is bigger than 0
-                elif field == "Roll no.":
-                    while True:
-                        try:
-                            value = int(value)
-                            #Roll no must be bigger or equal to
-                            if value < 1:
-                                raise ValueError("Error : Roll no. is less than 1")
-                            break
-                        except ValueError as e:
-                            print(e)
-                            value = input("Enter " + field + ": ")
-                elif field == "Students id":
-                    while True:
-                        try:
-                            value = int(value)
-                            #Student's id length must be 9
-                            if not 8 <= len(str(value)) <= 9:
-                                raise ValueError("Error: Student ID length should be 9.")
-                            break
-                        except ValueError as e:
-                            print(e)
-                            value = input("Enter " + field + ": ")
-                #Length of Phone number must be equal to 11
-                elif field == "Phone":
-                    while True:
-                        try:
-                            value = int(value)
-                            if len(str(value)) == 10 or len(str(value)) == 11:
-                                break
-                            else:
-                                print("Error: Phone number should be at least 11 characters long.")
-                                value = input("Enter " + field + ": ")
-                        except ValueError:
-                            print("Error: Please enter valid", field)
-                            value = input("Enter " + field + ": ")
-                elif field == "Email":
-                    while True:
-                        try:
-                            value = validate_email(value)
-                            break
-                        except ValueError as e:
-                            print(e)
-                            value = input("Enter " + field + ": ")
-                elif field == "Gender":
-                    while True:
-                        if value.lower() == "male" or value.lower() == "female":
-                                break
-                        else:
-                            print("Error: Gender should be Female or Male")
-                            value = input("Enter " + field + ": ").lower()
-                    value = value.title()
-                elif field == "Name Surname":
-                    while True:
-                        try:
-                            value = validate_name(value)
-                            break
-                        except ValueError as e:
-                            print(e)
-                            value = input("Enter " + field + ": ")
-                elif field == "Major":
-                    while True:
-                        try:
-                            value = validate_major(value)
-                            break
-                        except ValueError as e:
-                            print(e)
-                            value = input("Enter " + field + ": ")
-                #Appending Data
-                student_data.append(value)
-                #Checking if students id , email , roll no or phone in database
-                if len(student_data) == 9:
-                    new_id = student_data[4]
-                    new_email = student_data[6]
-                    new_phone = student_data[7]
-                    new_roll = student_data[0]
-                    #Opening csv file in reading mode
-                    with open(database, "r", encoding="utf-8") as f:
-                        reader = csv.reader(f)
-                        for row in reader:
-                            if str(new_id) in row:
-                                print("A student with the same student id already exists.")
-                                return
-                            elif str(new_email) in row:
-                                print("A student with the same email already exists.")
-                                return
-                            elif str(new_roll) in row:
-                                print("A student with the same roll no. already exists.")
-                                return
-                            elif str(new_phone) in row:
-                                print("A student with the same phone number already exists")
-                                return
+            student_data = validation(fields)
+            #Checking if students id , email , roll no or phone in database
+            if len(student_data) == 9:
+                new_id = student_data[4]
+                new_email = student_data[6]
+                new_phone = student_data[7]
+                new_roll = student_data[0]
+                #Opening csv file in reading mode
+                with open(database, "r", encoding="utf-8") as f:
+                    reader = csv.reader(f)
+                    for row in reader:
+                        if str(new_id) in row:
+                            print("A student with the same student id already exists.")
+                            return
+                        elif str(new_email) in row:
+                            print("A student with the same email already exists.")
+                            return
+                        elif str(new_roll) in row:
+                            print("A student with the same roll no. already exists.")
+                            return
+                        elif str(new_phone) in row:
+                            print("A student with the same phone number already exists")
+                            return
 
             #Opening csv file in writing mode (appending end of the dataset)
             with open("dataset.csv", "a", newline="", encoding="utf-8") as f:
@@ -317,6 +330,7 @@ def view_students():
                                                 for item in row:
                                                     print(item, end=" | ")
                                                 print("\n")
+                                        break
                                 elif gen == "2":
                                     for item in fields:
                                         print(item, end=" | ")
@@ -726,6 +740,9 @@ def search_student():
             else:
                 while True:
                     roll = input("Enter students roll no (0 to exit): ")
+                    if not all(char.isdigit() for char in roll):
+                        print("Error: Students roll no must be all digits")
+                        roll = input("Enter students roll no (0 to exit): ")
                     if not roll == "0":
                         with open("dataset.csv", "r", encoding="utf-8") as f:
                             reader = csv.reader(f)
@@ -772,8 +789,10 @@ def update_student():
             print("--- Update Student ---")
             while True:
                 student_id = input("Enter student's student id to update (0 to exit): ")
+                if len(student_id) != 9 or student_id != "0" or student_id == "1":
+                    print("Error: Students ids length must be 9")
+                    student_id = input("Enter student's student id to update (0 to exit): ")
                 if student_id != "0":
-                    updated_data = []
                     found_student = False
 
                     with open(database, "r", encoding="utf-8") as file:
@@ -783,85 +802,8 @@ def update_student():
                             if row[4] == str(student_id):
                                 found_student = True
                                 print("Student Found at index", i)
-                                for field in fields:
-                                    value = input("Enter " + field + ": ")
-                                    if field == "Grade":
-                                        while True:
-                                            try:
-                                                value = float(value)
-                                                if 0 <= value <= 4:
-                                                    break
-                                                else:
-                                                    raise ValueError
-                                            except ValueError:
-                                                print("Error: Please enter a number between 0 and 4 for grade")
-                                                value = input("Enter " + field + ": ")
-                                    elif field == "Age":
-                                        while True:
-                                            try:
-                                                value = int(value)
-                                                if value >= 17:
-                                                    break
-                                                else:
-                                                    raise ValueError
-                                            except ValueError:
-                                                print("Error: Please enter an integer greater than or equal to 17")
-                                                value = input("Enter " + field + ": ")
-                                    elif field == "Students id":
-                                        while True:
-                                            try:
-                                                value = int(value)
-                                                if not 8 <= len(str(value)) <= 9:
-                                                    raise ValueError("Error: Student ID length should be 9.")
-                                                break
-                                            except ValueError:
-                                                print("Error: Please enter a valid", field)
-                                                value = input("Enter " + field + ": ")
-                                    elif field == "Roll no":
-                                        while True:
-                                            try:
-                                                value = int(value)
-                                                # Roll no must be bigger or equal to
-                                                if value < 1:
-                                                    raise ValueError("Error : Roll no. is less than 1")
-                                                break
-                                            except ValueError as e:
-                                                print(e)
-                                                value = input("Enter " + field + ": ")
-                                    elif field == "Phone":
-                                        while len(value) != 11:
-                                            print("Error: Phone number should be 11 characters long.")
-                                            value = input("Enter " + field + ": ")
-                                    elif field == "Email":
-                                        while True:
-                                            try:
-                                                value = validate_email(value)
-                                                break
-                                            except ValueError as e:
-                                                print(e)
-                                                value = input("Enter " + field + ": ")
-                                    elif field == "Gender":
-                                        while value.lower() not in ["male", "female"]:
-                                            print("Error: Gender should be Male or Female")
-                                            value = input("Enter " + field + ": ").lower()
-                                        value = value.title()
-                                    elif field == "Name Surname":
-                                        while True:
-                                            try:
-                                                value = validate_name(value)
-                                                break
-                                            except ValueError as e:
-                                                print(e)
-                                                value = input("Enter " + field + ": ")
-                                    elif field == "Major":
-                                        while True:
-                                            try:
-                                                value = validate_major(value)
-                                                break
-                                            except ValueError as e:
-                                                print(e)
-                                                value = input("Enter " + field + ": ")
-                                    updated_data.append(value)
+                                #Using validation function
+                                updated_data = validation(fields)
 
                                 # Checking if updated data is already in our database
                                 new_id = updated_data[4]
@@ -894,6 +836,7 @@ def update_student():
                                 print("New data of student with id ", str(student_id), " is")
                                 for field in fields:
                                     print(field, end=" | ")
+                                print("\n")
                                 updated_data = [str(i) for i in updated_data]
                                 print(" | ".join(updated_data))
                                 break
@@ -922,6 +865,9 @@ def delete_student():
         elif value == "1":
             while True:
                 id = input("Enter students id to delete (0 to exit): ")
+                if len(id) != 9 and id != "0":
+                    print("Error: Students ids length must be 9")
+                    id = input("Enter students id to delete (0 to exit): ")
                 if id != "0":
                     #Will check if student found or not
                     student_found = False
@@ -936,7 +882,7 @@ def delete_student():
 
                         #Checking if student in our database
                         for row in reader:#Appending row if students roll no is not equal to users input
-                                if str(id) not in row:
+                                if str(id) != row[4]:
                                     updated_data.append(row)
                                     counter += 1
                                 else:
@@ -995,39 +941,46 @@ def visualization():
                 if not choice == "0":
                     #Reading csv file with pandas
                     df = pd.read_csv(database)
+                    #Removing Engineering part because it causes mess
+                    df["Major"] = df["Major"].str.replace("Engineering","")
                     #Adjust figsize
-                    plt.figure(figsize=(24,18))
+                    plt.figure(figsize=(30,26))
                     #Adjusts the gap between the graphs and prevents them from intertwining.
                     plt.tight_layout()
+
+                    #Adjusting x labels
+                    plt.xticks(rotation=90)
+                    plt.gca().tick_params(axis="x", length=0)
+
                     if choice == "1":
                         sns.countplot(x='Major', hue='Gender', data=df)
-                        plt.title("Gender Distribution Across Majors")
-                        plt.xlabel("Major")
-                        plt.ylabel("Count")
+                        plt.title("Gender Distribution Across Majors",fontsize=24, fontweight='bold')
+                        plt.xlabel("Major",fontsize=24, fontweight='bold')
+                        plt.ylabel("Count",fontsize=24, fontweight='bold')
                         #Saves plot to your desktop or the file your .py file is in , dpi effects quality
                         plt.savefig("Gender_Major_Plot.png", dpi=300)
                         plt.show()
                     elif choice == "2":
                         sns.violinplot(x='Major', y='Grade', data=df)
-                        plt.title("Grade Distribution Across Majors")
-                        plt.xlabel("Major")
-                        plt.ylabel("Grade")
+                        plt.title("Grade Distribution Across Majors",fontsize=24, fontweight='bold')
+                        plt.xlabel("Major",fontsize=24, fontweight='bold')
+                        plt.ylabel("Grade",fontsize=24, fontweight='bold')
                         # Saves plot to your desktop or the file your .py file is in , dpi effects quality
                         plt.savefig('Grade_Major_Plot.png',dpi=300)
                         plt.show()
                     elif choice == "3":
                         sns.violinplot(x='Gender', y='Grade', data=df, palette="coolwarm")
-                        plt.title("Grade Distribution by Gender")
-                        plt.xlabel("Gender")
-                        plt.ylabel("Grade")
+                        plt.title("Grade Distribution by Gender",fontsize=24, fontweight='bold')
+                        plt.xlabel("Gender",fontsize=24, fontweight='bold')
+                        plt.ylabel("Grade",fontsize=24, fontweight='bold')
                         #Saves plot to your desktop or the file your .py file is in , dpi effects quality
                         plt.savefig('Gender_Grade_Plot.png',dpi=300)
                         plt.show()
                     elif choice == "4":
                         sns.boxplot(x='Major', y='Age', data=df)
-                        plt.title("Age Distribution Across Majors")
-                        plt.xlabel("Major")
-                        plt.ylabel("Age")
+                        plt.title("Age Distribution Across Majors",fontsize=24, fontweight='bold')
+                        plt.xlabel("Major",fontsize=24, fontweight='bold')
+                        plt.ylabel("Age",fontsize=24, fontweight='bold')
                         # Saves plot to your desktop or the file your .py file is in , dpi effects quality
                         plt.savefig('Age_Major_Plot.png')
                         plt.show()
@@ -1038,9 +991,9 @@ def visualization():
 
                         #Creating success graph
                         sns.violinplot(x="Major", y="Grade", data=df, palette="coolwarm")
-                        plt.title("Average Grades and Success Graph by Majors")
-                        plt.xlabel("Major")
-                        plt.ylabel("Grade")
+                        plt.title("Average Grades and Success Graph by Majors",fontsize=24, fontweight='bold')
+                        plt.xlabel("Major",fontsize=24, fontweight='bold')
+                        plt.ylabel("Grade",fontsize=24, fontweight='bold')
 
                         #Shows average grades on the graph
                         for index, row in major_averages.iterrows():
@@ -1054,9 +1007,9 @@ def visualization():
 
                         #Creating success graph
                         sns.violinplot(x="Gender", y="Grade", data=df, palette="coolwarm")
-                        plt.title("Average Grades and Success Graph by Gender")
-                        plt.xlabel("Gender")
-                        plt.ylabel("Grade")
+                        plt.title("Average Grades and Success Graph by Gender",fontsize=24, fontweight='bold')
+                        plt.xlabel("Gender",fontsize=24, fontweight='bold')
+                        plt.ylabel("Grade",fontsize=24, fontweight='bold')
 
                         #Shows average grades on the graph
                         for index, row in gender_averages.iterrows():
@@ -1070,9 +1023,9 @@ def visualization():
                         gender_counts = df["Gender"].value_counts()
 
                         #Creating pie plot
-                        plt.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
+                        plt.pie(gender_counts, labels=gender_counts.index, autopct='%1.2f%%', startangle=140, colors=sns.color_palette("pastel"))
 
-                        plt.title("Gender Distribution")
+                        plt.title("Gender Distribution",fontsize=24, fontweight='bold')
                         plt.savefig('gender_distribution.png')
                         plt.show()
 
@@ -1081,34 +1034,40 @@ def visualization():
                         major_counts = df["Major"].value_counts()
 
                         #Creating pie plot
-                        plt.pie(major_counts, labels = major_counts.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
+                        plt.pie(major_counts, labels = major_counts.index, autopct='%1.2f%%', startangle=140, colors=sns.color_palette("pastel"))
 
-                        plt.title("Major Distribution")
+                        plt.title("Major Distribution",fontsize=24, fontweight='bold')
                         plt.savefig("major_distribution.png")
                         plt.show()
                     elif choice == "9":
                         #Creating plot
                         sns.violinplot(x="Gender",y = "Age", data=df)
-                        plt.title("Gender - Age Distribution")
+                        plt.title("Gender - Age Distribution",fontsize=24, fontweight='bold')
+                        plt.xlabel("Gender",fontsize=24, fontweight='bold')
+                        plt.ylabel("Age",fontsize=24, fontweight='bold')
                         plt.savefig("gender_age_distribution.png")
                         plt.show()
                     elif choice == "10":
                         #Creating plot
                         sns.violinplot(x = "Major", y = "Age", data=df, hue="Gender", palette="pastel")
-                        plt.title('Major - Age and Gender Distribution')
+                        plt.title('Major - Age and Gender Distribution',fontsize=24, fontweight='bold')
+                        plt.xlabel("Major",fontsize=24, fontweight='bold')
+                        plt.ylabel("Age",fontsize=24, fontweight='bold')
                         plt.savefig("major_age_gender_distribution.png")
                         plt.show()
                     elif choice == "11":
                         #Creating plot
                         sns.violinplot(x="Major", y = "Grade", hue="Gender", data=df, palette="pastel")
-                        plt.title('Gender and Major - Grade Distribution')
+                        plt.title('Gender and Major - Grade Distribution',fontsize=24, fontweight='bold')
+                        plt.xlabel("Major",fontsize=24, fontweight='bold')
+                        plt.ylabel("Grade",fontsize=24, fontweight='bold')
                         plt.savefig("major_grade_gender_distribution.png")
                         plt.show()
                     #Age Percentage
                     elif choice == "12":
                         age = df["Age"].value_counts()
-                        plt.title("Age Percentage")
-                        plt.pie(age,labels = age.index,autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
+                        plt.title("Age Percentage",fontsize=24, fontweight='bold')
+                        plt.pie(age,labels = age.index,autopct='%1.2f%%', startangle=140, colors=sns.color_palette("pastel"))
                         plt.savefig("age_percentage.png")
                         plt.show()
                     #User chooses fields and chart type
@@ -1161,16 +1120,16 @@ def visualization():
                                     #Creating a countplot selected fields
                                     plt.subplot(2,1,1)
                                     sns.countplot(x=selected_fields[0], hue=selected_fields[1], data=df)
-                                    plt.title(f"Count Plot of {selected_fields[0]} by {selected_fields[1]}")
-                                    plt.xlabel(selected_fields[0])
-                                    plt.ylabel("Count")
+                                    plt.title(f"Count Plot of {selected_fields[0]} by {selected_fields[1]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[0],fontsize=24, fontweight='bold')
+                                    plt.ylabel("Count",fontsize=24, fontweight='bold')
 
                                     #Creating a countplot selected fields
                                     plt.subplot(2,1,2)
                                     sns.countplot(x=selected_fields[1], hue=selected_fields[0], data=df)
-                                    plt.title(f"Count Plot of {selected_fields[1]} by {selected_fields[0]}")
-                                    plt.xlabel(selected_fields[1])
-                                    plt.ylabel("Count")
+                                    plt.title(f"Count Plot of {selected_fields[1]} by {selected_fields[0]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[1],fontsize=24, fontweight='bold')
+                                    plt.ylabel("Count",fontsize=24, fontweight='bold')
 
                                     # Saves plot to your desktop or the file your .py file is in , dpi effects quality
                                     plt.savefig(f'{field[0]}_{field[1]}_cplot.png')
@@ -1183,16 +1142,16 @@ def visualization():
                                     #Creating a barplot selected fields 0 to 1
                                     plt.subplot(2,1,1)
                                     sns.barplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                                    plt.title(f"Bar Plot of {selected_fields[1]} by {selected_fields[0]}")
-                                    plt.xlabel(selected_fields[0])
-                                    plt.ylabel(selected_fields[1])
+                                    plt.title(f"Bar Plot of {selected_fields[1]} by {selected_fields[0]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[0],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[1],fontsize=24, fontweight='bold')
 
                                     #Creating a barplot selected fields 1 to 0
                                     plt.subplot(2,1,2)
                                     sns.barplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                                    plt.title(f"Bar Plot of {selected_fields[0]} by {selected_fields[1]}")
-                                    plt.xlabel(selected_fields[1])
-                                    plt.ylabel(selected_fields[0])
+                                    plt.title(f"Bar Plot of {selected_fields[0]} by {selected_fields[1]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[1],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[0],fontsize=24, fontweight='bold')
 
                                     # Saves plot to your desktop or the file your .py file is in , dpi effects quality
                                     plt.savefig(f'{field[0]}_{field[1]}_barplot.png')
@@ -1205,16 +1164,16 @@ def visualization():
                                     #Creating a boxplot selected fields 0 to 1
                                     plt.subplot(2,1,1)
                                     sns.boxplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                                    plt.title(f"Box Plot of {selected_fields[1]} by {selected_fields[0]}")
-                                    plt.xlabel(selected_fields[0])
-                                    plt.ylabel(selected_fields[1])
+                                    plt.title(f"Box Plot of {selected_fields[1]} by {selected_fields[0]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[0],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[1],fontsize=24, fontweight='bold')
 
                                     #Creating a boxplot selected fields 1 to 0
                                     plt.subplot(2,1,2)
                                     sns.boxplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                                    plt.title(f"Box Plot of {selected_fields[0]} by {selected_fields[1]}")
-                                    plt.xlabel(selected_fields[1])
-                                    plt.ylabel(selected_fields[0])
+                                    plt.title(f"Box Plot of {selected_fields[0]} by {selected_fields[1]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[1],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[0],fontsize=24, fontweight='bold')
 
                                     # Saves plot to your desktop or the file your .py file is in , dpi effects quality
                                     plt.savefig(f'{field[0]}_{field[1]}_boxplot.png')
@@ -1227,16 +1186,16 @@ def visualization():
                                     #Creating a violinplot with selected fields 0 to 1
                                     plt.subplot(2,1,1)
                                     sns.violinplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                                    plt.title(f"Violin Plot of {selected_fields[1]} by {selected_fields[0]}")
-                                    plt.xlabel(selected_fields[0])
-                                    plt.ylabel(selected_fields[1])
+                                    plt.title(f"Violin Plot of {selected_fields[1]} by {selected_fields[0]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[0],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[1],fontsize=24, fontweight='bold')
 
                                     #Creating a violinplot with selected fields 1 to 0
                                     plt.subplot(2,1,2)
                                     sns.violinplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                                    plt.title(f"Violin Plot of {selected_fields[0]} by {selected_fields[1]}")
-                                    plt.xlabel(selected_fields[1])
-                                    plt.ylabel(selected_fields[0])
+                                    plt.title(f"Violin Plot of {selected_fields[0]} by {selected_fields[1]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[1],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[0],fontsize=24, fontweight='bold')
 
                                     # Saves plot to your desktop or the file your .py file is in , dpi effects quality
                                     plt.savefig(f'{field[0]}_{field[1]}_violinplot.png')
@@ -1249,16 +1208,16 @@ def visualization():
                                     #Creating a scatterplot with selected fields 0 to 1
                                     plt.subplot(2, 1, 1)
                                     sns.scatterplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                                    plt.title(f"Scatter Plot of {selected_fields[1]} by {selected_fields[0]}")
-                                    plt.xlabel(selected_fields[0])
-                                    plt.ylabel(selected_fields[1])
+                                    plt.title(f"Scatter Plot of {selected_fields[1]} by {selected_fields[0]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[0],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[1],fontsize=24, fontweight='bold')
 
                                     #Creating a scatterplot with selected fields 1 to 0
                                     plt.subplot(2, 1, 2)
                                     sns.scatterplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                                    plt.title(f"Scatter Plot of {selected_fields[0]} by {selected_fields[1]}")
-                                    plt.xlabel(selected_fields[1])
-                                    plt.ylabel(selected_fields[0])
+                                    plt.title(f"Scatter Plot of {selected_fields[0]} by {selected_fields[1]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[1],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[0],fontsize=24, fontweight='bold')
 
                                     # Saves plot to your desktop or the file your .py file is in , dpi effects quality
                                     plt.savefig(f'{field[0]}_{field[1]}_scatterplot.png')
@@ -1272,17 +1231,17 @@ def visualization():
                                     #Creating a histplot
                                     plt.subplot(2, 1, 1)
                                     plt.hist(df[selected_fields[0]], bins=20)
-                                    plt.title(f"Histogram of {selected_fields[0]}")
-                                    plt.xlabel(selected_fields[0])
-                                    plt.ylabel("Frequency")
+                                    plt.title(f"Histogram of {selected_fields[0]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[0],fontsize=24, fontweight='bold')
+                                    plt.ylabel("Frequency",fontsize=24, fontweight='bold')
 
                                     #For second field
                                     #Creating a histplot
                                     plt.subplot(2, 1, 2)
                                     plt.hist(df[selected_fields[1]], bins=20)
-                                    plt.title(f"Histogram of {selected_fields[1]}")
-                                    plt.xlabel(selected_fields[1])
-                                    plt.ylabel("Frequency")
+                                    plt.title(f"Histogram of {selected_fields[1]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[1],fontsize=24, fontweight='bold')
+                                    plt.ylabel("Frequency",fontsize=24, fontweight='bold')
 
                                     plt.tight_layout()
                                     # Saves plot to your desktop or the file your .py file is in , dpi effects quality
@@ -1296,15 +1255,15 @@ def visualization():
                                     #Creating a dist plot
                                     plt.subplot(2, 1, 1)
                                     sns.histplot(df[selected_fields[0]], kde=True)
-                                    plt.title(f"Distribution Plot of {selected_fields[0]}")
-                                    plt.xlabel(selected_fields[0])
-                                    plt.ylabel("Density")
+                                    plt.title(f"Distribution Plot of {selected_fields[0]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[0],fontsize=24, fontweight='bold')
+                                    plt.ylabel("Density",fontsize=24, fontweight='bold')
 
                                     plt.subplot(2, 1, 2)
                                     sns.histplot(df[selected_fields[1]], kde=True)
-                                    plt.title(f"Distribution Plot of {selected_fields[1]}")
-                                    plt.xlabel(selected_fields[1])
-                                    plt.ylabel("Density")
+                                    plt.title(f"Distribution Plot of {selected_fields[1]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[1],fontsize=24, fontweight='bold')
+                                    plt.ylabel("Density",fontsize=24, fontweight='bold')
 
                                     # Saves plot to your desktop or the file your .py file is in , dpi effects quality
                                     plt.savefig(f'{field[0]}_{field[1]}_distplot.png')
@@ -1317,16 +1276,16 @@ def visualization():
                                     #Creating a line plot with selected fields 0 to 1
                                     plt.subplot(2, 1, 1)
                                     sns.lineplot(x=selected_fields[0], y=selected_fields[1], data=df)
-                                    plt.title(f"Line Plot of {selected_fields[1]} by {selected_fields[0]}")
-                                    plt.xlabel(selected_fields[0])
-                                    plt.ylabel(selected_fields[1])
+                                    plt.title(f"Line Plot of {selected_fields[1]} by {selected_fields[0]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[0],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[1],fontsize=24, fontweight='bold')
 
                                     #Creating a line plot with selected fields 1 to 0
                                     plt.subplot(2, 1, 2)
                                     sns.lineplot(x=selected_fields[1], y=selected_fields[0], data=df)
-                                    plt.title(f"Line Plot of {selected_fields[0]} by {selected_fields[1]}")
-                                    plt.xlabel(selected_fields[1])
-                                    plt.ylabel(selected_fields[0])
+                                    plt.title(f"Line Plot of {selected_fields[0]} by {selected_fields[1]}",fontsize=24, fontweight='bold')
+                                    plt.xlabel(selected_fields[1],fontsize=24, fontweight='bold')
+                                    plt.ylabel(selected_fields[0],fontsize=24, fontweight='bold')
 
                                     # Saves plot to your desktop or the file your .py file is in , dpi effects quality
                                     plt.savefig(f'{field[0]}_{field[1]}_lineplot.png')
@@ -1471,7 +1430,7 @@ def student_statistics():
                             selected_major = list(majors)[int(major_choice) - 1]
 
                         major_average = data[data["Major"] == selected_major]["Grade"].mean()
-                        print(f"Average Grade of Students: {major_average:.2f}")
+                        print(f"Average Grade of Students in {selected_major}: {major_average:.2f}")
                         break
                     #Average Grade of Male-Female Students in Specific Major
                     elif choice == "8":
@@ -1539,7 +1498,7 @@ def student_statistics():
                             selected_major = list(majors)[int(major_choice) - 1]
 
                         avg_age_major = data[data["Major"] == selected_major]["Age"].mean()
-                        print("Average Age of Students in Specific Major:", f"{avg_age_major:.2f}")
+                        print(f"Average Age of Students in {selected_major}:", f"{avg_age_major:.2f}")
                         break
                     #Average age of male-female students in specific major
                     elif choice == "12":

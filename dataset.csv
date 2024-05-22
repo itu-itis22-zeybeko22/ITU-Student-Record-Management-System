@@ -1,19 +1,301 @@
 Roll no.,Name Surname,Age,Gender,Students id,Grade,Email,Phone,Major
-99,Ömer Faruk Zeybek,21,Male,150220743,3.9,zeybeko22@itu.edu.tr,05442848815,Artificial Intelligence And Data Engineering
-7,Sueda Akkuş,20,Female,150220742,3.8,suedakkus@itu.edu.tr,05511517093,Computer Engineering
-40,Yusuf İnci,20,Male,150220745,3.2,yusufinci@itu.edu.tr,05442848812,Mechanical Engineering
-9,Halit Dal,20,Male,150220991,4.0,halitdal@itu.edu.tr,05112011209,Control And Automation Engineering
-1,Gökhan Dalak,23,Male,150220813,2.0,gokhandalak@itu.edu.tr,05442911510,Computer Engineering
-30,Ali Zeybek,29,Male,150220131,1.0,ali@itu.edu.tr,05442808815,Industrial Engineering
-11,Mehmet Zeybek,29,Male,150999110,4.0,mehmet@itu.edu.tr,05055927712,Computer Engineering
-12,Ayla Yıldız,34,Female,030210881,2.0,ayla@itu.edu.tr,05442118819,Mechanical Engineering
-98,Kübra Bilgin,29,Female,020666717,4.0,kubra@itu.edu.tr,05511519090,Industrial Engineering
-45,Xabi Alonso,27,Male,510220888,4.0,alonso@itu.edu.tr,29999999911,Artificial Intelligence And Data Engineering
-100,Margot Robbie,27,Female,411911911,2.1,robbie@itu.edu.tr,61190901791,Control And Automation Engineering
-22,Johnny Depp,23,Male,331313131,2.2,depp@itu.edu.tr,44211124441,Industrial Engineering
-66,Deniz Bilgin,19,Female,150220113,4.0,deniz22@itu.edu.tr,05449911819,Computer Engineering
-43,Barlas Bilgin,19,Male,050991991,3.0,bilgin22@itu.edu.tr,05449919911,Artificial Intelligence And Data Engineering
-192,Muhammed Özkul,21,Male,0702231121,2.7,ozkul@itu.edu.tr,05442841123,Composing
-291,Berat Yıkılmaz,88,Male,061314670,3.2,yıkılmaz@itu.edu.tr,5323221349,Mineral Processing Engineering
-512,Ömer Faruk Zeybek,23,Male,311231200,4.0,zeybek12@itu.edu.tr,5442841234,Composing
-51,Kerem Yılmaz,24,Male,40302011,3.7,yilmaz24@itu.edu.tr,91145199121,Mineral Processing Engineering
+688,Rafia Şener,50,Male,407120894,0.12,rafiasener@itu.edu.tr,9437150997268,Ship and Marine Technology Engineering
+831,Hurşide Bilgin,48,Male,610131828,0.6,hursidebilgin@itu.edu.tr,5731875633893,Textile Development and Marketing
+433,Başok Korutürk,35,Male,279422708,0.02,basokkoruturk@itu.edu.tr,0092669692565,Economy
+586,Gülper Duran,47,Male,222571419,2.89,gulperduran@itu.edu.tr,5023927294837,Aircraft Engineering
+394,Narhanim Alemdar,79,Female,977361594,2.76,narhanimalemdar@itu.edu.tr,6992032362911,Civil Engineering
+573,Akalan Bilir,40,Male,242909814,3.19,akalanbilir@itu.edu.tr,1498233052405,Environmental Engineering
+461,Züheyla Dumanlı,31,Male,156391298,1.33,zuheyladumanli@itu.edu.tr,5504927935070,Industrial Products Engineering
+294,Duruöz Soylu,63,Female,450906503,0.03,duruozsoylu@itu.edu.tr,9669381464248,Management Engineering
+311,Abdulmenaf Çetin,87,Male,476561934,2.4,abdulmenafcetin@itu.edu.tr,2717036313444,Economy
+363,Ergener Ergül,35,Male,909578668,0.64,ergenerergul@itu.edu.tr,0389994734826,Industrial Engineering
+611,Üçgül Demirel,26,Female,501050488,2.54,ucguldemirel@itu.edu.tr,5400612768074,Architecture
+787,Tonguç İhsanoğlu,39,Male,792321814,0.31,tonguci̇hsanoglu@itu.edu.tr,7570719232362,Electrical Engineering
+32,Barak Hançer,70,Male,324628740,2.75,barakhancer@itu.edu.tr,0223811262248,Food Engineering
+941,Varlık Şama,95,Female,803325904,3.6,varliksama@itu.edu.tr,7298295483697,Manufacturing Engineering
+985,Veis Mansız,45,Female,480957443,1.37,veismansiz@itu.edu.tr,9275227761021,Metallurgy and Materials Engineering
+696,Ballı Gülen,96,Female,547748363,1.73,balligulen@itu.edu.tr,6236424477411,Geomatic Engineering
+462,Safet Mansız,58,Female,302521129,1.04,safetmansiz@itu.edu.tr,7939896540249,Landscape Architecture
+903,Nafile Sezgin,76,Male,687973859,2.1,nafilesezgin@itu.edu.tr,3399460770870,Mining Engineering
+493,Kader Akçay,71,Female,575343225,0.94,kaderakcay@itu.edu.tr,4737926292220,Metallurgy and Materials Engineering
+607,Abdurrahman Yılmaz,100,Male,743506058,3.8,abdurrahmanyilmaz@itu.edu.tr,9586777708492,Manufacturing Engineering
+936,Natalia Duran,18,Male,593292011,0.72,nataliaduran@itu.edu.tr,6917931904301,Physics Engineering
+625,Kelâmi Fırat,29,Female,337945130,1.87,kelâmifirat@itu.edu.tr,7175676223064,Textile Development and Marketing
+721,Salurbay Arslan,73,Female,996347677,3.7,salurbayarslan@itu.edu.tr,5907505526185,Artificial Intelligence and Data Engineering
+762,Damlanur Yılmaz,55,Male,394345945,2.93,damlanuryilmaz@itu.edu.tr,0924828153356,Chemical Engineering
+443,Lütfi Sakarya,73,Male,631144765,2.52,lutfisakarya@itu.edu.tr,6466265662899,Ship and Marine Technology Engineering
+430,Güler Akçay,91,Male,966417381,0.81,gulerakcay@itu.edu.tr,4320727601462,Chemical Engineering
+289,Mahter Akdeniz,61,Female,474726794,3.99,mahterakdeniz@itu.edu.tr,6823427354053,Physics Engineering
+93,Rasul Demir,92,Male,760945667,3.05,rasuldemir@itu.edu.tr,0656584833016,Molecular Biology and Genetics
+559,Züheyla Şensoy,68,Female,976537770,3.67,zuheylasensoy@itu.edu.tr,0782253367617,Geological Engineering
+856,Karlukhan Durmuş,98,Female,172198729,1.66,karlukhandurmus@itu.edu.tr,9609922591774,Management Engineering
+538,İlsu Fırat,64,Female,991165997,0.22,i̇lsufirat@itu.edu.tr,7649195281420,Management Engineering
+230,Nades Akçay,80,Female,141265549,3.19,nadesakcay@itu.edu.tr,8187037552837,Industrial Products Engineering
+739,Akınal Seven,20,Female,641658786,3.14,akinalseven@itu.edu.tr,7569781056830,Manufacturing Engineering
+197,İdiris Akçay,37,Male,777154963,3.83,i̇dirisakcay@itu.edu.tr,0586241370173,Food Engineering
+157,Tatu Aksu,77,Male,238680225,2.87,tatuaksu@itu.edu.tr,3036178291837,Civil Engineering
+926,Esengün Çetin,62,Female,789003604,0.82,esenguncetin@itu.edu.tr,1871862023515,Physics Engineering
+349,Altınbike Hayrioğlu,83,Male,657138194,1.85,altinbikehayrioglu@itu.edu.tr,1887952664331,Architecture
+440,Necva Yılmaz,43,Female,673244594,3.21,necvayilmaz@itu.edu.tr,8496337781591,Geomatic Engineering
+6,Eşref Dumanlı,87,Male,129126702,0.75,esrefdumanli@itu.edu.tr,2746334211339,Industrial Products Engineering
+467,Eriş Gül,73,Male,507845272,0.1,erisgul@itu.edu.tr,6924657769386,Electrical Engineering
+514,Siper Demir,25,Female,355820033,1.99,siperdemir@itu.edu.tr,3479595193909,Mineral Processing Engineering
+138,Sencar Akçay,96,Male,974729489,1.69,sencarakcay@itu.edu.tr,3505949856287,Naval Construction and Ship Machinery Engineering
+195,Nurmelek Sezgin,45,Male,855321896,0.65,nurmeleksezgin@itu.edu.tr,1315334600373,Electrical Engineering
+780,Azade Yorulmaz,53,Female,572716404,2.17,azadeyorulmaz@itu.edu.tr,2323261216986,Maritime Transportation Management Engineering
+392,Çevregül Hançer,28,Male,349154148,2.81,cevregulhancer@itu.edu.tr,0545890802876,Architecture
+91,Muvahhide Durmuş,19,Female,720342824,2.27,muvahhidedurmus@itu.edu.tr,4570447641926,Mechanical Engineering
+352,Doğuhan Bilir,60,Female,283502119,2.55,doguhanbilir@itu.edu.tr,1502267244356,Mining Engineering
+774,Argu Türk,100,Female,381881137,1.09,arguturk@itu.edu.tr,8877758154523,Architecture
+778,Kibar Ertaş,47,Male,317860514,0.07,kibarertas@itu.edu.tr,4800544867951,Textile Development and Marketing
+692,Emine. Hayrioğlu,70,Female,263680643,2.94,emine.hayrioglu@itu.edu.tr,9186005325495,Geological Engineering
+501,Silanur Korutürk,29,Female,390571714,0.5,silanurkoruturk@itu.edu.tr,0063541319770,Maritime Transportation Management Engineering
+321,Akgüneş Dumanlı,80,Male,307957600,3.89,akgunesdumanli@itu.edu.tr,6228531647245,Interior Architecture
+621,Resulcan Eraslan,22,Male,399497428,0.31,resulcaneraslan@itu.edu.tr,4204609817882,Textile Development and Marketing
+802,Nesip Durmuş,64,Male,657302791,0.02,nesipdurmus@itu.edu.tr,5078210677244,Chemical Engineering
+233,Enfes Demir,27,Male,845420208,3.41,enfesdemir@itu.edu.tr,4580226828359,Manufacturing Engineering
+260,Toköz Şener,38,Female,401122060,2.92,tokozsener@itu.edu.tr,0579499909143,Electrical Engineering
+791,Abdulmenaf Mansız,24,Male,727687912,2.23,abdulmenafmansiz@itu.edu.tr,8903013502798,Industrial Products Engineering
+13,Ferzi Çorlu,41,Male,559611970,0.97,ferzicorlu@itu.edu.tr,8904360144305,Naval Construction and Ship Machinery Engineering
+863,Mishat Ergül,41,Male,790378195,3.38,mishatergul@itu.edu.tr,9617000307049,Control and Automation Engineering
+353,Edaviye Duran,51,Female,244089488,1.28,edaviyeduran@itu.edu.tr,3488699620796,Electronics and Communications Engineering
+681,Paye Yılmaz,78,Female,718331020,0.02,payeyilmaz@itu.edu.tr,4898263892992,Artificial Intelligence and Data Engineering
+572,Şilan Hançer,46,Female,245917883,3.21,silanhancer@itu.edu.tr,0121551661274,City and Region Planning
+263,Zennun Sezgin,69,Female,692430491,0.85,zennunsezgin@itu.edu.tr,3159234760904,Mineral Processing Engineering
+656,Uçbeyi Şama,70,Male,946044561,1.66,ucbeyisama@itu.edu.tr,1674321476742,Landscape Architecture
+182,Arıpınar İhsanoğlu,66,Male,159358899,3.28,aripinari̇hsanoglu@itu.edu.tr,4204992492754,Civil Engineering
+618,Derkay Çorlu,37,Male,173202789,1.15,derkaycorlu@itu.edu.tr,3408572958523,Mechanical Engineering
+229,Recepali Korutürk,56,Male,749997704,0.68,recepalikoruturk@itu.edu.tr,9612562108015,Electronics and Communications Engineering
+298,Teknaz Öcalan,57,Female,203382895,1.86,teknazocalan@itu.edu.tr,2314331425430,Meteorological Engineering
+255,Birsan Demir,40,Male,535223676,0.49,birsandemir@itu.edu.tr,3198994012052,Computer Engineering
+653,Alabezek Dumanlı,72,Male,947842553,2.71,alabezekdumanli@itu.edu.tr,2377384823321,Architecture
+894,Memili Fırat,71,Female,757698627,2.56,memilifirat@itu.edu.tr,5992408126109,Management Engineering
+880,Alpin Ergül,66,Male,458724183,1.48,alpinergul@itu.edu.tr,5556085316506,City and Region Planning
+829,Soykan Yüksel,81,Female,553099367,2.18,soykanyuksel@itu.edu.tr,4193963829100,City and Region Planning
+844,Melihcan Aksu,67,Female,447916426,2.35,melihcanaksu@itu.edu.tr,8099351241281,Textile Development and Marketing
+873,Toy Zorlu,55,Male,676476015,0.89,toyzorlu@itu.edu.tr,9960930376637,Control and Automation Engineering
+299,Şanlı Bilge,100,Female,196592291,2.68,sanlibilge@itu.edu.tr,7295645400510,Aircraft Engineering
+667,Züheyla Şener,55,Female,923588269,3.77,zuheylasener@itu.edu.tr,8051798985534,Naval Construction and Ship Machinery Engineering
+704,Eşref Güçlü,84,Female,526669146,0.99,esrefguclu@itu.edu.tr,6123750780325,Mechanical Engineering
+663,Pembesin Seven,69,Male,244497619,1.54,pembesinseven@itu.edu.tr,9406081445712,Electronics and Communications Engineering
+902,Eraycan Erdoğan,24,Male,557986854,0.61,eraycanerdogan@itu.edu.tr,8454622528352,Metallurgy and Materials Engineering
+546,Çaltı Şensoy,27,Male,902130685,2.82,caltisensoy@itu.edu.tr,8041126048383,Manufacturing Engineering
+355,Sencar Öcalan,57,Male,727662691,2.08,sencarocalan@itu.edu.tr,9178598353895,Astronautical Engineering
+408,Hiçsönmez Gül,17,Female,828788904,2.0,hicsonmezgul@itu.edu.tr,6587622823901,Ship and Marine Technology Engineering
+912,Aydinç Şafak,57,Female,800070450,3.77,aydincsafak@itu.edu.tr,1402709947427,Mineral Processing Engineering
+655,Pekkan Yıldırım,18,Male,851304555,3.82,pekkanyildirim@itu.edu.tr,7787841220995,Economy
+720,Fügen Aslan,99,Female,147924414,2.91,fugenaslan@itu.edu.tr,6245385274869,Molecular Biology and Genetics
+43,Yosma Bilgin,95,Female,583961296,2.51,yosmabilgin@itu.edu.tr,0643744526044,Aircraft Engineering
+676,İyiyürek Şafak,52,Male,631576586,0.82,i̇yiyureksafak@itu.edu.tr,2259027126711,Food Engineering
+948,Derkay Şafak,17,Female,898014242,2.52,derkaysafak@itu.edu.tr,3514026087313,Physics Engineering
+398,Umuşan Duran,74,Male,263246553,1.1,umusanduran@itu.edu.tr,5812884614505,Geological Engineering
+519,Almus Durmuş,42,Female,732240084,1.65,almusdurmus@itu.edu.tr,9002065742473,Landscape Architecture
+376,Özyurt Şama,49,Male,165023769,1.49,ozyurtsama@itu.edu.tr,3099803613549,Petroleum and Natural Gas Engineering
+5,Ergün Alemdar,72,Female,273223519,0.62,ergunalemdar@itu.edu.tr,5195754833812,Mining Engineering
+885,Bedi Demir,20,Female,365478736,3.96,bedidemir@itu.edu.tr,0336961160817,Physics Engineering
+944,Nurtaç Tevetoğlu,50,Female,844751302,1.84,nurtactevetoglu@itu.edu.tr,8081776752045,Aircraft Engineering
+730,Oluş Akdeniz,33,Male,579352629,3.61,olusakdeniz@itu.edu.tr,3003464351410,Civil Engineering
+293,Rohat Arslan,46,Male,276530629,2.66,rohatarslan@itu.edu.tr,1026087123610,Geomatic Engineering
+429,Temirhan Yorulmaz,45,Male,631935864,3.69,temirhanyorulmaz@itu.edu.tr,1574684859696,Landscape Architecture
+360,İzel Ergül,18,Male,263595388,1.82,i̇zelergul@itu.edu.tr,9484699382907,Molecular Biology and Genetics
+917,Balca Demirel,27,Female,302284679,2.07,balcademirel@itu.edu.tr,5218218402088,Maritime Transportation Management Engineering
+615,Onurcan Tarhan,18,Female,570067936,3.55,onurcantarhan@itu.edu.tr,0184886311282,Environmental Engineering
+457,Özsözlü Soylu,72,Female,660921862,1.71,ozsozlusoylu@itu.edu.tr,5024415515574,Manufacturing Engineering
+313,Güngördü Duran,25,Female,522567884,2.55,gungorduduran@itu.edu.tr,0199865035911,City and Region Planning
+964,Akgöl Ertaş,50,Male,565002427,0.74,akgolertas@itu.edu.tr,2345890994124,Architecture
+889,Ufukay Sezer,40,Male,489848239,3.14,ufukaysezer@itu.edu.tr,0211243088823,Mining Engineering
+931,Aliseydi Sakarya,33,Male,589474919,1.26,aliseydisakarya@itu.edu.tr,3321893794688,City and Region Planning
+661,Benek Hançer,42,Male,462407834,3.57,benekhancer@itu.edu.tr,5029202791166,Manufacturing Engineering
+509,Ayşan Zorlu,79,Male,581474238,3.78,aysanzorlu@itu.edu.tr,6505995297087,Geophysical Engineering
+465,Bozbağ Hayrioğlu,94,Male,220338459,3.61,bozbaghayrioglu@itu.edu.tr,8532950151370,Computer Engineering
+834,Sefer Öcalan,23,Female,831862983,2.26,seferocalan@itu.edu.tr,6428023412179,Textile Engineering
+67,Barışcan Akar,91,Male,915880989,1.04,bariscanakar@itu.edu.tr,4721319467775,Management Engineering
+308,Atagün Aslan,24,Male,725289834,3.41,atagunaslan@itu.edu.tr,9316672035706,Electrical Engineering
+243,Amaç Sezer,27,Female,779458190,3.48,amacsezer@itu.edu.tr,3499001642481,Meteorological Engineering
+789,Feremez Manço,74,Male,563074499,3.51,feremezmanco@itu.edu.tr,0300937691230,Metallurgy and Materials Engineering
+267,Masume Durmuş,89,Male,780254774,2.63,masumedurmus@itu.edu.tr,2234078664128,Electrical Engineering
+727,Över Dumanlı,32,Female,152887243,0.93,overdumanli@itu.edu.tr,4381366727978,Manufacturing Engineering
+529,Kasim Sezgin,98,Male,530341435,1.62,kasimsezgin@itu.edu.tr,9491036225802,Physics Engineering
+731,Meşhur Akça,84,Female,724236528,1.82,meshurakca@itu.edu.tr,2651853448231,Metallurgy and Materials Engineering
+581,Şendoğan Akçay,58,Female,613356834,3.99,sendoganakcay@itu.edu.tr,2320862552878,Landscape Architecture
+808,Bican Zengin,86,Male,661793740,0.25,bicanzengin@itu.edu.tr,2331781855068,Electronics and Communications Engineering
+966,Taşkan Kısakürek,62,Female,554070734,3.96,taskankisakurek@itu.edu.tr,7394814905024,Astronautical Engineering
+943,Özçam Yılmaz,40,Male,305712389,1.2,ozcamyilmaz@itu.edu.tr,9033655082261,Ship and Marine Technology Engineering
+729,Süleyla Akçay,100,Female,169767105,2.53,suleylaakcay@itu.edu.tr,9697278930658,Astronautical Engineering
+932,Konguralp Sakarya,51,Female,583997188,3.44,konguralpsakarya@itu.edu.tr,6775542457109,Management Engineering
+879,Elvan Çamurcuoğlu,85,Male,194395692,0.9,elvancamurcuoglu@itu.edu.tr,8058758473411,Geophysical Engineering
+205,Ayşeana Çorlu,82,Male,590524102,2.49,ayseanacorlu@itu.edu.tr,6902742458620,Food Engineering
+637,Efser Sezer,45,Male,944728566,2.99,efsersezer@itu.edu.tr,6088131112681,Maritime Transportation Management Engineering
+302,Onurcan Akçay,69,Female,841235896,1.95,onurcanakcay@itu.edu.tr,7459267732091,Industrial Engineering
+687,Ertün Sakarya,61,Male,702617126,1.41,ertunsakarya@itu.edu.tr,4962974974836,City and Region Planning
+972,Güneri Dumanlı,53,Female,236302573,0.57,guneridumanli@itu.edu.tr,0393353796150,Geomatic Engineering
+100,Ayvas Akçay,43,Female,560106456,3.33,ayvasakcay@itu.edu.tr,7026227245102,Metallurgy and Materials Engineering
+351,Adak Ülker,41,Male,286187257,2.56,adakulker@itu.edu.tr,5756792052317,Civil Engineering
+608,Çakırca Yıldırım,31,Male,578391435,1.59,cakircayildirim@itu.edu.tr,7413170591065,Geological Engineering
+945,Hilayda Akça,84,Female,533388432,3.88,hilaydaakca@itu.edu.tr,8828334041358,Physics Engineering
+416,Nurda Fırat,30,Female,126417846,2.7,nurdafirat@itu.edu.tr,2841491350425,Geophysical Engineering
+846,Ferhan Demir,42,Male,211047625,2.85,ferhandemir@itu.edu.tr,0446746041086,Petroleum and Natural Gas Engineering
+57,Sücaettin Çetin,25,Male,842517477,3.35,sucaettincetin@itu.edu.tr,3781236683358,City and Region Planning
+929,Birsan Bilge,99,Male,225421892,2.81,birsanbilge@itu.edu.tr,8084104402314,Petroleum and Natural Gas Engineering
+477,Âlemşah Şama,86,Male,793351490,2.24,âlemsahsama@itu.edu.tr,5730158668458,Computer Engineering
+558,Süvari Şafak,46,Female,540205595,1.8,suvarisafak@itu.edu.tr,7632438447392,Chemical Engineering
+317,Özdil Erdoğan,74,Male,429460399,3.2,ozdilerdogan@itu.edu.tr,4223546510588,City and Region Planning
+177,Uçbeyi Durdu,18,Female,247774709,3.28,ucbeyidurdu@itu.edu.tr,3527084550085,Ship and Marine Technology Engineering
+158,Sarpkın Ergül,56,Female,422830657,0.41,sarpkinergul@itu.edu.tr,7101828855093,Ship and Marine Technology Engineering
+367,Oymak Erdoğan,53,Female,409616515,1.83,oymakerdogan@itu.edu.tr,9716289948130,Artificial Intelligence and Data Engineering
+359,Aycagül Demir,84,Male,910672837,1.73,aycaguldemir@itu.edu.tr,4124485961944,Geomatic Engineering
+938,Günşen Yorulmaz,49,Female,832771382,3.22,gunsenyorulmaz@itu.edu.tr,3131136591464,Naval Construction and Ship Machinery Engineering
+517,Rakide Şama,45,Female,267124300,1.27,rakidesama@itu.edu.tr,3944020965063,Meteorological Engineering
+632,Seydo Mansız,68,Male,225205645,0.54,seydomansiz@itu.edu.tr,9149297990232,Physics Engineering
+817,Erginel Erdoğan,84,Female,313630194,2.92,erginelerdogan@itu.edu.tr,3867856360904,Molecular Biology and Genetics
+167,Atnan Tevetoğlu,35,Female,550941014,0.4,atnantevetoglu@itu.edu.tr,7200977381930,Geomatic Engineering
+592,Ferinaz Yıldırım,33,Female,489782127,2.76,ferinazyildirim@itu.edu.tr,4522459461990,Meteorological Engineering
+25,Ülküm Mansız,22,Male,657370262,3.4,ulkummansiz@itu.edu.tr,1661384008178,Geological Engineering
+524,Özdal Erdoğan,36,Male,328890772,2.63,ozdalerdogan@itu.edu.tr,2063803605784,Interior Architecture
+246,Yasemen Alemdar,71,Male,783828082,3.53,yasemenalemdar@itu.edu.tr,6978375765188,Civil Engineering
+296,Oğurata Yaman,99,Female,809343015,3.09,oguratayaman@itu.edu.tr,6955342090055,Physics Engineering
+244,Mehrigül Aksu,33,Female,799883202,2.28,mehrigulaksu@itu.edu.tr,4375559009042,Civil Engineering
+511,Erinçer Akar,75,Female,583435681,3.29,erincerakar@itu.edu.tr,1687156688177,Manufacturing Engineering
+876,Yetişal İhsanoğlu,80,Female,507996168,0.19,yetisali̇hsanoglu@itu.edu.tr,0805203605741,Petroleum and Natural Gas Engineering
+835,Şanlı Durdu,76,Female,504046164,0.38,sanlidurdu@itu.edu.tr,5349584339214,Mathematics Engineering
+564,Alpin Eraslan,45,Male,721295901,1.32,alpineraslan@itu.edu.tr,6565491439516,Metallurgy and Materials Engineering
+473,Feraye Zengin,51,Male,345599784,2.66,ferayezengin@itu.edu.tr,2759891677823,Textile Development and Marketing
+981,Sıylıhan Tarhan,35,Female,830596548,1.92,siylihantarhan@itu.edu.tr,4772092286163,Economy
+18,Toktuğ Hançer,68,Female,535020329,3.2,toktughancer@itu.edu.tr,7243674554239,Civil Engineering
+68,Ağbegim İnönü,83,Female,389527378,2.82,agbegimi̇nonu@itu.edu.tr,9545421656348,Physics Engineering
+940,Soykut Şafak,71,Male,737983694,1.95,soykutsafak@itu.edu.tr,2176212919048,Maritime Transportation Management Engineering
+527,Erenalp Çamurcuoğlu,37,Female,948092875,3.73,erenalpcamurcuoglu@itu.edu.tr,0869909793969,Metallurgy and Materials Engineering
+256,Nuriyet Hançer,81,Female,726714292,3.1,nuriyethancer@itu.edu.tr,6642125284713,Control and Automation Engineering
+213,Tuğcan Tarhan,39,Male,201224448,0.29,tugcantarhan@itu.edu.tr,1519710510823,Ship Machinery Management Engineering
+749,Ülküm Demir,40,Male,634641615,2.86,ulkumdemir@itu.edu.tr,8956730507483,Mining Engineering
+810,Nazlihan Aksu,31,Female,878350822,3.27,nazlihanaksu@itu.edu.tr,2248542826370,Geomatic Engineering
+72,Gülzadiye Çorlu,58,Male,872081930,0.43,gulzadiyecorlu@itu.edu.tr,8242496042763,Architecture
+300,Mahsun Aslan,87,Female,752630989,3.01,mahsunaslan@itu.edu.tr,1057353256257,Ship and Marine Technology Engineering
+898,Şevket Hayrioğlu,43,Male,848619000,1.99,sevkethayrioglu@itu.edu.tr,5587894360605,City and Region Planning
+921,Kavurt Çamurcuoğlu,90,Male,182659597,0.68,kavurtcamurcuoglu@itu.edu.tr,4135177877143,Economy
+582,Gülağa Şensoy,52,Male,696081527,3.85,gulagasensoy@itu.edu.tr,5219974037738,Interior Architecture
+674,Sadat Şener,33,Female,210714333,1.59,sadatsener@itu.edu.tr,7974725031428,Economy
+112,Altoğan Dumanlı,64,Female,481334770,1.89,altogandumanli@itu.edu.tr,8845576150882,Chemical Engineering
+591,Teksoy Arslan,21,Male,118634325,3.79,teksoyarslan@itu.edu.tr,7313609369333,Meteorological Engineering
+758,Altınbike Soylu,38,Male,493941006,2.93,altinbikesoylu@itu.edu.tr,5307782646400,Electrical Engineering
+117,Doğannur İnönü,37,Female,140460913,1.43,dogannuri̇nonu@itu.edu.tr,5976612262575,Computer Engineering
+823,Zoral Türk,88,Male,223449371,1.99,zoralturk@itu.edu.tr,5279823016610,Maritime Transportation Management Engineering
+601,Şehreban Yorulmaz,81,Female,912858572,3.76,sehrebanyorulmaz@itu.edu.tr,2154092953078,Mining Engineering
+821,Ummahani Manço,44,Male,908037713,0.78,ummahanimanco@itu.edu.tr,1518642303718,Landscape Architecture
+483,Veis Duran,93,Female,398506326,2.47,veisduran@itu.edu.tr,5506432885542,Landscape Architecture
+60,Özyurt Hançer,18,Female,492288543,3.47,ozyurthancer@itu.edu.tr,8382709659850,Architecture
+341,Anargül Durdu,62,Female,408426300,2.7,anarguldurdu@itu.edu.tr,9763142046375,Computer Engineering
+277,Gürsal Sakarya,83,Female,822356747,1.15,gursalsakarya@itu.edu.tr,4605706706872,Aircraft Engineering
+877,İslime Yorulmaz,60,Male,302204384,3.46,i̇slimeyorulmaz@itu.edu.tr,8555196909008,Ship Machinery Management Engineering
+168,Atilhan Durmuş,26,Male,255889651,1.26,atilhandurmus@itu.edu.tr,2516014863645,Maritime Transportation Management Engineering
+432,Aran Demirel,64,Female,722283677,0.53,arandemirel@itu.edu.tr,4541719735292,Aircraft Engineering
+250,Dündaralp Arslan,26,Female,762876397,3.78,dundaralparslan@itu.edu.tr,4526738362758,Mechanical Engineering
+803,Abdulkadir Dumanlı,37,Female,203574711,0.83,abdulkadirdumanli@itu.edu.tr,2997128911990,Physics Engineering
+644,Koray Seven,67,Female,739038846,0.97,korayseven@itu.edu.tr,8071533317225,Mining Engineering
+304,Mengüç Gül,42,Male,419817382,3.9,mengucgul@itu.edu.tr,9537895962705,Geophysical Engineering
+108,Şinasi Mansız,80,Male,850376143,0.01,sinasimansiz@itu.edu.tr,5556800132560,Environmental Engineering
+16,Abuzar Zorlu,87,Female,178679880,0.28,abuzarzorlu@itu.edu.tr,1806162377104,Maritime Transportation Management Engineering
+393,Yönetmen Mansız,39,Female,613112144,0.42,yonetmenmansiz@itu.edu.tr,7176177990791,Geological Engineering
+10,Şahnuray Tarhan,53,Female,934413470,2.86,sahnuraytarhan@itu.edu.tr,2724598512061,Mechanical Engineering
+942,Çağveren İnönü,75,Male,840300090,2.17,cagvereni̇nonu@itu.edu.tr,4546438162767,Naval Construction and Ship Machinery Engineering
+218,Adviye Korutürk,100,Female,233659563,0.81,adviyekoruturk@itu.edu.tr,3498420238723,Control and Automation Engineering
+679,Feza Akçay,20,Female,785626301,1.76,fezaakcay@itu.edu.tr,8737689811326,Naval Construction and Ship Machinery Engineering
+571,Badegül Durdu,60,Male,991025594,0.54,badeguldurdu@itu.edu.tr,9991048272082,Electrical Engineering
+383,Hamiyet Alemdar,74,Male,969857502,3.17,hamiyetalemdar@itu.edu.tr,1219915713775,Physics Engineering
+23,Sağcan Akgündüz,92,Female,163294679,2.64,sagcanakgunduz@itu.edu.tr,4815038123260,Control and Automation Engineering
+223,Aşir Kısakürek,93,Male,499391296,2.3,asirkisakurek@itu.edu.tr,1603305185038,Chemical Engineering
+968,Afer Hançer,27,Male,181170392,1.38,aferhancer@itu.edu.tr,5842411555123,Metallurgy and Materials Engineering
+279,Refik Alemdar,72,Male,133511090,3.39,refikalemdar@itu.edu.tr,3946241695271,Civil Engineering
+386,Vefia Duran,86,Male,812854055,1.79,vefiaduran@itu.edu.tr,6212142988329,Mathematics Engineering
+869,Tanses Aslan,55,Female,341908880,0.42,tansesaslan@itu.edu.tr,7027669234222,Petroleum and Natural Gas Engineering
+290,Haliye Şafak,75,Male,992035009,1.74,haliyesafak@itu.edu.tr,2425063256728,Maritime Transportation Management Engineering
+423,Şirivan Bilir,53,Female,129383053,0.95,sirivanbilir@itu.edu.tr,5602654529510,Physics Engineering
+864,Nakip Hayrioğlu,37,Male,888656204,2.21,nakiphayrioglu@itu.edu.tr,9387612284054,Artificial Intelligence and Data Engineering
+522,Salurbay Bilge,41,Female,132993932,2.87,salurbaybilge@itu.edu.tr,4250564142793,Mining Engineering
+424,Çevregül Zorlu,45,Female,179754176,3.79,cevregulzorlu@itu.edu.tr,1698964775512,Ship Machinery Management Engineering
+792,Çağdan Seven,25,Female,901611894,1.37,cagdanseven@itu.edu.tr,9611252907748,City and Region Planning
+369,Salami Akdeniz,85,Male,792584992,2.13,salamiakdeniz@itu.edu.tr,0908769004998,Naval Construction and Ship Machinery Engineering
+73,İnsaf Gül,90,Male,396495915,2.0,i̇nsafgul@itu.edu.tr,2108232767171,Architecture
+374,Seniha Yaman,83,Female,520961905,1.69,senihayaman@itu.edu.tr,8394119405707,Ship Machinery Management Engineering
+552,Hurşide Çetin,40,Female,917090288,2.13,hursidecetin@itu.edu.tr,1434102329774,Mineral Processing Engineering
+497,Narhanim Durdu,67,Female,137439732,2.43,narhanimdurdu@itu.edu.tr,8706131311719,Mining Engineering
+568,Abdiş Erdoğan,64,Female,864935904,3.32,abdiserdogan@itu.edu.tr,8805245976915,Electronics and Communications Engineering
+39,Rohat Manço,77,Female,985067048,0.53,rohatmanco@itu.edu.tr,3605570716543,Computer Engineering
+472,Ekber Sezgin,30,Male,153725552,2.21,ekbersezgin@itu.edu.tr,2426954318536,Astronautical Engineering
+381,Tanak Türk,93,Female,399323761,0.52,tanakturk@itu.edu.tr,4048847952643,Economy
+215,Yavuz İnönü,65,Female,615945017,0.05,yavuzi̇nonu@itu.edu.tr,2682393510424,Petroleum and Natural Gas Engineering
+8,Demiriz Arsoy,43,Male,280660184,1.98,demirizarsoy@itu.edu.tr,0048695772626,Food Engineering
+695,Nasuf İhsanoğlu,33,Male,601199791,1.67,nasufi̇hsanoglu@itu.edu.tr,1598134952659,Aircraft Engineering
+923,Temime Öcalan,67,Male,858313429,2.3,temimeocalan@itu.edu.tr,0819596420728,Petroleum and Natural Gas Engineering
+766,Kayagün Dumanlı,31,Female,183739125,3.02,kayagundumanli@itu.edu.tr,0435354209776,Aircraft Engineering
+225,Büreyre Demir,77,Male,916063850,2.82,bureyredemir@itu.edu.tr,7444868159607,Industrial Engineering
+504,Ünsever Bilgin,40,Male,542698863,3.67,unseverbilgin@itu.edu.tr,4204554789515,Architecture
+222,İşcan Sezer,92,Male,295225212,3.8,i̇scansezer@itu.edu.tr,5336833847215,Geological Engineering
+286,Zoral Sezgin,82,Male,183204625,0.23,zoralsezgin@itu.edu.tr,8841512345728,Artificial Intelligence and Data Engineering
+388,Acarkan Arslan,60,Male,284431602,2.52,acarkanarslan@itu.edu.tr,1115339618202,Manufacturing Engineering
+809,Mücevher Akçay,75,Female,431526613,2.26,mucevherakcay@itu.edu.tr,1265418642374,Computer Engineering
+468,Cansin Şensoy,29,Male,972879588,3.94,cansinsensoy@itu.edu.tr,2637870868256,City and Region Planning
+946,Burcuhan Şama,26,Male,557352116,1.49,burcuhansama@itu.edu.tr,5892799501143,Ship and Marine Technology Engineering
+421,Gülçe Ertaş,69,Male,610869773,1.43,gulceertas@itu.edu.tr,3352346449801,Mechanical Engineering
+399,Ayvas Ertaş,22,Female,851858369,2.42,ayvasertas@itu.edu.tr,5921186902599,Ship and Marine Technology Engineering
+14,Nurbanu Bilge,61,Male,131393545,0.95,nurbanubilge@itu.edu.tr,9334542972503,Meteorological Engineering
+838,Seçme Mansız,48,Male,820408132,0.61,secmemansiz@itu.edu.tr,6617882265899,Geophysical Engineering
+236,Boztaş Akar,76,Male,395373558,3.25,boztasakar@itu.edu.tr,7669252782788,Landscape Architecture
+899,Zülgarni Akdeniz,62,Female,761354538,1.37,zulgarniakdeniz@itu.edu.tr,0351634779747,Environmental Engineering
+435,Güçyeter Akar,58,Male,464484448,0.53,gucyeterakar@itu.edu.tr,4506015187526,Textile Engineering
+21,Över Alemdar,18,Female,493308539,2.94,overalemdar@itu.edu.tr,3301155938605,Geological Engineering
+203,Uraltay Şensoy,48,Male,343451868,3.8,uraltaysensoy@itu.edu.tr,4538982347945,Mechanical Engineering
+316,Selatin Alemdar,54,Female,645389262,2.07,selatinalemdar@itu.edu.tr,1063479807243,Interior Architecture
+344,Ayşenur Ülker,61,Female,302918680,2.91,aysenurulker@itu.edu.tr,6252077098975,Astronautical Engineering
+609,Tulun Mansız,93,Male,936326800,3.98,tulunmansiz@itu.edu.tr,4154356412642,Civil Engineering
+327,Tümer Aslan,40,Male,655276588,3.52,tumeraslan@itu.edu.tr,6735086160238,Management Engineering
+675,Bağdat Korutürk,18,Female,675960880,3.24,bagdatkoruturk@itu.edu.tr,0037645341689,Management Engineering
+140,İsra Eraslan,98,Male,262179630,2.58,i̇sraeraslan@itu.edu.tr,3735665154519,Mathematics Engineering
+48,Güngördü Arsoy,77,Female,225477307,1.27,gungorduarsoy@itu.edu.tr,7154400567541,Electrical Engineering
+40,Barsen Bilgin,68,Male,367623383,0.13,barsenbilgin@itu.edu.tr,6620313274949,Petroleum and Natural Gas Engineering
+20,Neriban Hançer,82,Male,801913550,1.23,neribanhancer@itu.edu.tr,5904902289628,Astronautical Engineering
+682,Şefiye Durdu,85,Female,679591579,2.79,sefiyedurdu@itu.edu.tr,3053644520797,Aircraft Engineering
+563,Adal Öcalan,100,Male,816498591,2.29,adalocalan@itu.edu.tr,8817198047597,Meteorological Engineering
+224,Tahir Arslan,94,Male,790098043,3.29,tahirarslan@itu.edu.tr,5412152567056,Geophysical Engineering
+120,Nevsale Demir,65,Male,543219864,0.32,nevsaledemir@itu.edu.tr,8899976886888,Ship Machinery Management Engineering
+570,Yağızkurt Fırat,45,Female,432858408,0.68,yagizkurtfirat@itu.edu.tr,4290049944417,Geological Engineering
+824,Teksoy Mansız,89,Male,747899547,1.08,teksoymansiz@itu.edu.tr,0176235069185,Naval Construction and Ship Machinery Engineering
+550,Neptün Duran,51,Female,414408728,3.67,neptunduran@itu.edu.tr,6024241975644,Aircraft Engineering
+288,Cihandide Korutürk,37,Male,852082163,1.09,cihandidekoruturk@itu.edu.tr,3930745040178,Computer Engineering
+136,Necmettin Bilir,28,Female,544409316,2.03,necmettinbilir@itu.edu.tr,2818260873771,Artificial Intelligence and Data Engineering
+285,Saçı Bilgin,54,Male,239879578,1.05,sacibilgin@itu.edu.tr,2922125136008,Computer Engineering
+983,Rezzak Karadeniz,93,Female,628833873,2.68,rezzakkaradeniz@itu.edu.tr,9548668008395,Ship Machinery Management Engineering
+753,Alsoy Sezer,71,Male,511392029,1.7,alsoysezer@itu.edu.tr,9944524375285,Naval Construction and Ship Machinery Engineering
+825,İçimbike Akar,34,Female,825208219,1.49,i̇cimbikeakar@itu.edu.tr,9241884597423,Electronics and Communications Engineering
+998,Koray Korutürk,66,Female,643546435,3.63,koraykoruturk@itu.edu.tr,4667741963464,Landscape Architecture
+109,Maksur Akar,43,Male,894730196,1.84,maksurakar@itu.edu.tr,5636245505582,Astronautical Engineering
+19,Sıla Soylu,61,Male,372947891,3.74,silasoylu@itu.edu.tr,8380852849645,Control and Automation Engineering
+62,Cuheyna Akar,62,Female,687275548,0.35,cuheynaakar@itu.edu.tr,8260688476881,Industrial Engineering
+156,Ekmel İnönü,68,Female,996157255,1.19,ekmeli̇nonu@itu.edu.tr,4106719027760,Architecture
+480,Sudi Sakarya,97,Male,504774432,0.8,sudisakarya@itu.edu.tr,2073588981877,Textile Development and Marketing
+385,Oğurata Gül,68,Male,730422008,3.25,oguratagul@itu.edu.tr,4330584109974,City and Region Planning
+410,Özkutlu Ertaş,19,Female,275504811,2.28,ozkutluertas@itu.edu.tr,4658712338831,Industrial Engineering
+623,Serda Dumanlı,37,Male,374391461,2.92,serdadumanli@itu.edu.tr,6163744504394,Landscape Architecture
+928,Verim Çamurcuoğlu,67,Male,888016659,0.51,verimcamurcuoglu@itu.edu.tr,6822485312974,Ship Machinery Management Engineering
+958,Orçin Tevetoğlu,53,Male,880930679,2.82,orcintevetoglu@itu.edu.tr,7221136055015,Petroleum and Natural Gas Engineering
+405,Şilan Tarhan,47,Female,127518102,1.06,silantarhan@itu.edu.tr,4998870746488,Meteorological Engineering
+448,Emiş Tarhan,87,Female,848469657,3.56,emistarhan@itu.edu.tr,4026304154609,Economy
+698,Sıylıhan Durdu,30,Male,312595344,3.24,siylihandurdu@itu.edu.tr,6213356108525,Textile Engineering
+988,Rumeysa İnönü,46,Male,621114243,3.52,rumeysai̇nonu@itu.edu.tr,5138828005509,Mining Engineering
+995,Aslanhan Türk,33,Male,469374561,0.44,aslanhanturk@itu.edu.tr,5868999312500,City and Region Planning
+332,Abdurrahman Aslan,45,Male,131652290,2.35,abdurrahmanaslan@itu.edu.tr,5795655904276,Industrial Products Engineering
+602,Ahsen Ergül,63,Female,694209529,0.02,ahsenergul@itu.edu.tr,6507267492110,Mining Engineering
+594,Refik İnönü,68,Male,797575529,0.7,refiki̇nonu@itu.edu.tr,7101978009357,Ship and Marine Technology Engineering
+487,Safet Durmuş,35,Female,659955090,3.87,safetdurmus@itu.edu.tr,9027398552827,Control and Automation Engineering
+414,Nefiye Güçlü,87,Female,290026563,2.89,nefiyeguclu@itu.edu.tr,1800235790924,Maritime Transportation Management Engineering
+159,Cercis Güçlü,93,Female,405705744,1.58,cercisguclu@itu.edu.tr,4642512798359,Civil Engineering
+206,Ongay Arsoy,20,Male,985816016,3.75,ongayarsoy@itu.edu.tr,4359503427843,Control and Automation Engineering
+265,Abdülhadi Sakarya,78,Female,409169833,3.18,abdulhadisakarya@itu.edu.tr,0470897594365,Physics Engineering
+24,Selâtin Zengin,55,Male,241588701,0.54,selâtinzengin@itu.edu.tr,1298711438847,Naval Construction and Ship Machinery Engineering
+499,Nazıdil Fırat,19,Female,959380090,3.26,nazidilfirat@itu.edu.tr,4914053350151,Landscape Architecture
+990,Zihni Akar,36,Male,477609355,0.56,zihniakar@itu.edu.tr,7282233237717,Meteorological Engineering
+757,Hanim Gül,39,Male,100184434,3.17,hanimgul@itu.edu.tr,6718421654014,Mining Engineering
+857,Ertün Korutürk,49,Male,923995106,2.02,ertunkoruturk@itu.edu.tr,6668000740357,Textile Development and Marketing
+738,Şahdiye Çorlu,23,Female,352406542,3.79,sahdiyecorlu@itu.edu.tr,6588285375763,Computer Engineering
+664,Perinur Gül,71,Female,563428429,2.04,perinurgul@itu.edu.tr,9717319456152,Astronautical Engineering
+744,Alpin Akdeniz,41,Male,607071719,1.99,alpinakdeniz@itu.edu.tr,4323022546156,Architecture
