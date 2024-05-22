@@ -41,6 +41,6 @@ You can find the versions of libraries in requirements.txt.
 
 ### Python Version
 
-This project is developed using Python 3.11.2. It should work with a any Python version ,but I recommend using Python 3.11.2
+This project is developed using Python 3.11.2. It should work with a Python version ,but I recommend using Python 3.11.2
 
 

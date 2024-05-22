@@ -81,7 +81,7 @@ Roll no.,Name Surname,Age,Gender,Students id,Grade,Email,Phone,Major
 275,Coşkun Akar,21,Male,789205201,3.87,coskunakar@itu.edu.tr,05133105143,Architecture
 66,Aycagül Gülen,21,Female,960376405,0.05,aycagulgulen@itu.edu.tr,05590603224,Mining Engineering
 146,Tezcan Korutürk,30,Male,857422684,2.75,tezcankoruturk@itu.edu.tr,05451857954,Textile Development and Marketing
-272,Sehel Duran,18,Female,353743456,2.84,sehelduran@itu.edu.tr,05489873123,Geomatic Engineering
+272,Sehel Duran,18,Female,353743456,2.84,sehelduran@itu.edu.tr,15489873123,Geomatic Engineering
 208,Urhan Akçay,30,Male,523504778,3.12,urhanakcay@itu.edu.tr,05106909904,Geophysical Engineering
 31,Nurullah Çorlu,19,Male,898439480,1.26,nurullahcorlu@itu.edu.tr,05803389308,Astronautical Engineering
 217,Gülçe Şensoy,29,Female,741474125,1.7,gulcesensoy@itu.edu.tr,05505334555,Economy
@@ -297,4 +297,5 @@ Roll no.,Name Surname,Age,Gender,Students id,Grade,Email,Phone,Major
 211,Şabettin Hayrioğlu,28,Male,383882543,0.27,sabettinhayrioglu@itu.edu.tr,05831305841,Management Engineering
 181,Gülfari Bilge,26,Female,470885542,1.91,gulfaribilge@itu.edu.tr,05172847901,Environmental Engineering
 44,Semender Mansız,29,Male,849786964,2.11,semendermansiz@itu.edu.tr,05178377595,Computer Engineering
-111,Merva İnönü,18,Female,562007622,1.27,mervai̇nonu@itu.edu.tr,05936212393,Economy
+301,Ömer Faruk Zeybek,21,Male,150220743,4.0,omerfarukzeybek@itu.edu.tr,15442848815,Artificial Intelligence And Data Engineering
+302,Yusuf Inci,21,Male,130210022,2.52,inci21@itu.edu.tr,15380444522,Mechanical Engineering

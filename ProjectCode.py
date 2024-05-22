@@ -59,20 +59,23 @@ def validate_email(email):
         raise ValueError("Error: Invalid Email. There should be at least one character before @itu.edu.tr")
     else:
         #Email should start with lower char
-        return email.lower()
+        return email.lower().replace("ş","s").replace("ı","i").replace("ö","o").replace("ç","c").replace("ğ","g").replace("ü","u")
 #Defining a function to validate name
 def validate_name(name):
-    #If any character that is not first character is upper this will make it lower.
-    name = name.lower()
+    # Adjusting for Turkish characters
+    valid_chars = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ "
+    #Makes every character upper
+    name = name.upper()
     # Null name is invalid
     if not name:
         raise ValueError("Error: Invalid name! Name shouldn't be empty")
     #No special characters are allowed or no numbers are allowed in the name
-    elif not all(char.isalpha() or char.isspace() for char in name):
-        raise ValueError("Error: Invalid name! Name should only include letters or space")
-    else:
-        formatted_name = ' '.join(word.capitalize() for word in name.split())
-        return formatted_name
+    for char in name:
+        if char not in valid_chars:
+            raise ValueError("Error: Invalid name! Name should only include letters or space")
+
+    formatted_name = ' '.join(word.capitalize() for word in name.split())
+    return formatted_name
 #Defining a function to validate major
 def validate_major(major):
     #Major field is required
@@ -92,9 +95,9 @@ def validation(fields):
     student_data = []
     for field in fields:
         if field == "Major":
-            value = input("Enter " + field + " (don't forget to add Engineering end of the major): ")
+            value = input("Enter " + field + " (don't forget to add Engineering end of the major): ").strip()
         else:
-            value = input("Enter " + field + ": ")
+            value = input("Enter " + field + ": ").strip()
         # In ITU grades are between 0 and 4 so checking if grade is between 0 and 4
         if field == "Grade":
             while True:
@@ -211,7 +214,7 @@ def add_student():
     print("-------------------------")
     operation = "Add Student operation"
     while True:
-        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ").strip()
         if value == "2":
             break
         elif value == "1":
@@ -259,7 +262,7 @@ def view_students():
     print("--- Student Records ---")
     operation = "View Students operation"
     while True:
-        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ").strip()
         if value == "2":
             break
         elif value == "1":
@@ -317,7 +320,7 @@ def view_students():
                         print("1. Male")
                         print("2. Female")
                         while True:
-                            gen = input("Enter your choice (0 to exit): ")
+                            gen = input("Enter your choice (0 to exit): ").strip()
                             if not gen == "0":
                                 if gen == "1":
                                     print(" | ".join(fields))
@@ -357,7 +360,7 @@ def view_students():
                             print(f"{idx}. {major}")
 
                         # Asking which major they want to see
-                        major_choice = input("Enter the number of the major you want to see (0 to exit): ")
+                        major_choice = input("Enter the number of the major you want to see (0 to exit): ").strip()
                         while True:
                             if not major_choice == "0":
                                 #User selects a number
@@ -397,7 +400,7 @@ def view_students():
                             print("How do you want to sort students by grades?")
                             print("1. Ascending Order")
                             print("2. Descending Order")
-                            sort_choice = input("Enter your choice (0 to exit): ")
+                            sort_choice = input("Enter your choice (0 to exit): ").strip()
                             if not sort_choice == "0":
 
                                 if sort_choice == "1":
@@ -458,7 +461,7 @@ def view_students():
                             print("Which Alphabet Ordering Do You Want?")
                             print("1.Turkish")
                             print("2.English")
-                            w = input("Enter your choice (0 to exit): ")
+                            w = input("Enter your choice (0 to exit): ").strip()
                             if not w == "0":
                                 if w == "1":
                                     #Setting the locale to Turkish for sorting
@@ -476,7 +479,7 @@ def view_students():
 
                                     # Define a custom sorting function based on Turkish locale
                                     def turkish_sort(item):
-                                        return locale.strxfrm(item[1])  # Assuming student names are in the second column
+                                        return locale.strxfrm(item[1])
 
                                     sorted_data = sorted(data_lines, key=turkish_sort)
 
@@ -501,7 +504,7 @@ def view_students():
 
                                     #Sorting data by student names (Alphabetic Order)
                                     data_lines = [line.split(',') for line in lines[1:]]
-                                    sorted_data = sorted(data_lines, key=lambda x: x[1])  # Assuming student names are in the second column
+                                    sorted_data = sorted(data_lines, key=lambda x: x[1])
 
                                     #Appending each data with " | "
                                     for line in sorted_data:
@@ -529,7 +532,7 @@ def view_students():
                         for idx, major in enumerate(majors, start=1):
                             print(f"{idx}. {major}")
 
-                        major_choice = input("Enter the number of the major you want to see (0 to exit): ")
+                        major_choice = input("Enter the number of the major you want to see (0 to exit): ").strip()
                         if major_choice == "0":
                             continue
                         elif major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
@@ -562,11 +565,14 @@ def view_students():
                         data_lines = [line.split(',') for line in lines[1:]]
                         data_major = [line for line in data_lines if line[-1].strip() == selected_major]
                         #Filtering data with selected gender
-                        sorted_data = sorted(data_major, key=lambda x: x == selected_gender)
-                        #Writing Output
+                        data_gender = [line for line in data_major if line[3].strip() == selected_gender]
+                        #Sorting the filtered data
+                        sorted_data = sorted(data_gender, key=lambda x: x[0].strip())
+                        # Writing Output
                         for line in sorted_data:
                             formatted_line = ' | '.join(map(str.strip, line))
                             output_lines.append(formatted_line)
+                        # Printing the output lines
                         for line in output_lines:
                             print(line)
                         print("\n")
@@ -583,7 +589,7 @@ def view_students():
                         for idx, major in enumerate(majors, start=1):
                             print(f"{idx}. {major}")
                         #Asking user for input
-                        major_choice = input("Enter the number of the major you want to see (0 to exit): ")
+                        major_choice = input("Enter the number of the major you want to see (0 to exit): ").strip()
                         if major_choice == "0":
                             continue
                         elif major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
@@ -595,7 +601,7 @@ def view_students():
                         print("How do you want to sort students by grades?")
                         print("1. Ascending Order")
                         print("2. Descending Order")
-                        sort_choice = input("Enter your choice (0 to exit): ")
+                        sort_choice = input("Enter your choice (0 to exit): ").strip()
                         #Choosing the sort_choice
                         if sort_choice == "0":
                             continue
@@ -641,7 +647,7 @@ def search_student():
     #Offering options to user
     print("--- Search Student ---")
     while True:
-        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ").strip()
         if value == "2":
             break
         elif value == "1":
@@ -650,7 +656,7 @@ def search_student():
             print("3. Search by Roll No.")
 
             #Getting input
-            choice = input("Enter your choice: ")
+            choice = input("Enter your choice: ").strip()
 
             while choice not in ["1", "2", "3"]:
                 print("Invalid input. Please enter 1, 2 or 3.")
@@ -661,7 +667,7 @@ def search_student():
 
             if choice == "1":
                 while True:
-                    id = input("Enter students id you want to search (0 to exit): ")
+                    id = input("Enter students id you want to search (0 to exit): ").strip()
                     if not id == "0":
                         #Checking length of id
                         if len(id) != 9:
@@ -690,7 +696,7 @@ def search_student():
             elif choice == "2":
                 # Using same function in add_student to validate name
                 while True:
-                    name = input("Enter students name surname (0 to exit): ")
+                    name = input("Enter students name surname (0 to exit): ").strip()
                     if not name == "0":
                         try:
                             name = validate_name(name)
@@ -706,8 +712,10 @@ def search_student():
                                         data.append(row)
                                 if a > 0:
                                 #Writing students info
+
                                     print(" | ".join(fields))
-                                    print(" | ".join(data))
+                                    for student in data:
+                                        print(" | ".join(student))
                                     break
                                 else:
                                     #If student not found in our database
@@ -720,7 +728,7 @@ def search_student():
                         break
             else:
                 while True:
-                    roll = input("Enter students roll no (0 to exit): ")
+                    roll = input("Enter students roll no (0 to exit): ").strip()
                     if not all(char.isdigit() for char in roll):
                         print("Error: Students roll no must be all digits")
                         roll = input("Enter students roll no (0 to exit): ")
@@ -730,11 +738,11 @@ def search_student():
                             a = 0
                             #Checking if roll no in rows
                             for row in reader:
-                                if str(roll) in row:
+                                if str(roll) == row[0]:
                                     a += 1
                                     data = row
                             #If student is in our database
-                            if a == 1:
+                            if a != 0:
                                 #Writing students info
                                 print(" | ".join(fields))
                                 print(" | ".join(data))
@@ -755,16 +763,16 @@ def update_student():
 
     operation = "Update Student operation"
     while True:
-        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ").strip()
         if value == "2":
             break
         elif value == "1":
             print("--- Update Student ---")
             while True:
-                student_id = input("Enter student's student id to update (0 to exit): ")
+                student_id = input("Enter student's student id to update (0 to exit): ").strip()
                 if len(student_id) != 9 and student_id != "0":
                     print("Error: Students ids length must be 9")
-                    student_id = input("Enter student's student id to update (0 to exit): ")
+                    student_id = input("Enter student's student id to update (0 to exit): ").strip()
 
                 if student_id != "0":
                     found_student = False
@@ -775,7 +783,7 @@ def update_student():
                         for i, row in enumerate(rows):
                             if row[4] == str(student_id):
                                 found_student = True
-                                print("Student Found at index", i)
+                                print("Student Found at row", i+1)
                                 #Using validation function
                                 updated_data = validation(fields)
 
@@ -831,15 +839,15 @@ def delete_student():
     operation = "Delete Student operation"
     print("--- Delete Student ---")
     while True:
-        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ").strip()
         if value == "2":
             break
         elif value == "1":
             while True:
-                id = input("Enter students id to delete (0 to exit): ")
+                id = input("Enter students id to delete (0 to exit): ").strip()
                 if len(id) != 9 and id != "0":
                     print("Error: Students ids length must be 9")
-                    id = input("Enter students id to delete (0 to exit): ")
+                    id = input("Enter students id to delete (0 to exit): ").strip()
                 if id != "0":
                     #Will check if student found or not
                     student_found = False
@@ -887,7 +895,7 @@ def visualization():
     operation = "Visualization operation"
     print("--- Visualization ---")
     while True:
-        value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
+        value = input(f"Enter 1 to continue {operation} or 2 to exit: ").strip()
         if value == "2":
             break
         elif value == "1":
@@ -909,7 +917,7 @@ def visualization():
                 print("13. I want to choose fields and chart type (Warning! Visualizations may be meaningless)")
 
 
-                choice = input("Enter your choice (0 to exit): ")
+                choice = input("Enter your choice (0 to exit): ").strip()
                 if not choice == "0":
                     #Reading csv file with pandas
                     df = pd.read_csv(database)
@@ -1053,7 +1061,8 @@ def visualization():
                         selected_fields = []
                         while True:
                             try:
-                                choice = int(input("Enter 2 field number to visualize: "))
+                                choice = input("Enter 2 field number to visualize: ").strip()
+                                choice = int(choice)
                                 if choice == 0:
                                     #There should be 2 fields
                                     if len(selected_fields) != 2:
@@ -1082,7 +1091,7 @@ def visualization():
                             print("6. Histogram")
                             print("7. Distribution Plot")
                             print("8. Line Plot")
-                            chart_type = input("Enter chart type number: ")
+                            chart_type = input("Enter chart type number: ").strip()
                             #Adjusting the figure size
                             plt.figure(figsize=(12, 8))
 
@@ -1287,7 +1296,7 @@ def student_statistics():
     data = pd.read_csv(database)
     print("--- Student Statistics ---")
     while True:
-        value = input(f"Enter 1 to see {operation} or 2 to exit: ")
+        value = input(f"Enter 1 to see {operation} or 2 to exit: ").strip()
         if value == "2":
             break
         elif value == "1":
@@ -1343,7 +1352,7 @@ def student_statistics():
                         for idx, major in enumerate(majors, start=1):
                             print(f"{idx}. {major}")
                         # Asking which major they want to see
-                        major_choice = input("Enter the number of the major you want to see: ")
+                        major_choice = input("Enter the number of the major you want to see: ").strip()
                         while True:
                             # User selects a number
                             if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
@@ -1373,7 +1382,7 @@ def student_statistics():
                         for idx, major in enumerate(majors, start=1):
                             print(f"{idx}. {major}")
                         # Asking which major they want to see
-                        major_choice = input("Enter the number of the major you want to see: ")
+                        major_choice = input("Enter the number of the major you want to see: ").strip()
 
                         while True:
                             # User selects a number
@@ -1393,7 +1402,7 @@ def student_statistics():
                                 break
                             else:
                                 print("Invalid choice. Please try again.")
-                                major_choice = input("Enter the number of the major you want to see: ")
+                                major_choice = input("Enter the number of the major you want to see: ").strip()
                         break
                     #Average Grade
                     elif choice == "5":
@@ -1428,7 +1437,7 @@ def student_statistics():
                         for idx, major in enumerate(majors, start=1):
                             print(f"{idx}. {major}")
                         # Asking which major they want to see
-                        major_choice = input("Enter the number of the major you want to see: ")
+                        major_choice = input("Enter the number of the major you want to see: ").strip()
 
                         while True:
                             # User selects a number
@@ -1459,7 +1468,7 @@ def student_statistics():
                         for idx, major in enumerate(majors, start=1):
                             print(f"{idx}. {major}")
                         # Asking which major they want to see
-                        major_choice = input("Enter the number of the major you want to see: ")
+                        major_choice = input("Enter the number of the major you want to see: ").strip()
 
                         while True:
                             # User selects a number
@@ -1515,7 +1524,7 @@ def student_statistics():
                         for idx, major in enumerate(majors, start=1):
                             print(f"{idx}. {major}")
                         # Asking which major they want to see
-                        major_choice = input("Enter the number of the major you want to see: ")
+                        major_choice = input("Enter the number of the major you want to see: ").strip()
 
                         while True:
                             # User selects a number
@@ -1546,7 +1555,7 @@ def student_statistics():
                         for idx, major in enumerate(majors, start=1):
                             print(f"{idx}. {major}")
                         # Asking which major they want to see
-                        major_choice = input("Enter the number of the major you want to see: ")
+                        major_choice = input("Enter the number of the major you want to see: ").strip()
                         # User selects a number
                         while True:
                             if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
