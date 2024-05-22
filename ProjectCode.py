@@ -1314,6 +1314,10 @@ def student_statistics():
                     if choice == "1":
                         num_students = len(data)
                         print("Number of Students: ",num_students)
+
+                        with open("number_students.txt","a",encoding="utf-8") as file:
+                            file.write(f"Number of Students: {num_students}")
+                            file.write("\n"*2)
                         break
                     #Num of male-female students
                     elif choice == "2":
@@ -1321,6 +1325,10 @@ def student_statistics():
                         female_students = len(data[data["Gender"] == "Female"])
                         print("Number of Male Students: ",male_students)
                         print("Number of Female Students: ",female_students)
+
+                        with open("students_mf.txt","a",encoding="utf-8") as file:
+                            file.write(f"Number of Male Students: {male_students}\nNumber of Female Students: {female_students}")
+                            file.write("\n"*2)
                         break
                     #Num of students in specific major
                     elif choice == "3":
@@ -1336,16 +1344,24 @@ def student_statistics():
                             print(f"{idx}. {major}")
                         # Asking which major they want to see
                         major_choice = input("Enter the number of the major you want to see: ")
+                        while True:
+                            # User selects a number
+                            if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                                selected_major = list(majors)[int(major_choice) - 1]
+                                #Number of students in selected major
+                                major_students = len(data[data["Major"] == selected_major])
 
-                        # User selects a number
-                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
-                            selected_major = list(majors)[int(major_choice) - 1]
-                        #Number of students in selected major
-                        major_students = len(data[data["Major"] == selected_major])
+                                print(f"Number of students in {selected_major}: ",major_students)
 
-                        print(f"Number of students in {selected_major}: ",major_students)
+                                with open("number_students_major.txt", "a", encoding="utf-8") as file:
+                                    file.write(f"Number of students in {selected_major} : {major_students}")
+                                    file.write("\n"*2)
+                                break
+                            else:
+                                print("Invalid choice. Please try again.")
+                                major_choice = input("Enter the number of the major you want to see: ")
                         break
-                    #Num of female-male students in specific major
+                        #Num of female-male students in specific major
                     elif choice == "4":
                         print("Which major students do you want to see? (Male Female Students)")
                         # Gets unique major values from the dataset
@@ -1359,21 +1375,34 @@ def student_statistics():
                         # Asking which major they want to see
                         major_choice = input("Enter the number of the major you want to see: ")
 
-                        # User selects a number
-                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
-                            selected_major = list(majors)[int(major_choice) - 1]
+                        while True:
+                            # User selects a number
+                            if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                                selected_major = list(majors)[int(major_choice) - 1]
 
 
-                        number_male = len(data[(data["Gender"] == "Male") & (data["Major"] == selected_major)])
-                        number_female = len(data[(data["Gender"] == "Female") & (data["Major"] == selected_major)])
+                                number_male = len(data[(data["Gender"] == "Male") & (data["Major"] == selected_major)])
+                                number_female = len(data[(data["Gender"] == "Female") & (data["Major"] == selected_major)])
 
-                        print(f"Number of Male Students in {selected_major}: ", number_male)
-                        print(f"Number of Female Students in {selected_major}: ", number_female)
+                                print(f"Number of Male Students in {selected_major}: ", number_male)
+                                print(f"Number of Female Students in {selected_major}: ", number_female)
+
+                                with open("number_male_female_major.txt", 'a', encoding="utf-8") as file:
+                                    file.write(f"Number of Male Students in {selected_major}: {number_male}\nNumber of Female Students in {selected_major}: {number_female}")
+                                    file.write("\n" * 2)
+                                break
+                            else:
+                                print("Invalid choice. Please try again.")
+                                major_choice = input("Enter the number of the major you want to see: ")
                         break
                     #Average Grade
                     elif choice == "5":
                         av_grade = data["Grade"].mean()
                         print("Average Grade of Students: ", f"{av_grade:.2f}")
+
+                        with open("avg_grade.txt", "a", encoding="utf-8") as file:
+                            file.write(f"Average Grade of Students: {av_grade:.2f}")
+                            file.write("\n"*2)
                         break
                     #Average grade of male-female students
                     elif choice == "6":
@@ -1381,6 +1410,10 @@ def student_statistics():
                         av_grade_female = data[data["Gender"] == "Female"]["Grade"].mean()
                         print("Average Grade of Male Students: ", f"{av_grade_male:.2f}")
                         print("Average Grade of Female Students: ",f"{av_grade_female:.2f}")
+
+                        with open("avg_grade_mf.txt", "a", encoding="utf-8") as file:
+                            file.write(f"Average Grade of Male Students: {av_grade_male:.2f}\nAverage Grade of Female Students: {av_grade_female:.2f}")
+                            file.write("\n"*2)
                         break
                     #Average Grade in specific major
                     elif choice == "7":
@@ -1397,12 +1430,21 @@ def student_statistics():
                         # Asking which major they want to see
                         major_choice = input("Enter the number of the major you want to see: ")
 
-                        # User selects a number
-                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
-                            selected_major = list(majors)[int(major_choice) - 1]
+                        while True:
+                            # User selects a number
+                            if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                                selected_major = list(majors)[int(major_choice) - 1]
 
-                        major_average = data[data["Major"] == selected_major]["Grade"].mean()
-                        print(f"Average Grade of Students in {selected_major}: {major_average:.2f}")
+                                major_average = data[data["Major"] == selected_major]["Grade"].mean()
+                                print(f"Average Grade of Students in {selected_major}: {major_average:.2f}")
+
+                                with open("avg_grade_major.txt","a",encoding="utf-8") as file:
+                                    file.write(f"Average Grade of Students in {selected_major}: {major_average:.2f}")
+                                    file.write("\n"*2)
+                                break
+                            else:
+                                print("Invalid choice. Please try again.")
+                                major_choice = input("Enter the number of the major you want to see: ")
                         break
                     #Average Grade of Male-Female Students in Specific Major
                     elif choice == "8":
@@ -1419,29 +1461,34 @@ def student_statistics():
                         # Asking which major they want to see
                         major_choice = input("Enter the number of the major you want to see: ")
 
-                        # User selects a number
-                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
-                            selected_major = list(majors)[int(major_choice) - 1]
+                        while True:
+                            # User selects a number
+                            if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                                selected_major = list(majors)[int(major_choice) - 1]
 
-                        avg_male = data[(data["Major"] == selected_major) & (data["Gender"] == "Male")]["Grade"].mean()
-                        avg_female = data[(data["Major"] == selected_major) & (data["Gender"] == "Female")]["Grade"].mean()
-                        #If avg_female == nan
-                        if not avg_female >= 0:
-                            avg_female = "No Female Student"
-                            print(f"Average Grade of Male Students in {selected_major}: {avg_male:.2f} ")
-                            print(f"Average Grade of Female Students in {selected_major}: {avg_female}")
-                        elif not avg_male >= 0:
-                            avg_male = "No Male Student"
-                            print(f"Average Grade of Male Students in {selected_major}: {avg_male} ")
-                            print(f"Average Grade of Female Students in {selected_major}: {avg_female:.2f}")
-                        else:
-                            print(f"Average Grade of Male Students in {selected_major}: {avg_male:.2f} ")
-                            print(f"Average Grade of Female Students in {selected_major}: {avg_female:.2f}")
+                                avg_male = data[(data["Major"] == selected_major) & (data["Gender"] == "Male")]["Grade"].mean()
+                                avg_female = data[(data["Major"] == selected_major) & (data["Gender"] == "Female")]["Grade"].mean()
+
+                                print(f"Average Grade of Male Students in {selected_major}: {avg_male:.2f} ")
+                                print(f"Average Grade of Female Students in {selected_major}: {avg_female:.2f}")
+
+                                with open("avg_grade_mf_major.txt","a",encoding="utf-8") as file:
+                                    file.write(f"Average Grade of Male Students in {selected_major}: {avg_male:.2f}\nAverage Grade of Female Students in {selected_major}: {avg_female:.2f}")
+                                    file.write("\n"*2)
+                                break
+                            else:
+                                print("Invalid choice. Please try again.")
+                                major_choice = input("Enter the number of the major you want to see: ")
                         break
                     #Average age
                     elif choice == "9":
                         avg_age = data["Age"].mean()
                         print("Average Age of Students: ", f"{avg_age:.2f}")
+
+                        #Opening a file in appending mode to write the output
+                        with open("avg_age.txt", 'a', encoding="utf-8") as file:
+                            file.write(f"Average Age of Students: {avg_age:.2f}")
+                            file.write("\n"*2)
                         break
                     #Average age of female-male students
                     elif choice == "10":
@@ -1449,6 +1496,11 @@ def student_statistics():
                         avg_age_female = data[data["Gender"] == "Female"]["Age"].mean()
                         print("Average Age of Male Students: ", f"{avg_age_male:.2f}")
                         print("Average Age of Female Students: ", f"{avg_age_female:.2f}")
+
+                        #Opening a file in appending mode to write the output
+                        with open("avg_age_fm.txt" , "a", encoding="utf-8") as file:
+                            file.write(f"Average Age of Male Students: {avg_age_male:.2f}\nAverage Age of Female Students: {avg_age_female:.2f}")
+                            file.write("\n"*2)
                         break
                     #Average age in specific major
                     elif choice == "11":
@@ -1465,12 +1517,22 @@ def student_statistics():
                         # Asking which major they want to see
                         major_choice = input("Enter the number of the major you want to see: ")
 
-                        # User selects a number
-                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
-                            selected_major = list(majors)[int(major_choice) - 1]
+                        while True:
+                            # User selects a number
+                            if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                                selected_major = list(majors)[int(major_choice) - 1]
 
-                        avg_age_major = data[data["Major"] == selected_major]["Age"].mean()
-                        print(f"Average Age of Students in {selected_major}:", f"{avg_age_major:.2f}")
+                                avg_age_major = data[data["Major"] == selected_major]["Age"].mean()
+                                print(f"Average Age of Students in {selected_major}: {avg_age_major:.2f}")
+
+                                #Opening a file in appending mode to write the output
+                                with open("average_age_major.txt", 'a', encoding="utf-8") as file:
+                                    file.write(f"Average Age of Students in {selected_major}: {avg_age_major:.2f}")
+                                    file.write("\n"*2)
+                                break
+                            else:
+                                print("Invalid choice. Please try again.")
+                                major_choice = input("Enter the number of the major you want to see: ")
                         break
                     #Average age of male-female students in specific major
                     elif choice == "12":
@@ -1486,14 +1548,24 @@ def student_statistics():
                         # Asking which major they want to see
                         major_choice = input("Enter the number of the major you want to see: ")
                         # User selects a number
-                        if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
-                            selected_major = list(majors)[int(major_choice) - 1]
+                        while True:
+                            if major_choice.isdigit() and 1 <= int(major_choice) <= len(majors):
+                                selected_major = list(majors)[int(major_choice) - 1]
 
-                        avg_m_major = data[(data["Major"] == selected_major) & (data["Gender"] == "Male")]["Age"].mean()
-                        avg_f_major = data[(data["Major"] == selected_major) & (data["Gender"] == "Female")]["Age"].mean()
+                                avg_m_major = data[(data["Major"] == selected_major) & (data["Gender"] == "Male")]["Age"].mean()
+                                avg_f_major = data[(data["Major"] == selected_major) & (data["Gender"] == "Female")]["Age"].mean()
 
-                        print(f"Average Age of Male students in {selected_major}: {avg_m_major:.2f} ")
-                        print(f"Average Age of Female students in {selected_major}: {avg_f_major:.2f}")
+                                print(f"Average Age of Male students in {selected_major}: {avg_m_major:.2f} ")
+                                print(f"Average Age of Female students in {selected_major}: {avg_f_major:.2f}")
+
+                                with open("average_age_mf_major.txt", 'a', encoding="utf-8") as file:
+                                    file.write(f"Average Age of Male students in {selected_major}: {avg_m_major:.2f}\nAverage Age of Female students in {selected_major}: {avg_f_major:.2f}" )
+                                    file.write("\n"*2)
+
+                                break
+                            else:
+                                print("Invalid choice. Please try again.")
+                                major_choice = input("Enter the number of the major you want to see: ")
                         break
                     else:
                         print("Invlaid Input! Choose a number between 1 and 12")

@@ -32,7 +32,7 @@ def generate_student_data(existing_roll_nos,existing_phones, existing_student_id
     phone = "05" + fake.msisdn()[4:]
     email = first_name.lower().replace("ş","s").replace("ı","i").replace("ö","o").replace("ç","c").replace("ğ","g").replace("ü","u") + last_name.lower().replace("ş","s").replace("ı","i").replace("ö","o").replace("ç","c").replace("ğ","g").replace("ü","u") + "@itu.edu.tr"
 
-#Wtih using fake library generating random data
+    #Wtih using fake library generating random data
     student_data = {
         "Roll no.": generate_unique_value(existing_roll_nos, lambda: random.randint(1, 300)),
         "Name Surname" : name,
