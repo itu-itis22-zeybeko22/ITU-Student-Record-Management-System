@@ -91,7 +91,10 @@ def validate_major(major):
 def validation(fields):
     student_data = []
     for field in fields:
-        value = input("Enter " + field + ": ")
+        if field == "Major":
+            value = input("Enter " + field + " (don't forget to add Engineering end of the major): ")
+        else:
+            value = input("Enter " + field + ": ")
         # In ITU grades are between 0 and 4 so checking if grade is between 0 and 4
         if field == "Grade":
             while True:
@@ -109,12 +112,12 @@ def validation(fields):
             while True:
                 try:
                     value = int(value)
-                    if 17 <= value <= 100:
+                    if 17 <= value <= 30:
                         break
                     else:
                         raise ValueError
                 except ValueError:
-                    print("Error: Age should be between 17 and 100")
+                    print("Error: Age should be between 17 and 30")
                     value = input("Enter " + field + ": ")
         # Checking if roll no. is bigger than 0
         elif field == "Roll no.":
@@ -273,6 +276,7 @@ def view_students():
                 print("8. By their Grades in a specific Major")
 
                 choice = input("Enter your choice (0 to exit): ")
+                choice = choice.strip()
                 if not choice == "0":
                     #For choice 1
                     if choice == "1":
@@ -281,10 +285,8 @@ def view_students():
                             reader = csv.reader(f)
 
                             for row in reader:
-                                for item in row:
-                                    print(item, end=" | ")
-                                print("\n")
-                            break
+                                print(" | ".join(row))
+                        break
                     #For choice 2
                     elif choice == "2":
                         #Opens file and read each line
@@ -314,40 +316,32 @@ def view_students():
                         print("Which gender students do you want to see?")
                         print("1. Male")
                         print("2. Female")
-                        print("\n")
                         while True:
                             gen = input("Enter your choice (0 to exit): ")
                             if not gen == "0":
                                 if gen == "1":
-                                    for item in fields:
-                                        print(item, end=" | ")
-                                    print("\n")
+                                    print(" | ".join(fields))
                                     with open("dataset.csv", "r", encoding="utf-8") as f:
                                         reader = csv.reader(f)
                                         #Writing Male Students
                                         for row in reader:
                                             if "Male" in row:
-                                                for item in row:
-                                                    print(item, end=" | ")
-                                                print("\n")
-                                        break
+                                                print(" | ".join(row))
+                                    break
                                 elif gen == "2":
-                                    for item in fields:
-                                        print(item, end=" | ")
-                                    print("\n")
+                                    print(" | ".join(fields))
                                     with open("dataset.csv", "r", encoding="utf-8") as f:
                                         reader = csv.reader(f)
                                         #Writing female students
                                         for row in reader:
                                             if "Female" in row:
-                                                for item in row:
-                                                    print(item, end=" | ")
-                                                print("\n")
-                                        break
+                                                print(" | ".join(row))
+                                    break
                                 else:
                                     print("Invalid Input! Enter 1 or 2.")
                             else:
                                 break
+                        break
                     #By their Major
                     elif choice == "4":
 
@@ -396,6 +390,7 @@ def view_students():
                                     print("Invalid Input! Please enter a valid number.")
                             else:
                                 break
+                        break
                     #Sorting By Grade
                     elif choice == "5":
                         while True:
@@ -456,6 +451,7 @@ def view_students():
                                     print("Invalid Input! Enter 1 or 2.")
                             else:
                                 break
+                        break
                     #Sorting by Alphabetic Order
                     elif choice == "6":
                         while True:
@@ -465,7 +461,6 @@ def view_students():
                             w = input("Enter your choice (0 to exit): ")
                             if not w == "0":
                                 if w == "1":
-                                    print("\n")
                                     #Setting the locale to Turkish for sorting
                                     locale.setlocale(locale.LC_ALL, "tr_TR.UTF-8")
                                         # Opening CSV file in reading mode
@@ -494,8 +489,8 @@ def view_students():
                                     for line in output_lines:
                                         print(line)
                                     print("\n")
+                                    break
                                 elif w == "2":
-                                    print("\n")
                                     #Opening CSV file in reading mode
                                     with open(database, 'r', encoding="utf-8") as file:
                                         lines = file.readlines()
@@ -522,6 +517,7 @@ def view_students():
                                     print("Invalid Input! Enter 1 or 2")
                             else:
                                 break
+                        break
                     #By their Gender in a Specific Major
                     elif choice == "7":
                         print("Which major students do you want to see?")
@@ -574,7 +570,7 @@ def view_students():
                         for line in output_lines:
                             print(line)
                         print("\n")
-
+                        break
                     #By Grades in Specific Major
                     elif choice == "8":
                         print("Which major students do you want to see?")
@@ -627,6 +623,7 @@ def view_students():
                         for line in output_lines:
                             print(line)
                         print("\n")
+                        break
                     else:
                         print("Invalid Input! Choose a number between 1-8")
                 else:
@@ -642,7 +639,6 @@ def search_student():
 
     operation = "Search Student operation"
     #Offering options to user
-    print("\n")
     print("--- Search Student ---")
     while True:
         value = input(f"Enter 1 to continue {operation} or 2 to exit: ")
@@ -681,16 +677,9 @@ def search_student():
                                     a += 1
                                     data = row
                             if a == 1:
-                                print("\n")
                             #Writing students info
-                                for field in fields:
-                                    if field == fields[-1]:
-                                        print(str(field) + "|")
-                                    else:
-                                        print(str(field), end="|")
-                                for i in data:
-                                    print(i, end="|")
-                                print("\n")
+                                print(" | ".join(fields))
+                                print(" | ".join(data))
                                 break
                             else:
                                 #If student not found in our database
@@ -716,17 +705,9 @@ def search_student():
                                         a += 1
                                         data.append(row)
                                 if a > 0:
-                                    print("\n")
                                 #Writing students info
-                                    for field in fields:
-                                        if field == fields[-1]:
-                                            print(str(field) + "|")
-                                        else:
-                                            print(str(field), end="|")
-                                    for row in data:
-                                        for i in row:
-                                            print(i, end="|")
-                                        print("\n")
+                                    print(" | ".join(fields))
+                                    print(" | ".join(data))
                                     break
                                 else:
                                     #If student not found in our database
@@ -754,16 +735,9 @@ def search_student():
                                     data = row
                             #If student is in our database
                             if a == 1:
-                                print("\n")
-                            #Writing students info
-                                for field in fields:
-                                    if field == fields[-1]:
-                                        print(str(field) + "|")
-                                    else:
-                                        print(str(field), end="|")
-                                for i in data:
-                                    print(i, end="|")
-                                print("\n")
+                                #Writing students info
+                                print(" | ".join(fields))
+                                print(" | ".join(data))
                                 break
                             else:
                                 #If student not found in our database
@@ -785,13 +759,13 @@ def update_student():
         if value == "2":
             break
         elif value == "1":
-            print("\n")
             print("--- Update Student ---")
             while True:
                 student_id = input("Enter student's student id to update (0 to exit): ")
-                if len(student_id) != 9 or student_id != "0" or student_id == "1":
+                if len(student_id) != 9 and student_id != "0":
                     print("Error: Students ids length must be 9")
                     student_id = input("Enter student's student id to update (0 to exit): ")
+
                 if student_id != "0":
                     found_student = False
 
@@ -834,9 +808,7 @@ def update_student():
                                 print("Student Record Updated Successfully")
 
                                 print("New data of student with id ", str(student_id), " is")
-                                for field in fields:
-                                    print(field, end=" | ")
-                                print("\n")
+                                print(" | ".join(fields))
                                 updated_data = [str(i) for i in updated_data]
                                 print(" | ".join(updated_data))
                                 break
