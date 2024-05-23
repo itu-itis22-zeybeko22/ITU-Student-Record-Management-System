@@ -126,20 +126,19 @@ def validation(fields):
         elif field == "Roll no.":
             while True:
                 try:
-                    if not all(char.isdigit() for char in value):
-                        raise ValueError("Error: Roll no. should be an integer")
+                    #Convert to integer
                     value = int(value)
-                    # Roll no must be bigger or equal to
                     if value < 1:
-                        raise ValueError("Error : Roll no. is less than 1")
+                        raise ValueError("Error: Roll no. is less than 1")
                     break
-                except ValueError as e:
-                    print(e)
+                except ValueError:
+                    #Should be integer
+                    print("Error: Roll no. should be an integer and greater than or equal to 1")
                     value = input("Enter " + field + ": ")
         elif field == "Students id":
             while True:
                 try:
-
+                    id = value
                     #If we convert a number that starts with 0 to integer, its length will be reduced
                     if value.startswith("0"):
                         value = "1" + value[1:]
@@ -147,6 +146,8 @@ def validation(fields):
                     # Student's id length must be 9
                     if not  len(str(value)) == 9:
                         raise ValueError("Error: Student ID length should be 9.")
+
+                    value = id
                     break
                 except ValueError as e:
                     print(e)
@@ -155,12 +156,16 @@ def validation(fields):
         elif field == "Phone":
             while True:
                 try:
+                    phone = value
                     #If we convert a number that starts with 0 to integer, its length will be reduced
-                    if value.startswith("0"):
-                        value = "1" + value[1:]
+                    if not value.startswith("0"):
+                        print("Error: Phone number should start with 0")
+                        value = input("Enter " + field + ": ")
+                    value = "1" + value[1:]
                     value = int(value)
                     #Length of phone number must be 11
                     if len(str(value)) == 11:
+                        value = phone
                         break
                     else:
                         print("Error: Phone number should be at least 11 characters long.")

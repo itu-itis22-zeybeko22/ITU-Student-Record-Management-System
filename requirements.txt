@@ -1,0 +1,7 @@
+Pandas Version -- 2.1.1
+
+Matplotlib Version -- 3.8.0
+
+Seaborn Version -- 0.13.0
+
+faker version -- 25.2.0

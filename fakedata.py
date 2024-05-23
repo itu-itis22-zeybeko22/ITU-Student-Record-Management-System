@@ -1,6 +1,6 @@
 import csv
 import random
-#Will generate random datas
+#Will generate random data
 from faker import Faker
 #It will be Turkish
 fake = Faker('tr_TR')
